@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestMonkey.Assertion.Extensions.Framework.Properties
+namespace TestMonkey.Assertion.Extensions.Framework.PropertyValidations
 {
     /// <summary>
     ///     Will validate internalActual property with the defined property from the expected object

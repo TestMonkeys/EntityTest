@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkey.Assertion.Extensions.Framework.Constraints;
-using TestMonkey.Assertion.Extensions.Framework.Properties;
+using TestMonkey.Assertion.Extensions.Engine.Constraints;
+using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
 
-namespace TestMonkey.Assertion.Extensions.Framework.Validators
+namespace TestMonkey.Assertion.Extensions.Engine.Validators
 {
     public class PropertySetValidator : CustomMessageConstraint
     {
@@ -157,13 +157,16 @@ namespace TestMonkey.Assertion.Extensions.Framework.Validators
         private bool NeedsValidation(PropertyInfo property, object obj)
         {
             object value = GetPropertyValue(property, obj);
-            return !(property.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any() &&
+            return !((property.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any() ||
+                      property.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any() ||
+                      property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any()) &&
                      IsDefault(value));
         }
 
         private bool IsDefault(object value)
         {
             if (value == null) return true;
+            if (value is int && ((int) value) == 0) return true;
             if (value is string && string.IsNullOrEmpty((string) value)) return true;
             if (value is DateTime && ((DateTime) value).Equals(DateTime.MinValue)) return true;
             return false;

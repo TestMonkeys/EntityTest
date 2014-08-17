@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Exceptions;
 using TestMonkey.Assertion.Extensions;
-using TestMonkey.Assertion.Extensions.Framework.Properties;
+using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 
@@ -17,7 +17,7 @@ namespace UsageExample.PropertySetValidatorTests
         {
             var expected = new TestObjectActualValidationAttributes
                 {
-                    IdGreaterThanZero = 5
+                    IdGreaterThanZero = 0
                 };
             var actual = new TestObjectActualValidationAttributes
                 {

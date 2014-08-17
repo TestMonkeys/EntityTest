@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestMonkey.Assertion.Extensions.Framework.Properties
+namespace TestMonkey.Assertion.Extensions.Framework.PropertyValidations
 {
     /// <summary>
     ///     Actual value will be validated to be greater than desired value
@@ -13,6 +13,6 @@ namespace TestMonkey.Assertion.Extensions.Framework.Properties
             Value = value;
         }
 
-        internal int Value { get; set; }
+        public int Value { get; set; }
     }
 }

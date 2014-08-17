@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestMonkey.Assertion.Extensions.Framework.Properties
+namespace TestMonkey.Assertion.Extensions.Framework.PropertyValidations
 {
     /// <summary>
     ///     Will ignore validation for decorated property

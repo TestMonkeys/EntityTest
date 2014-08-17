@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Extensions;
-using TestMonkey.Assertion.Extensions.Framework.Properties;
+using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 

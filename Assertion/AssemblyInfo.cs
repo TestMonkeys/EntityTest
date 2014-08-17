@@ -18,5 +18,5 @@ using System.Security;
 [assembly: AssemblyDescription("MsTest compatible assertions using the constraint based comparisons")]
 [assembly: AssemblyCompany("TestMonkeys")]
 [assembly: AssemblyProduct("Assertion")]
-[assembly: AssemblyVersion("0.0.0.3")]
-[assembly: AssemblyFileVersion("0.0.0.3")]
+[assembly: AssemblyVersion("0.1.0.1")]
+[assembly: AssemblyFileVersion("0.1.0.1")]

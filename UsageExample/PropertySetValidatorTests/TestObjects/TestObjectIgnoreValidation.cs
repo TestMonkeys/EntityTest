@@ -1,4 +1,4 @@
-﻿using TestMonkey.Assertion.Extensions.Framework.Properties;
+﻿using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
 
 namespace UsageExample.PropertySetValidatorTests.TestObjects
 {

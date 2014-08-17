@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestMonkey.Assertion.Extensions.Framework.Properties
+namespace TestMonkey.Assertion.Extensions.Framework.PropertyValidations
 {
     /// <summary>
     ///     Actual value will be validated to be not null

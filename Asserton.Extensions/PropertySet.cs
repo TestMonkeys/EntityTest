@@ -1,5 +1,5 @@
 ﻿using System;
-using TestMonkey.Assertion.Extensions.Framework.Validators;
+using TestMonkey.Assertion.Extensions.Engine.Validators;
 
 namespace TestMonkey.Assertion.Extensions
 {

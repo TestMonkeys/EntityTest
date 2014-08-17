@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace TestMonkey.Assertion.Extensions.Framework.Constraints
+namespace TestMonkey.Assertion.Extensions.Engine.Constraints
 {
 #if NUnit
     public abstract class CustomMessageConstraint : NUnit.Framework.Constraints.Constraint

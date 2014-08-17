@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestMonkey.Assertion.Extensions.Framework.Properties
+namespace TestMonkey.Assertion.Extensions.Framework.PropertyValidations
 {
     public class ImproperAttributeUsageException : Exception
     {

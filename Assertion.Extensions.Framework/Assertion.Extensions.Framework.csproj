@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A1F47C47-E051-4768-BD8F-5E79F15E4358}</ProjectGuid>
+    <ProjectGuid>{D1F32FF0-467F-461E-ABA1-4C90AF095CBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestMonkey.Assertion.Extensions</RootNamespace>
-    <AssemblyName>TestMonkey.Assertion.Extensions</AssemblyName>
+    <RootNamespace>TestMonkey.Assertion.Extensions.Framework</RootNamespace>
+    <AssemblyName>Assertion.Extensions.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -28,24 +28,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NunitExtensions|AnyCPU'">
-    <OutputPath>bin\NunitExtensions\</OutputPath>
-    <DefineConstants>NUnit</DefineConstants>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,27 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CummulativeAssert.cs" />
-    <Compile Include="Engine\Constraints\CustomMessageConstraint.cs" />
-    <Compile Include="Engine\CummulativeHandler.cs" />
-    <Compile Include="Engine\FailureItem.cs" />
-    <Compile Include="Engine\MultilineException.cs" />
+    <Compile Include="PropertyValidations\ChildPropertySetAttribute.cs" />
+    <Compile Include="PropertyValidations\ChildPropertySetListAttribute.cs" />
+    <Compile Include="PropertyValidations\IgnoreValidationAttribute.cs" />
+    <Compile Include="PropertyValidations\IgnoreValidationIfDefaultAttribute.cs" />
+    <Compile Include="PropertyValidations\ImproperAttributeUsageException.cs" />
+    <Compile Include="PropertyValidations\ImproperTypeUsageException.cs" />
+    <Compile Include="PropertyValidations\ValidateActualGreaterThanAttribute.cs" />
+    <Compile Include="PropertyValidations\ValidateActualNotNullAttribute.cs" />
+    <Compile Include="PropertyValidations\ValidateWithPropertyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertySet.cs" />
-    <Compile Include="Engine\Validators\PropertySetValidator.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Assertion.Extensions.Framework\Assertion.Extensions.Framework.csproj">
-      <Project>{d1f32ff0-467f-461e-aba1-4c90af095cbd}</Project>
-      <Name>Assertion.Extensions.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Assertion\Assertion.csproj">
-      <Project>{83dd7e12-a705-4dba-9d71-09c8973d9382}</Project>
-      <Name>Assertion</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
