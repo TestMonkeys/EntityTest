@@ -57,7 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CummulativeAssertTests\CummulativeTests.cs" />
+    <Compile Include="CummulativeAssertTests\CumulativeTests.cs" />
     <Compile Include="PropertySetValidatorTests\ActualOnlyValidationTests.cs" />
     <Compile Include="PropertySetValidatorTests\ComparisonTests.cs" />
     <Compile Include="PropertySetValidatorTests\AttributeUsageTests.cs" />

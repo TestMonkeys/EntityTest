@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CummulativeAssert.cs" />
+    <Compile Include="CumulativeAssert.cs" />
     <Compile Include="Engine\Constraints\CustomMessageConstraint.cs" />
     <Compile Include="Engine\CummulativeHandler.cs" />
     <Compile Include="Engine\FailureItem.cs" />

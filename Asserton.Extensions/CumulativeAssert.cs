@@ -8,11 +8,11 @@ using TestMonkey.Assertion.Extensions.Engine;
 
 namespace TestMonkey.Assertion.Extensions
 {
-    public class CummulativeAssert
+    public class CumulativeAssert
     {
         private static Dictionary<string, CummulativeHandler> cummulativeHandlers;
 
-        protected CummulativeAssert()
+        protected CumulativeAssert()
         {
         }
 
