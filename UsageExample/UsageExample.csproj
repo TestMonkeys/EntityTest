@@ -58,6 +58,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CummulativeAssertTests\CumulativeTests.cs" />
+    <Compile Include="PropertySetValidatorTests\ListContainsPropertySetTests.cs" />
     <Compile Include="PropertySetValidatorTests\ActualOnlyValidationTests.cs" />
     <Compile Include="PropertySetValidatorTests\ComparisonTests.cs" />
     <Compile Include="PropertySetValidatorTests\AttributeUsageTests.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="PropertySetValidatorTests\BlogPropertySetExample.cs" />
     <Compile Include="PropertySetValidatorTests\MessageCheck.cs" />
     <Compile Include="PropertySetValidatorTests\TestObjects\BlogExampleObject.cs" />
+    <Compile Include="PropertySetValidatorTests\TestObjects\SimpleTestObject.cs" />
     <Compile Include="PropertySetValidatorTests\TestObjects\TestObjectIgnoreDefaultValidation.cs" />
     <Compile Include="PropertySetValidatorTests\TestObjects\TestObjectByInterface2.cs" />
     <Compile Include="PropertySetValidatorTests\TestObjects\ITestObject.cs" />

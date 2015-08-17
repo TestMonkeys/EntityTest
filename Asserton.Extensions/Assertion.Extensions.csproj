@@ -59,7 +59,13 @@
     <Compile Include="Engine\Constraints\CustomMessageConstraint.cs" />
     <Compile Include="Engine\CummulativeHandler.cs" />
     <Compile Include="Engine\FailureItem.cs" />
+    <Compile Include="Engine\HumanReadableMessages\Describe.cs" />
+    <Compile Include="Engine\HumanReadableMessages\ObjectInspector.cs" />
+    <Compile Include="Engine\HumanReadableMessages\SpecialValues.cs" />
     <Compile Include="Engine\MultilineException.cs" />
+    <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
+    <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
+    <Compile Include="ListOfPropertySetObjectsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertySet.cs" />
     <Compile Include="Engine\Validators\PropertySetValidator.cs" />

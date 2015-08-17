@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TestMonkey.Assertion.Extensions.Engine.Constraints;
+using TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages;
 using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
 
 namespace TestMonkey.Assertion.Extensions.Engine.Validators
 {
     public class PropertySetValidator : CustomMessageConstraint
     {
-        private const string Null = "Null";
         private readonly object internalExpected;
         private readonly Type validationType;
         private bool isMatch;
+        internal List<String> Differences { get; set; }
 
         internal PropertySetValidator(object expected)
         {
@@ -22,6 +23,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             internalExpected = expected;
             isMatch = true;
             validationType = expected.GetType();
+            Differences = new List<string>();
         }
 
         public PropertySetValidator(object expected, Type validationType) : this(expected)
@@ -194,30 +196,32 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
         private void ObjectDifferenceFound(object expectedValue, object actualValue, string parent)
         {
             isMatch = false;
+            string diffMessage;
             if (string.IsNullOrEmpty(parent))
             {
-                messageBuilder.AppendFormat("Expected Object <{0}> but found <{1}>",
-                                            expectedValue ?? Null,
-                                            actualValue ?? Null)
-                              .Append(Environment.NewLine);
+                diffMessage = string.Format("Expected Object <{0}> but found <{1}>",
+                                            expectedValue ?? SpecialValues.Null,
+                                            actualValue ?? SpecialValues.Null);
             }
             else
             {
-                messageBuilder.AppendFormat("Expected Object <{0}> but found <{1}> for property <{2}>",
-                                            expectedValue ?? Null,
-                                            actualValue ?? Null, parent)
-                              .Append(Environment.NewLine);
+                diffMessage = string.Format("Expected Object <{0}> but found <{1}> for property <{2}>",
+                                            expectedValue ?? SpecialValues.Null,
+                                            actualValue ?? SpecialValues.Null, parent);
             }
+            messageBuilder.Append(diffMessage).Append(Environment.NewLine);
+            Differences.Add(diffMessage);
         }
 
         private void PropertyDifferenceFound(object expectedValue, object actualValue, string parent,
                                              string propertyName)
         {
             isMatch = false;
-            messageBuilder.AppendFormat("Expected <{0}> but found <{1}> for property <{2}{3}>",
-                                        expectedValue ?? Null,
-                                        actualValue ?? Null, parent, propertyName)
-                          .Append(Environment.NewLine);
+            string diffMessage = string.Format("Expected <{0}> but found <{1}> for property <{2}{3}>",
+                                        expectedValue ?? SpecialValues.Null,
+                                        actualValue ?? SpecialValues.Null, parent, propertyName);
+            messageBuilder.AppendFormat(diffMessage).Append(Environment.NewLine);
+            Differences.Add(diffMessage);
         }
     }
 }
