@@ -1,0 +1,11 @@
+*.suo
+*.vssscc
+
+/packages/
+!packages/repositories.config
+
+*/bin/Release/*
+*/bin/Debug/*
+*/obj/Release/*
+*/obj/Debug/*
+
