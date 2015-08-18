@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using TestMonkey.Assertion.Extensions.Engine.Constraints;
 using TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages;
+using TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet;
 using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
 
 namespace TestMonkey.Assertion.Extensions.Engine.Validators
@@ -15,6 +16,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
         private readonly Type validationType;
         private bool isMatch;
         internal List<String> Differences { get; set; }
+        private RuleStorage rules = RuleStorage.Instance;
 
         internal PropertySetValidator(object expected)
         {
@@ -47,17 +49,20 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             if (NullValidationMatchOrFail(expected, actual, parent))
                 return;
 
+            var rule = rules.GetRules(byType);
             PropertyInfo[] expectedProperties = byType.GetProperties();
 
             foreach (var property in expectedProperties)
             {
-                ValidateActualConstraints(property, actual, parent);
-                if (property.GetCustomAttributes(typeof (IgnoreValidationAttribute), true).Any())
+                var propertyName = property.Name;
+                ValidateActualConstraints(property, actual, parent, rule);
+                //if (property.GetCustomAttributes(typeof (IgnoreValidationAttribute), true).Any())
+                if (rule.IgnoreValidationProperties.Contains(propertyName))
                     continue;
-                if (!NeedsValidation(property, expected))
+                if (!NeedsValidation(property, expected, rule))
                     continue;
 
-                PropertyInfo expectedProperty = GetExpectedProperty(property, expectedProperties);
+                PropertyInfo expectedProperty = GetExpectedProperty(property, expectedProperties, rule);
 
                 object expectedValue = GetPropertyValue(expectedProperty, expected);
                 object actualValue = GetPropertyValue(property, actual);
@@ -65,11 +70,13 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
                 if (NullValidationMatchOrFail(expectedValue, actualValue, parent + property.Name))
                     continue;
 
-                if (property.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
+                //if (property.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
+                if (rule.ChildSetProperty.Contains(propertyName))
                 {
                     ComputeMatch(expectedValue, actualValue, expectedValue.GetType(), parent + property.Name + ".");
                 }
-                else if (property.GetCustomAttributes(typeof (ChildPropertySetListAttribute), true).Any())
+                //else if (property.GetCustomAttributes(typeof (ChildPropertySetListAttribute), true).Any())
+                else if (rule.ChildSetListProperty.Contains(propertyName))
                 {
                     ComputeListMatch(expectedValue, actualValue, parent + property.Name);
                 }
@@ -80,13 +87,16 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             }
         }
 
-        private void ValidateActualConstraints(PropertyInfo property, object actual, string parent)
+        private void ValidateActualConstraints(PropertyInfo property, object actual, string parent,ObjectPropertyValidationModel rule)
         {
+            var propertyName = property.Name;
             var propertyValue = GetPropertyValue(property, actual);
-            if (property.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any() &&
+            //if (property.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any() &&
+            if (rule.ActualNotNullProperties.Contains(propertyName) &&
                 propertyValue == null)
                 PropertyDifferenceFound("NotNull", "Null", parent, property.Name);
-            if (property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any())
+            //if (property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any())
+            if (rule.ActualGreaterProperties.ContainsKey(propertyName))
             {
                 if (propertyValue == null)
                     throw new ImproperAttributeUsageException(
@@ -94,9 +104,9 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
                 try
                 {
                     var doubleValue = (int) propertyValue;
-                    var expectedMinimum =
-                        ((ValidateActualGreaterThanAttribute)
-                         property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).First()).Value;
+                    var expectedMinimum = rule.ActualGreaterProperties[propertyName];
+                        //((ValidateActualGreaterThanAttribute)
+                        // property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).First()).Value;
                     if (doubleValue <= expectedMinimum)
                         PropertyDifferenceFound("Greater than " + expectedMinimum, propertyValue, parent, property.Name);
                 }
@@ -156,12 +166,17 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             }
         }
 
-        private bool NeedsValidation(PropertyInfo property, object obj)
+        private bool NeedsValidation(PropertyInfo property, object obj, ObjectPropertyValidationModel rule)
         {
+            var propertyName = property.Name;
             object value = GetPropertyValue(property, obj);
-            return !((property.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any() ||
-                      property.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any() ||
-                      property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any()) &&
+            //return !((property.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any() ||
+            //          property.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any() ||
+            //          property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any()) &&
+            //         IsDefault(value));
+            return !((rule.IgnoreValidationIfDefault.Contains(propertyName) ||
+                      rule.ActualNotNullProperties.Contains(propertyName) ||
+                      rule.ActualGreaterProperties.ContainsKey(propertyName)) &&
                      IsDefault(value));
         }
 
@@ -174,21 +189,25 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             return false;
         }
 
-        private PropertyInfo GetExpectedProperty(PropertyInfo currentProperty, IEnumerable<PropertyInfo> allProperties)
+        private PropertyInfo GetExpectedProperty(PropertyInfo currentProperty, IEnumerable<PropertyInfo> allProperties, ObjectPropertyValidationModel rule)
         {
+            var currentPropertyName = currentProperty.Name;
             PropertyInfo expectedProperty = currentProperty;
-            object validateWithPropertyAttr =
-                currentProperty.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).FirstOrDefault();
-            if (validateWithPropertyAttr != null)
+            //object validateWithPropertyAttr =
+            //    currentProperty.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).FirstOrDefault();
+            //if (validateWithPropertyAttr != null)
+            if (rule.ValidateActualWithExpectedProperty.ContainsKey(currentPropertyName))
             {
                 expectedProperty = allProperties.FirstOrDefault(
-                    x => x.Name.Equals(((ValidateWithPropertyAttribute) validateWithPropertyAttr).PropertyName));
+                    //x => x.Name.Equals(((ValidateWithPropertyAttribute) validateWithPropertyAttr).PropertyName));
+                    x => x.Name.Equals(rule.ValidateActualWithExpectedProperty[currentPropertyName]));
                 if (expectedProperty == null)
                     throw new ImproperAttributeUsageException("ValidateWithProperty for property " +
                                                               currentProperty.Name +
                                                               " was pointing at inexisting property " +
-                                                              ((ValidateWithPropertyAttribute) validateWithPropertyAttr)
-                                                                  .PropertyName);
+                                                              //((ValidateWithPropertyAttribute) validateWithPropertyAttr)
+                                                              //    .PropertyName);
+                                                              rule.ValidateActualWithExpectedProperty[currentPropertyName]);
             }
             return expectedProperty;
         }

@@ -28,6 +28,16 @@ namespace UsageExample.PropertySetValidatorTests
                 Child = new TestObjectWithChildSet { ValidationProperty = "cildvalue" }
             };
             List<TestObjectWithChildSet> list = new List<TestObjectWithChildSet>();
+            for (int i=0;i<100000;i++)
+            {
+                var rand = new TestObjectWithChildSet
+                {
+                    ValidationProperty = Guid.NewGuid().ToString("n"),
+                    Child = new TestObjectWithChildSet { ValidationProperty = Guid.NewGuid().ToString() }
+                };
+                list.Add(rand);
+            }
+            
             list.Add(actual);
             Assert.That(list, PropertySet.List.Contains(expected));
         }

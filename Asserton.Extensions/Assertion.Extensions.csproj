@@ -63,6 +63,8 @@
     <Compile Include="Engine\HumanReadableMessages\ObjectInspector.cs" />
     <Compile Include="Engine\HumanReadableMessages\SpecialValues.cs" />
     <Compile Include="Engine\MultilineException.cs" />
+    <Compile Include="Engine\PropertyRuleSet\ObjectPropertyValidationModel.cs" />
+    <Compile Include="Engine\PropertyRuleSet\RuleStorage.cs" />
     <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
