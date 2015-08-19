@@ -5,7 +5,7 @@ namespace TestMonkey.Assertion.Extensions
 {
     public static class PropertySet
     {
-        private static ListOfPropertySetObjectsHelper listHelper = new ListOfPropertySetObjectsHelper();
+        private readonly static ListOfPropertySetObjectsHelper ListHelper = new ListOfPropertySetObjectsHelper();
 
         public static PropertySetValidator EqualTo(object expected)
         {
@@ -19,7 +19,7 @@ namespace TestMonkey.Assertion.Extensions
 
         public static ListOfPropertySetObjectsHelper List
         {
-            get { return listHelper; }
+            get { return ListHelper; }
         }
     }
 }

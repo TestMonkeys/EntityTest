@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using TestMonkey.Assertion.Extensions.Engine.Validators;
+﻿using TestMonkey.Assertion.Extensions.Engine.Validators;
 
 namespace TestMonkey.Assertion.Extensions
 {
@@ -25,9 +20,9 @@ namespace TestMonkey.Assertion.Extensions
             return NUnit.Framework.Constraints.NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
         }
         #else
-        public TestMonkey.Assertion.Constraints.Constraint None(object expected)
+        public Constraints.Constraint None(object expected)
         {
-            return new TestMonkey.Assertion.Constraints.NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
+            return new Constraints.NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
         }
         #endif
 

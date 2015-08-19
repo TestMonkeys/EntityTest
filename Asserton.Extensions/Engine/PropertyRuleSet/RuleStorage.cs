@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
+
 
 namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
 {
@@ -13,7 +13,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
 
         public static RuleStorage Instance { get { return instance ?? (instance = new RuleStorage()); } }
 
-        private Dictionary<Assembly, Dictionary<string, ObjectPropertyValidationModel>> rules;
+        private readonly Dictionary<Assembly, Dictionary<string, ObjectPropertyValidationModel>> rules;
 
         public RuleStorage()
         {
@@ -43,8 +43,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
 
         private void AddRule(Type objType)
         {
-            var rule = new ObjectPropertyValidationModel();
-            rule.TargetType = objType;
+            var rule = new ObjectPropertyValidationModel {TargetType = objType};
 
             PropertyInfo[] expectedProperties = objType.GetProperties();
 

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TestMonkey.Assertion.Extensions.Engine.Constraints;
 using TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages;
 
@@ -10,8 +9,8 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
 {
     public class ListContainsPropertySetConstraint:CustomMessageConstraint
     {
-        private object expected;
-        private OnListContainsFailure actionOnFailure;
+        private readonly object expected;
+        private readonly OnListContainsFailure actionOnFailure;
 
         public ListContainsPropertySetConstraint(object expected, OnListContainsFailure actionOnFailure)
         {

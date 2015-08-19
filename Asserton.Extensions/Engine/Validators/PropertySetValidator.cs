@@ -16,7 +16,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
         private readonly Type validationType;
         private bool isMatch;
         internal List<String> Differences { get; set; }
-        private RuleStorage rules = RuleStorage.Instance;
+        private readonly RuleStorage rules = RuleStorage.Instance;
 
         internal PropertySetValidator(object expected)
         {
@@ -184,7 +184,8 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
         {
             if (value == null) return true;
             if (value is int && ((int) value) == 0) return true;
-            if (value is string && string.IsNullOrEmpty((string) value)) return true;
+            var potentialString = value as string;
+            if (potentialString != null && string.IsNullOrEmpty(potentialString)) return true;
             if (value is DateTime && ((DateTime) value).Equals(DateTime.MinValue)) return true;
             return false;
         }

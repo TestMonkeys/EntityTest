@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -10,8 +9,8 @@ namespace TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages
 {
     class ObjectInspector
     {
-        private object obj;
-        private StringBuilder messageBuilder;
+        private readonly object obj;
+        private readonly StringBuilder messageBuilder;
 
         public ObjectInspector(object obj)
         {
@@ -36,7 +35,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages
 
         private void ProcessList(IList list)
         {
-
+            //TODO: implement
         }
 
         private void ProcessPropertyObject(PropertyInfo property, Object value)
@@ -60,9 +59,10 @@ namespace TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages
 
         private void ProcessProperty(PropertyInfo property, Object value)
         {
-            if (value is IList)
+            var list = value as IList;
+            if (list != null)
             {
-                ProcessList((IList)value);
+                ProcessList(list);
                 return;
             }
 
@@ -80,17 +80,17 @@ namespace TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages
             messageBuilder.Append(Environment.NewLine);
         }
 
-        private object GetPropertyValue(PropertyInfo property, object obj)
+        private object GetPropertyValue(PropertyInfo property, object objContainer)
         {
             object value;
             try
             {
-                value = property.GetValue(obj, null);
+                value = property.GetValue(objContainer, null);
             }
             catch (Exception e)
             {
                 return string.Format( "Could not get property {0} from object of type {1}, reason:{2}",
-                                                     property.Name, obj.GetType().FullName, e);
+                                                     property.Name, objContainer.GetType().FullName, e);
             }
 
             return value;
