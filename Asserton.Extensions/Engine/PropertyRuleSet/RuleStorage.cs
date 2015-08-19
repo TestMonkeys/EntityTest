@@ -13,24 +13,32 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
 
         public static RuleStorage Instance { get { return instance ?? (instance = new RuleStorage()); } }
 
-        private Dictionary<string, ObjectPropertyValidationModel> rules;
+        private Dictionary<Assembly, Dictionary<string, ObjectPropertyValidationModel>> rules;
 
         public RuleStorage()
         {
-            rules = new Dictionary<string, ObjectPropertyValidationModel>();
+            rules = new Dictionary<Assembly,Dictionary<string, ObjectPropertyValidationModel>>();
+        }
+
+        public void ClearRules()
+        {
+            rules.Clear();
         }
 
         public ObjectPropertyValidationModel GetRules(Type objType)
         {
             string fullTypeName = objType.FullName;
-            if (!rules.ContainsKey(fullTypeName))
+            Assembly assembly=objType.Assembly;
+            if (!rules.ContainsKey(assembly))
+                rules.Add(assembly, new Dictionary<string, ObjectPropertyValidationModel>());
+            if (!rules[assembly].ContainsKey(fullTypeName))
                 AddRule(objType);
-            return GetRules(fullTypeName);
+            return GetRules(assembly,fullTypeName);
         }
 
-        public ObjectPropertyValidationModel GetRules(string typeName)
+        private ObjectPropertyValidationModel GetRules(Assembly assembly, string typeName)
         {
-            return rules[typeName];
+            return rules[assembly][typeName];
         }
 
         private void AddRule(Type objType)
@@ -82,7 +90,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
                          property.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).First()).PropertyName;
                 rule.ValidateActualWithExpectedProperty.Add(property.Name,validationProp);
             }
-            rules.Add(objType.FullName,rule);
+            rules[objType.Assembly].Add(objType.FullName,rule);
         }
     }
 }
