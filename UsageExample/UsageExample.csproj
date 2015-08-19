@@ -58,6 +58,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CummulativeAssertTests\CumulativeTests.cs" />
+    <Compile Include="PropertySetValidatorTests\AliasNamespaceTests.cs" />
     <Compile Include="PropertySetValidatorTests\ListContainsPropertySetTests.cs" />
     <Compile Include="PropertySetValidatorTests\ActualOnlyValidationTests.cs" />
     <Compile Include="PropertySetValidatorTests\ComparisonTests.cs" />
@@ -84,6 +85,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AliasTestPack2\AliasTestPack2.csproj">
+      <Project>{e14f0be7-df15-49ca-a3ed-54b4c786cadd}</Project>
+      <Name>AliasTestPack2</Name>
+      <Aliases>TestAlias2</Aliases>
+    </ProjectReference>
     <ProjectReference Include="..\Assertion.Extensions.Framework\Assertion.Extensions.Framework.csproj">
       <Project>{d1f32ff0-467f-461e-aba1-4c90af095cbd}</Project>
       <Name>Assertion.Extensions.Framework</Name>
@@ -95,6 +101,11 @@
     <ProjectReference Include="..\Asserton.Extensions\Assertion.Extensions.csproj">
       <Project>{a1f47c47-e051-4768-bd8f-5e79f15e4358}</Project>
       <Name>Assertion.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestPack1\AliasTestPack1.csproj">
+      <Project>{0dfe3057-69f0-49bb-91f7-0a393b15cf54}</Project>
+      <Name>AliasTestPack1</Name>
+      <Aliases>TestAlias1</Aliases>
     </ProjectReference>
   </ItemGroup>
   <Choose>
