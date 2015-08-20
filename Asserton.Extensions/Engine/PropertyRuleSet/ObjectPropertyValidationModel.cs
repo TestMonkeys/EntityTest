@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet.Strategies;
 
 namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
 {
@@ -20,6 +22,16 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
         public Dictionary<string,int> ActualGreaterProperties { get; private set; }
 
         public Dictionary<string, string> ValidateActualWithExpectedProperty { get; private set; }
+
+        public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)
+        {
+            if (ActualNotNullProperties.Contains(property.Name))
+                return new ActualNotNullStrategy();
+            if (ActualGreaterProperties.ContainsKey(property.Name))
+                return new ActualGreaterThanValueStrategy(ActualGreaterProperties[property.Name]);
+            return null;
+
+        }
 
         public ObjectPropertyValidationModel()
         {

@@ -89,33 +89,13 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
 
         private void ValidateActualConstraints(PropertyInfo property, object actual, string parent,ObjectPropertyValidationModel rule)
         {
-            var propertyName = property.Name;
-            var propertyValue = GetPropertyValue(property, actual);
-            //if (property.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any() &&
-            if (rule.ActualNotNullProperties.Contains(propertyName) &&
-                propertyValue == null)
-                PropertyDifferenceFound("NotNull", "Null", parent, property.Name);
-            //if (property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any())
-            if (rule.ActualGreaterProperties.ContainsKey(propertyName))
-            {
-                if (propertyValue == null)
-                    throw new ImproperAttributeUsageException(
-                        "ValidateActualGreaterThanAttribute should be defined only on numeric properties");
-                try
-                {
-                    var doubleValue = (int) propertyValue;
-                    var expectedMinimum = rule.ActualGreaterProperties[propertyName];
-                        //((ValidateActualGreaterThanAttribute)
-                        // property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).First()).Value;
-                    if (doubleValue <= expectedMinimum)
-                        PropertyDifferenceFound("Greater than " + expectedMinimum, propertyValue, parent, property.Name);
-                }
-                catch (Exception e)
-                {
-                    throw new ImproperAttributeUsageException(e,
-                                                              "ValidateActualGreaterThanAttribute should be defined only on numeric properties");
-                }
-            }
+            var strategy = rule.GetValidationStrategy(property);
+            if (strategy == null) 
+                return;
+
+            var result = strategy.Validate(property, actual, parent);
+            if(!result.Success)
+                PropertyDifferenceFound(result.Expected, result.Actual,result.Parent,result.PropertyName);
         }
 
         private bool NullValidationMatchOrFail(object expected, object actual, string parent)
@@ -239,7 +219,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             isMatch = false;
             string diffMessage = string.Format("Expected <{0}> but found <{1}> for property <{2}{3}>",
                                         expectedValue ?? SpecialValues.Null,
-                                        actualValue ?? SpecialValues.Null, parent, propertyName);
+                                        actualValue ?? SpecialValues.Null, parent??string.Empty, propertyName);
             messageBuilder.AppendFormat(diffMessage).Append(Environment.NewLine);
             Differences.Add(diffMessage);
         }

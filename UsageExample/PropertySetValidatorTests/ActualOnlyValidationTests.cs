@@ -39,7 +39,7 @@ namespace UsageExample.PropertySetValidatorTests
                     IdGreaterThanZero = 5
                 };
             var messageCheck = new MessageCheck("Property Set is not equal");
-            messageCheck.AddPropertyLine("NotNull", "Null", "IdNotNull");
+            messageCheck.AddPropertyLine("Not Null", "Null", "IdNotNull");
             var ex = Assert.Throws(typeof (AssertionFailedException),
                                    () => Assert.That(actual, PropertySet.EqualTo(expected)));
 

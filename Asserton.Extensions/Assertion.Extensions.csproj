@@ -64,9 +64,14 @@
     <Compile Include="Engine\HumanReadableMessages\SpecialValues.cs" />
     <Compile Include="Engine\MultilineException.cs" />
     <Compile Include="Engine\PropertyRuleSet\ObjectPropertyValidationModel.cs" />
+    <Compile Include="Engine\PropertyRuleSet\PropertyMatchingStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\PropertyValidationStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\RuleStorage.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\ActualGreaterThanValueStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\ActualNotNullStrategy.cs" />
     <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
+    <Compile Include="Engine\Validators\ValidationResult.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertySet.cs" />
