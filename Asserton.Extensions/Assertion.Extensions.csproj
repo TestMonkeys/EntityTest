@@ -64,11 +64,13 @@
     <Compile Include="Engine\HumanReadableMessages\SpecialValues.cs" />
     <Compile Include="Engine\MultilineException.cs" />
     <Compile Include="Engine\PropertyRuleSet\ObjectPropertyValidationModel.cs" />
-    <Compile Include="Engine\PropertyRuleSet\PropertyMatchingStrategy.cs" />
-    <Compile Include="Engine\PropertyRuleSet\PropertyValidationStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\PropertySetMatchingStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyMatchingStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyValidationStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\RuleStorage.cs" />
-    <Compile Include="Engine\PropertyRuleSet\Strategies\ActualGreaterThanValueStrategy.cs" />
-    <Compile Include="Engine\PropertyRuleSet\Strategies\ActualNotNullStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualGreaterThanValueStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualNotNullStrategy.cs" />
     <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="Engine\Validators\ValidationResult.cs" />
