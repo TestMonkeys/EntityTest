@@ -49,7 +49,9 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
         {
             if (ChildSetProperty.Contains(property.Name))
                 return new ChildEnitityMatchingStrategy();
-            return null;
+            if (ChildSetListProperty.Contains(property.Name))
+                return new ChildEntityListMatchingStrategy();
+            return new DefaultMatchingSrategy();
         }
 
 

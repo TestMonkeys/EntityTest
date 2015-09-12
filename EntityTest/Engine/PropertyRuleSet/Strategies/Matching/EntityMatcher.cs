@@ -62,24 +62,11 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 if (NullValidationMatchOrFail(expectedValue, actualValue, parent + property.Name))
                     continue;
 
-                //if (property.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
-                //if (rule.ChildSetProperty.Contains(propertyName))
-                //{
-                //    ComputeMatch(expectedValue, actualValue, expectedValue.GetType(), parent + property.Name + ".");
-                //}
                 var matchingRule = rule.GetPropertyMatchingStrategy(expectedProperty);
                 if (matchingRule != null)
-                    matchResults.AddRange(matchingRule.Validate(property, actual, expected,
-                        messagePropertyPrefix: parent + property.Name + "."));
-                //else if (property.GetCustomAttributes(typeof (ChildPropertySetListAttribute), true).Any())
-                else if (rule.ChildSetListProperty.Contains(propertyName))
-                {
-                    ComputeListMatch(expectedValue, actualValue, parent + property.Name);
-                }
-                else if (!expectedValue.Equals(actualValue))
-                {
-                    PropertyDifferenceFound(expectedValue, actualValue, parent, property.Name);
-                }
+                    matchResults.AddRange(matchingRule.Validate(expectedProperty, actual, expected, property,
+                        parent + property.Name + "."));
+
             }
         }
 
