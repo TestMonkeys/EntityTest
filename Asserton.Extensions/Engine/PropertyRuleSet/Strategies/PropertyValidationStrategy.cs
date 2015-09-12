@@ -11,7 +11,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet
 {
     public abstract class PropertyValidationStrategy:PropertyStrategy
     {
-        public abstract ValidationResult Validate(PropertyInfo propertyInfo, object actualObj,
+        public abstract MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
             string messagePropertyPrefix = null);
 
     }

@@ -17,7 +17,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet.Strategies
             this.number = number;
         }
 
-        public override ValidationResult Validate(PropertyInfo propertyInfo, object actualObj, string messagePropertyPrefix = null)
+        public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj, string messagePropertyPrefix = null)
         {
             var propertyValue = GetPropertyValue(propertyInfo, actualObj);
             
@@ -25,7 +25,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet.Strategies
             if (propertyValue == null)
                 throw new ImproperAttributeUsageException(
                     "ValidateActualGreaterThanAttribute should be defined only on numeric properties");
-            var result = new ValidationResult
+            var result = new MatchResult
             {
                 Success = true,
                 Expected = "Greater than " + number,

@@ -10,10 +10,10 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet.Strategies
 {
     public class ActualNotNullStrategy:PropertyValidationStrategy
     {
-        public override ValidationResult Validate(PropertyInfo propertyInfo, object actualObj, string messagePropertyPrefix = null)
+        public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj, string messagePropertyPrefix = null)
         {
             if (GetPropertyValue(propertyInfo, actualObj) == null)
-                return new ValidationResult
+                return new MatchResult
                 {
                     Success = false,
                     Actual = SpecialValues.Null,
@@ -21,7 +21,7 @@ namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet.Strategies
                     Parent = messagePropertyPrefix,
                     PropertyName = propertyInfo.Name
                 };
-            return new ValidationResult {Success = true};
+            return new MatchResult {Success = true};
         }
     }
 }

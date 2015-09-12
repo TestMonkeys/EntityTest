@@ -18,19 +18,19 @@ namespace UsageExample.PropertySetValidatorTests
 
         public void AddPropertyLine(string expected, string actual, string propertyName)
         {
-            lines.Add(string.Format("Expected <{0}> but found <{1}> for property <{2}>",
+            lines.Add(string.Format("Expected <{0}> but found <{1}> for <{2}>",
                                     expected, actual, propertyName));
         }
 
         public void AddObjectLine(string expected, string actual, string propertyName)
         {
-            lines.Add(string.Format("Expected Object <{0}> but found <{1}> for property <{2}>",
+            lines.Add(string.Format("Expected <{0}> but found <{1}> for <{2}>",
                                     expected, actual, propertyName));
         }
 
         public void AddObjectLine(string expected, string actual)
         {
-            lines.Add(string.Format("Expected Object <{0}> but found <{1}>",
+            lines.Add(string.Format("Expected <{0}> but found <{1}>",
                                     expected, actual));
         }
 

@@ -3,53 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkey.Assertion.Extensions.Engine.Constraints;
+using System.Text;
 using TestMonkey.Assertion.Extensions.Engine.HumanReadableMessages;
-using TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet;
-using TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet.Strategies.Matching;
+using TestMonkey.Assertion.Extensions.Engine.Validators;
 using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
 
-namespace TestMonkey.Assertion.Extensions.Engine.Validators
+namespace TestMonkey.Assertion.Extensions.Engine.PropertyRuleSet.Strategies.Matching
 {
-    public class PropertySetValidator : CustomMessageConstraint
+    public class EntityMatcher:PropertyStrategy
     {
-        private readonly object internalExpected;
-        private readonly Type validationType;
-        private bool isMatch;
-        internal List<String> Differences { get; set; }
         private readonly RuleStorage rules = RuleStorage.Instance;
-
-        internal PropertySetValidator(object expected)
+        private List<MatchResult> matchResults;
+ 
+        public  List<MatchResult> Compare(object actualObj, object expectedObj, Type byType=null)
         {
-            if (expected == null)
-                throw new ArgumentNullException("expected", "Expected can't be null");
-            internalExpected = expected;
-            isMatch = true;
-            validationType = expected.GetType();
-            Differences = new List<string>();
-        }
+            byType = byType ?? expectedObj.GetType();
+            matchResults = new List<MatchResult>();
+            ComputeMatch(expectedObj,actualObj,byType);
+           
 
-        public PropertySetValidator(object expected, Type validationType) : this(expected)
-        {
-            this.validationType = validationType;
-        }
-
-        protected override string DescriptionLine
-        {
-            get { return "Property Set is not equal"; }
-        }
-
-        public override bool Matches(object actual)
-        {
-            //ComputeMatch(internalExpected, actual, validationType);
-            var strategy = new EntityMatcher();
-            var result = strategy.Compare(actual, internalExpected, validationType);
-            isMatch = result.All(x => x.Success);
-            foreach (var mismatch in result.Where(mismatch => !mismatch.Success))
-            {
-                messageBuilder.AppendFormat(mismatch.GetMessage()).Append(Environment.NewLine);
-            }
-            return isMatch;
+            return matchResults;
         }
 
         private void ComputeMatch(object expected, object actual, Type byType, string parent = "")
@@ -95,17 +68,6 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             }
         }
 
-        private void ValidateActualConstraints(PropertyInfo property, object actual, string parent,ObjectPropertyValidationModel rule)
-        {
-            var strategy = rule.GetValidationStrategy(property);
-            if (strategy == null) 
-                return;
-
-            var result = strategy.Validate(property, actual, parent);
-            if(!result.Success)
-                PropertyDifferenceFound(result.Expected, result.Actual,result.Parent,result.PropertyName);
-        }
-
         private bool NullValidationMatchOrFail(object expected, object actual, string parent)
         {
             if ((expected == null && actual != null) || (expected != null && actual == null))
@@ -116,42 +78,15 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
             return expected == null;
         }
 
-        private object GetPropertyValue(PropertyInfo property, object obj)
+        private void ValidateActualConstraints(PropertyInfo property, object actual, string parent, ObjectPropertyValidationModel rule)
         {
-            object value;
-            try
-            {
-                value = property.GetValue(obj, null);
-            }
-            catch (Exception e)
-            {
-                throw new ImproperTypeUsageException(e, "Could not get property {0} from object of type {1}",
-                                                     property.Name, obj.GetType().FullName);
-            }
+            var strategy = rule.GetValidationStrategy(property);
+            if (strategy == null)
+                return;
 
-            return value;
-        }
-
-        private void ComputeListMatch(object expectedValue, object actualValue, string parent)
-        {
-            if (!(expectedValue is IList))
-                throw new ImproperAttributeUsageException("Expected property " + parent + " is not an instance of IList");
-
-            var expectedList = (IList) expectedValue;
-            var actualList = (IList) actualValue;
-
-            if (expectedList.Count != actualList.Count)
-                PropertyDifferenceFound(expectedList.Count, actualList.Count, parent + ".", "Count");
-
-            for (int i = 0; i < expectedList.Count; i++)
-            {
-                object expectedItem = expectedList[i];
-                object actualItem = null;
-                if (i < actualList.Count)
-                    actualItem = actualList[i];
-
-                ComputeMatch(expectedItem, actualItem, expectedItem.GetType(), parent + "[" + i + "].");
-            }
+            var result = strategy.Validate(property, actual, parent);
+            if (!result.Success)
+                PropertyDifferenceFound(result.Expected, result.Actual, result.Parent, result.PropertyName);
         }
 
         private bool NeedsValidation(PropertyInfo property, object obj, ObjectPropertyValidationModel rule)
@@ -171,10 +106,10 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
         private bool IsDefault(object value)
         {
             if (value == null) return true;
-            if (value is int && ((int) value) == 0) return true;
+            if (value is int && ((int)value) == 0) return true;
             var potentialString = value as string;
             if (potentialString != null && string.IsNullOrEmpty(potentialString)) return true;
-            if (value is DateTime && ((DateTime) value).Equals(DateTime.MinValue)) return true;
+            if (value is DateTime && ((DateTime)value).Equals(DateTime.MinValue)) return true;
             return false;
         }
 
@@ -194,42 +129,64 @@ namespace TestMonkey.Assertion.Extensions.Engine.Validators
                     throw new ImproperAttributeUsageException("ValidateWithProperty for property " +
                                                               currentProperty.Name +
                                                               " was pointing at inexisting property " +
-                                                              //((ValidateWithPropertyAttribute) validateWithPropertyAttr)
-                                                              //    .PropertyName);
+                        //((ValidateWithPropertyAttribute) validateWithPropertyAttr)
+                        //    .PropertyName);
                                                               rule.ValidateActualWithExpectedProperty[currentPropertyName]);
             }
             return expectedProperty;
         }
 
+        private void ComputeListMatch(object expectedValue, object actualValue, string parent)
+        {
+            if (!(expectedValue is IList))
+                throw new ImproperAttributeUsageException("Expected property " + parent + " is not an instance of IList");
+
+            var expectedList = (IList)expectedValue;
+            var actualList = (IList)actualValue;
+
+            if (expectedList.Count != actualList.Count)
+                PropertyDifferenceFound(expectedList.Count, actualList.Count, parent + ".", "Count");
+
+            for (int i = 0; i < expectedList.Count; i++)
+            {
+                object expectedItem = expectedList[i];
+                object actualItem = null;
+                if (i < actualList.Count)
+                    actualItem = actualList[i];
+
+                ComputeMatch(expectedItem, actualItem, expectedItem.GetType(), parent + "[" + i + "].");
+            }
+        }
+
         private void ObjectDifferenceFound(object expectedValue, object actualValue, string parent)
         {
-            isMatch = false;
+            var result= new MatchResult
+            {
+                Success = false,
+                Expected = expectedValue ?? SpecialValues.Null,
+                Actual = actualValue ?? SpecialValues.Null
+            };
             string diffMessage;
-            if (string.IsNullOrEmpty(parent))
+            if (!string.IsNullOrEmpty(parent))
             {
-                diffMessage = string.Format("Expected Object <{0}> but found <{1}>",
-                                            expectedValue ?? SpecialValues.Null,
-                                            actualValue ?? SpecialValues.Null);
+                result.Parent=parent;
             }
-            else
-            {
-                diffMessage = string.Format("Expected Object <{0}> but found <{1}> for property <{2}>",
-                                            expectedValue ?? SpecialValues.Null,
-                                            actualValue ?? SpecialValues.Null, parent);
-            }
-            messageBuilder.Append(diffMessage).Append(Environment.NewLine);
-            Differences.Add(diffMessage);
+            matchResults.Add(result);
         }
 
         private void PropertyDifferenceFound(object expectedValue, object actualValue, string parent,
                                              string propertyName)
         {
-            isMatch = false;
-            string diffMessage = string.Format("Expected <{0}> but found <{1}> for property <{2}{3}>",
-                                        expectedValue ?? SpecialValues.Null,
-                                        actualValue ?? SpecialValues.Null, parent??string.Empty, propertyName);
-            messageBuilder.AppendFormat(diffMessage).Append(Environment.NewLine);
-            Differences.Add(diffMessage);
+            var result = new MatchResult
+            {
+                Success = false,
+                Expected = expectedValue ?? SpecialValues.Null,
+                Actual = actualValue ?? SpecialValues.Null,
+                Parent = parent,
+                PropertyName = propertyName
+            };
+            matchResults.Add(result);
         }
+        
     }
 }
