@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Exceptions;
-using TestMonkey.Assertion.Extensions;
-using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
+using TestMonkey.EntityTest;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 

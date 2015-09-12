@@ -1,5 +1,5 @@
 ﻿using System;
-using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
+using TestMonkey.EntityTest.PropertyAttributes;
 
 namespace UsageExample.PropertySetValidatorTests.TestObjects
 {

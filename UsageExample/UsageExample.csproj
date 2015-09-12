@@ -90,17 +90,13 @@
       <Name>AliasTestPack2</Name>
       <Aliases>TestAlias2</Aliases>
     </ProjectReference>
-    <ProjectReference Include="..\Assertion.Extensions.Framework\Assertion.Extensions.Framework.csproj">
-      <Project>{d1f32ff0-467f-461e-aba1-4c90af095cbd}</Project>
-      <Name>Assertion.Extensions.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Assertion\Assertion.csproj">
       <Project>{83dd7e12-a705-4dba-9d71-09c8973d9382}</Project>
       <Name>Assertion</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Asserton.Extensions\Assertion.Extensions.csproj">
-      <Project>{a1f47c47-e051-4768-bd8f-5e79f15e4358}</Project>
-      <Name>Assertion.Extensions</Name>
+    <ProjectReference Include="..\EntityTest\EntityTest.csproj">
+      <Project>{A1F47C47-E051-4768-BD8F-5E79F15E4358}</Project>
+      <Name>EntityTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestPack1\AliasTestPack1.csproj">
       <Project>{0dfe3057-69f0-49bb-91f7-0a393b15cf54}</Project>

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
-using TestMonkey.Assertion.Extensions;
+using TestMonkey.EntityTest;
 
 namespace UsageExample.CummulativeAssertTests
 {

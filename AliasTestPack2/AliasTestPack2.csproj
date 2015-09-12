@@ -43,9 +43,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Assertion.Extensions.Framework\Assertion.Extensions.Framework.csproj">
-      <Project>{d1f32ff0-467f-461e-aba1-4c90af095cbd}</Project>
-      <Name>Assertion.Extensions.Framework</Name>
+    <ProjectReference Include="..\EntityTest\EntityTest.csproj">
+      <Project>{A1F47C47-E051-4768-BD8F-5E79F15E4358}</Project>
+      <Name>EntityTest</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

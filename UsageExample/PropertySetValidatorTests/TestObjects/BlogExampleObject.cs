@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestMonkey.Assertion.Extensions.Framework.PropertyValidations;
+using TestMonkey.EntityTest.PropertyAttributes;
 
 namespace UsageExample.PropertySetValidatorTests.TestObjects
 {
