@@ -11,14 +11,25 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     public class EntityMatcher : PropertyStrategy
     {
+        private readonly string parentContext;
         private readonly RuleStorage rules = RuleStorage.Instance;
         private List<MatchResult> matchResults;
 
+        public EntityMatcher()
+        {
+            
+        }
+
+        internal EntityMatcher(string parentContext)
+        {
+            this.parentContext = parentContext;
+        }
+
         public List<MatchResult> Compare(object actualObj, object expectedObj, Type byType = null)
         {
-            byType = byType ?? expectedObj.GetType();
+            
             matchResults = new List<MatchResult>();
-            ComputeMatch(expectedObj, actualObj, byType);
+            ComputeMatch(expectedObj, actualObj, byType, parentContext);
 
 
             return matchResults;
@@ -28,8 +39,9 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
         {
             if (NullValidationMatchOrFail(expected, actual, parent))
                 return;
+            byType = byType ?? expected?.GetType();
 
-            var rule = rules.GetRules(byType);
+            var rule = rules.GetValidationRules(byType);
             var expectedProperties = byType.GetProperties();
 
             foreach (var property in expectedProperties)
@@ -51,10 +63,14 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                     continue;
 
                 //if (property.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
-                if (rule.ChildSetProperty.Contains(propertyName))
-                {
-                    ComputeMatch(expectedValue, actualValue, expectedValue.GetType(), parent + property.Name + ".");
-                }
+                //if (rule.ChildSetProperty.Contains(propertyName))
+                //{
+                //    ComputeMatch(expectedValue, actualValue, expectedValue.GetType(), parent + property.Name + ".");
+                //}
+                var matchingRule = rule.GetPropertyMatchingStrategy(expectedProperty);
+                if (matchingRule != null)
+                    matchResults.AddRange(matchingRule.Validate(property, actual, expected,
+                        messagePropertyPrefix: parent + property.Name + "."));
                 //else if (property.GetCustomAttributes(typeof (ChildPropertySetListAttribute), true).Any())
                 else if (rule.ChildSetListProperty.Contains(propertyName))
                 {

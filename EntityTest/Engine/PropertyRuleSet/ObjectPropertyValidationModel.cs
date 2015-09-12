@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies;
+using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 
 namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
@@ -43,5 +44,14 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
                 return new ActualGreaterThanValueStrategy(ActualGreaterProperties[property.Name]);
             return null;
         }
+
+        public PropertyMatchingStrategy GetPropertyMatchingStrategy(PropertyInfo property)
+        {
+            if (ChildSetProperty.Contains(property.Name))
+                return new ChildEnitityMatchingStrategy();
+            return null;
+        }
+
+
     }
 }

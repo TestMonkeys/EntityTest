@@ -27,7 +27,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
             rules.Clear();
         }
 
-        public ObjectPropertyValidationModel GetRules(Type objType)
+        public ObjectPropertyValidationModel GetValidationRules(Type objType)
         {
             var fullTypeName = objType.FullName;
             var assembly = objType.Assembly;
