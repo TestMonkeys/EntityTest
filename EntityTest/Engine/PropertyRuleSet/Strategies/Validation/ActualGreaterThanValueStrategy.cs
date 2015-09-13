@@ -28,8 +28,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
                 Success = true,
                 Expected = "Greater than " + number,
                 Actual = propertyValue,
-                Parent = messagePropertyPrefix,
-                PropertyName = propertyInfo.Name
+                Parent = new ParentContext(messagePropertyPrefix) {ParentName = propertyInfo.Name}
             };
             try
             {

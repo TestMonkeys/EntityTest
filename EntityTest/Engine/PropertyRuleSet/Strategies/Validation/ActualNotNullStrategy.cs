@@ -15,8 +15,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
                     Success = false,
                     Actual = SpecialValues.Null,
                     Expected = SpecialValues.NotNull,
-                    Parent = messagePropertyPrefix,
-                    PropertyName = propertyInfo.Name
+                    Parent = new ParentContext(messagePropertyPrefix) {ParentName = propertyInfo.Name}
                 };
             return new MatchResult {Success = true};
         }

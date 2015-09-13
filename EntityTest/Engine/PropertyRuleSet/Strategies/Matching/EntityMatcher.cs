@@ -89,7 +89,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 
             var result = strategy.Validate(property, actual, parent);
             if (!result.Success)
-                PropertyDifferenceFound(result.Expected, result.Actual, result.Parent, result.PropertyName);
+                PropertyDifferenceFound(result.Expected, result.Actual, result.Parent);//, result.PropertyName);
         }
 
         private bool NeedsValidation(PropertyInfo property, object obj, ObjectPropertyValidationModel rule)
@@ -158,8 +158,8 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             matchResults.Add(result);
         }
 
-        private void PropertyDifferenceFound(object expectedValue, object actualValue, ParentContext parent,
-            string propertyName)
+        private void PropertyDifferenceFound(object expectedValue, object actualValue, ParentContext parent)//,
+            //string propertyName)
         {
             var result = new MatchResult
             {
@@ -167,7 +167,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 Expected = expectedValue ?? SpecialValues.Null,
                 Actual = actualValue ?? SpecialValues.Null,
                 Parent = parent,
-                PropertyName = propertyName
+                //PropertyName = propertyName
             };
             matchResults.Add(result);
         }
