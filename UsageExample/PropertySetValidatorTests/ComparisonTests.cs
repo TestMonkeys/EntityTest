@@ -315,7 +315,7 @@ namespace UsageExample.PropertySetValidatorTests
             var actual = new TestObjectWithChildList {Child = new List<TestObject> {new TestObject()}};
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddPropertyLine("2", "1", "Child.Count");
-            messageCheck.AddObjectLine(typeof (TestObject).ToString(), "Null", "Child[1].");
+            messageCheck.AddObjectLine(typeof (TestObject).ToString(), "Null", "Child[1]");
             var ex = Assert.Throws(typeof (AssertionFailedException),
                                    () => Assert.That(actual, PropertySet.EqualTo(expected)));
             Console.WriteLine(ex.Message);

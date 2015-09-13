@@ -7,7 +7,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
     public class ActualNotNullStrategy : PropertyValidationStrategy
     {
         public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
-            string messagePropertyPrefix = null)
+            ParentContext messagePropertyPrefix = null)
         {
             if (GetPropertyValue(propertyInfo, actualObj) == null)
                 return new MatchResult

@@ -64,6 +64,7 @@
     <Compile Include="Engine\HumanReadableMessages\SpecialValues.cs" />
     <Compile Include="Engine\MultilineException.cs" />
     <Compile Include="Engine\PropertyRuleSet\ObjectPropertyValidationModel.cs" />
+    <Compile Include="Engine\PropertyRuleSet\ParentContext.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEnitityMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEntityListMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\DefaultMatchingSrategy.cs" />

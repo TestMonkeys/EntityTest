@@ -15,7 +15,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
         }
 
         public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
-            string messagePropertyPrefix = null)
+            ParentContext messagePropertyPrefix = null)
         {
             var propertyValue = GetPropertyValue(propertyInfo, actualObj);
 

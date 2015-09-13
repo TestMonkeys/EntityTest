@@ -11,16 +11,16 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     public class EntityMatcher : PropertyStrategy
     {
-        private readonly string parentContext;
+        private readonly ParentContext parentContext;
         private readonly RuleStorage rules = RuleStorage.Instance;
         private List<MatchResult> matchResults;
 
         public EntityMatcher()
         {
-            
+          
         }
 
-        internal EntityMatcher(string parentContext)
+        internal EntityMatcher(ParentContext parentContext)
         {
             this.parentContext = parentContext;
         }
@@ -35,7 +35,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             return matchResults;
         }
 
-        private void ComputeMatch(object expected, object actual, Type byType, string parent = "")
+        private void ComputeMatch(object expected, object actual, Type byType, ParentContext parent)
         {
             if (NullValidationMatchOrFail(expected, actual, parent))
                 return;
@@ -59,18 +59,18 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 var expectedValue = GetPropertyValue(expectedProperty, expected);
                 var actualValue = GetPropertyValue(property, actual);
 
-                if (NullValidationMatchOrFail(expectedValue, actualValue, parent + property.Name))
+                if (NullValidationMatchOrFail(expectedValue, actualValue, new ParentContext(parent) {ParentName = propertyName}))
                     continue;
 
                 var matchingRule = rule.GetPropertyMatchingStrategy(expectedProperty);
                 if (matchingRule != null)
                     matchResults.AddRange(matchingRule.Validate(expectedProperty, actual, expected, property,
-                        parent + property.Name + "."));
+                        new ParentContext(parent) {ParentName = property.Name}));
 
             }
         }
 
-        private bool NullValidationMatchOrFail(object expected, object actual, string parent)
+        private bool NullValidationMatchOrFail(object expected, object actual, ParentContext parent)
         {
             if ((expected == null && actual != null) || (expected != null && actual == null))
             {
@@ -80,7 +80,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             return expected == null;
         }
 
-        private void ValidateActualConstraints(PropertyInfo property, object actual, string parent,
+        private void ValidateActualConstraints(PropertyInfo property, object actual, ParentContext parent,
             ObjectPropertyValidationModel rule)
         {
             var strategy = rule.GetValidationStrategy(property);
@@ -141,29 +141,8 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             return expectedProperty;
         }
 
-        private void ComputeListMatch(object expectedValue, object actualValue, string parent)
-        {
-            if (!(expectedValue is IList))
-                throw new ImproperAttributeUsageException("Expected property " + parent + " is not an instance of IList");
-
-            var expectedList = (IList) expectedValue;
-            var actualList = (IList) actualValue;
-
-            if (expectedList.Count != actualList.Count)
-                PropertyDifferenceFound(expectedList.Count, actualList.Count, parent + ".", "Count");
-
-            for (var i = 0; i < expectedList.Count; i++)
-            {
-                var expectedItem = expectedList[i];
-                object actualItem = null;
-                if (i < actualList.Count)
-                    actualItem = actualList[i];
-
-                ComputeMatch(expectedItem, actualItem, expectedItem.GetType(), parent + "[" + i + "].");
-            }
-        }
-
-        private void ObjectDifferenceFound(object expectedValue, object actualValue, string parent)
+       
+        private void ObjectDifferenceFound(object expectedValue, object actualValue, ParentContext parent)
         {
             var result = new MatchResult
             {
@@ -172,14 +151,14 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 Actual = actualValue ?? SpecialValues.Null
             };
             
-            if (!string.IsNullOrEmpty(parent))
+            if (parent!=null)
             {
                 result.Parent = parent;
             }
             matchResults.Add(result);
         }
 
-        private void PropertyDifferenceFound(object expectedValue, object actualValue, string parent,
+        private void PropertyDifferenceFound(object expectedValue, object actualValue, ParentContext parent,
             string propertyName)
         {
             var result = new MatchResult

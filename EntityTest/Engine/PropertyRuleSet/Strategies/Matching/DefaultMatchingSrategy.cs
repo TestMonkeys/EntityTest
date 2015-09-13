@@ -12,7 +12,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
     {
         public override List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj,
             PropertyInfo actualProperty = null,
-            string messagePropertyPrefix = null)
+            ParentContext messagePropertyPrefix = null)
         {
             var result = new List<MatchResult>();
             var expectedValue = GetPropertyValue(expectedProperty, expectedObj);
@@ -24,8 +24,8 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                     Success = false,
                     Expected = expectedValue,
                     Actual = actualValue,
-                    Parent = messagePropertyPrefix,
-                    PropertyName = expectedProperty.Name
+                    Parent = messagePropertyPrefix//,
+                    //PropertyName = expectedProperty.Name
                 });
             }
             return result;

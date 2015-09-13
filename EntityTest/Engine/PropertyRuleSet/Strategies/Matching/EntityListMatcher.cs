@@ -10,14 +10,14 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     public class EntityListMatcher
     {
-        private readonly string parentContext;
+        private readonly ParentContext parentContext;
 
         public EntityListMatcher()
         {
-            
+            parentContext = new ParentContext {ParentName = "List"};
         }
 
-        public EntityListMatcher(string parentContext)
+        public EntityListMatcher(ParentContext parentContext)
         {
             this.parentContext = parentContext;
         }
@@ -31,7 +31,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
       
             if (expected.Count != actual.Count)
                 comparisonResult.ListMatchResults.Add(new MatchResult {Success = false,
-                    Expected = expected.Count, Actual = actual.Count,Parent = parentContext, PropertyName = "Count"});
+                    Expected = expected.Count, Actual = actual.Count,Parent = parentContext.WithProprety("Count")});
 
             for (var i = 0; i < expected.Count; i++)
             {
@@ -40,7 +40,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 object actualItem = null;
                 if (i < actual.Count)
                     actualItem = actual[i];
-                var entityMatcher = new EntityMatcher(parentContext+ "[" + i + "].");
+                var entityMatcher = new EntityMatcher(parentContext.WithIndex(i));
                 var entityMatchResults = entityMatcher.Compare(actualItem, expectedItem, expectedItem.GetType());
                 var success = entityMatchResults.All(x => x.Success);
                 comparisonResult.EntityMatchResults.Add(new EntityMatchResult {Success = success, MemberResults = entityMatchResults});

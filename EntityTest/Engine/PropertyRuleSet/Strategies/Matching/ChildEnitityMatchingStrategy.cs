@@ -10,7 +10,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
     class ChildEnitityMatchingStrategy:PropertyMatchingStrategy
     {
         public override List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj,
-            PropertyInfo actualProperty=null, string messagePropertyPrefix = null)
+            PropertyInfo actualProperty=null, ParentContext messagePropertyPrefix = null)
         {
             var actualChild = GetPropertyValue(expectedProperty, actualObj);
             var expectedChild = GetPropertyValue(actualProperty??expectedProperty, expectedObj);
