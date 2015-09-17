@@ -64,7 +64,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 var propertyName = property.Name;
                 ValidateActualConstraints(property, actual, parent, rule);
                 
-                if (rule.IgnoreValidationProperties.Contains(propertyName))
+                if (rule.IgnoreValidationProperties.Contains(property))
                     continue;
                 if (!NeedsValidation(property, expected, rule))
                     continue;
@@ -109,12 +109,11 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 
         private bool NeedsValidation(PropertyInfo property, object obj, ObjectPropertyValidationModel rule)
         {
-            var propertyName = property.Name;
             var value = GetPropertyValue(property, obj);
 
-            return !((rule.IgnoreValidationIfDefault.Contains(propertyName) ||
-                      rule.ActualNotNullProperties.Contains(propertyName) ||
-                      rule.ActualGreaterProperties.ContainsKey(propertyName)) &&
+            return !((rule.IgnoreValidationIfDefault.Contains(property) ||
+                      rule.ActualNotNullProperties.Contains(property) ||
+                      rule.ActualGreaterProperties.ContainsKey(property)) &&
                      IsDefault(value));
         }
 
@@ -131,19 +130,18 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
         private PropertyInfo GetExpectedProperty(PropertyInfo currentProperty, IEnumerable<PropertyInfo> allProperties,
             ObjectPropertyValidationModel rule)
         {
-            var currentPropertyName = currentProperty.Name;
             var expectedProperty = currentProperty;
 
-            if (rule.ValidateActualWithExpectedProperty.ContainsKey(currentPropertyName))
+            if (rule.ValidateActualWithExpectedProperty.ContainsKey(currentProperty))
             {
                 expectedProperty = allProperties.FirstOrDefault(
-                    x => x.Name.Equals(rule.ValidateActualWithExpectedProperty[currentPropertyName]));
+                    x => x.Name.Equals(rule.ValidateActualWithExpectedProperty[currentProperty]));
                 if (expectedProperty == null)
                     throw new ImproperAttributeUsageException("ValidateWithProperty for property " +
                                                               currentProperty.Name +
                                                               " was pointing at inexisting property " +
                                                               rule.ValidateActualWithExpectedProperty[
-                                                                  currentPropertyName]);
+                                                                  currentProperty]);
             }
             return expectedProperty;
         }

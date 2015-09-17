@@ -29,38 +29,38 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
     {
         public ObjectPropertyValidationModel()
         {
-            ActualNotNullProperties = new List<string>();
-            IgnoreValidationProperties = new List<string>();
-            IgnoreValidationIfDefault = new List<string>();
-            ChildSetProperty = new List<string>();
-            ChildSetListProperty = new List<string>();
-            ActualGreaterProperties = new Dictionary<string, int>();
-            ValidateActualWithExpectedProperty = new Dictionary<string, string>();
+            ActualNotNullProperties = new List<PropertyInfo>();
+            IgnoreValidationProperties = new List<PropertyInfo>();
+            IgnoreValidationIfDefault = new List<PropertyInfo>();
+            ChildSetProperty = new List<PropertyInfo>();
+            ChildSetListProperty = new List<PropertyInfo>();
+            ActualGreaterProperties = new Dictionary<PropertyInfo, int>();
+            ValidateActualWithExpectedProperty = new Dictionary<PropertyInfo, string>();
         }
 
         public Type TargetType { get; set; }
-        public List<string> ActualNotNullProperties { get; }
-        public List<string> IgnoreValidationProperties { get; private set; }
-        public List<string> IgnoreValidationIfDefault { get; private set; }
-        public List<string> ChildSetProperty { get; }
-        public List<string> ChildSetListProperty { get; }
-        public Dictionary<string, int> ActualGreaterProperties { get; }
-        public Dictionary<string, string> ValidateActualWithExpectedProperty { get; private set; }
+        public List<PropertyInfo> ActualNotNullProperties { get; }
+        public List<PropertyInfo> IgnoreValidationProperties { get; private set; }
+        public List<PropertyInfo> IgnoreValidationIfDefault { get; private set; }
+        public List<PropertyInfo> ChildSetProperty { get; }
+        public List<PropertyInfo> ChildSetListProperty { get; }
+        public Dictionary<PropertyInfo, int> ActualGreaterProperties { get; }
+        public Dictionary<PropertyInfo, string> ValidateActualWithExpectedProperty { get; private set; }
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)
         {
-            if (ActualNotNullProperties.Contains(property.Name))
+            if (ActualNotNullProperties.Contains(property))
                 return new ActualNotNullStrategy();
-            if (ActualGreaterProperties.ContainsKey(property.Name))
-                return new ActualGreaterThanValueStrategy(ActualGreaterProperties[property.Name]);
+            if (ActualGreaterProperties.ContainsKey(property))
+                return new ActualGreaterThanValueStrategy(ActualGreaterProperties[property]);
             return null;
         }
 
         public PropertyMatchingStrategy GetPropertyMatchingStrategy(PropertyInfo property)
         {
-            if (ChildSetProperty.Contains(property.Name))
+            if (ChildSetProperty.Contains(property))
                 return new ChildEnitityMatchingStrategy();
-            if (ChildSetListProperty.Contains(property.Name))
+            if (ChildSetListProperty.Contains(property))
                 return new ChildEntityListMatchingStrategy();
             return new DefaultMatchingSrategy();
         }

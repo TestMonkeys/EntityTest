@@ -70,33 +70,33 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
                 .AddRange(
                     expectedProperties.Where(
                         x => x.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any())
-                        .Select(prop => prop.Name)
+                        .Select(prop => prop)
                         .ToList());
 
             rule.IgnoreValidationProperties
                 .AddRange(
                     expectedProperties.Where(x => x.GetCustomAttributes(typeof (IgnoreValidationAttribute), true).Any())
-                        .Select(prop => prop.Name)
+                        .Select(prop => prop)
                         .ToList());
 
             rule.IgnoreValidationIfDefault
                 .AddRange(
                     expectedProperties.Where(
                         x => x.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any())
-                        .Select(prop => prop.Name)
+                        .Select(prop => prop)
                         .ToList());
 
             rule.ChildSetProperty
                 .AddRange(
                     expectedProperties.Where(x => x.GetCustomAttributes(typeof (ChildEntityAttribute), true).Any())
-                        .Select(prop => prop.Name)
+                        .Select(prop => prop)
                         .ToList());
 
             rule.ChildSetListProperty
                 .AddRange(
                     expectedProperties.Where(
                         x => x.GetCustomAttributes(typeof (EntityListAttribute), true).Any())
-                        .Select(prop => prop.Name)
+                        .Select(prop => prop)
                         .ToList());
 
             var greater =
@@ -107,7 +107,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
             {
                 var minValue = ((ValidateActualGreaterThanAttribute)
                     property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).First()).Value;
-                rule.ActualGreaterProperties.Add(property.Name, minValue);
+                rule.ActualGreaterProperties.Add(property, minValue);
             }
 
             var validateWith =
@@ -117,7 +117,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
             {
                 var validationProp = ((ValidateWithPropertyAttribute)
                     property.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).First()).PropertyName;
-                rule.ValidateActualWithExpectedProperty.Add(property.Name, validationProp);
+                rule.ValidateActualWithExpectedProperty.Add(property, validationProp);
             }
             rules[objType.Assembly].Add(objType.FullName, rule);
         }
