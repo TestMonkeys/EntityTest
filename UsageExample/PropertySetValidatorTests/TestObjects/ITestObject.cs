@@ -14,7 +14,7 @@ namespace UsageExample.PropertySetValidatorTests.TestObjects
         [IgnoreValidation]
         string ValidationCustomValidation { get; }
 
-        [ChildPropertySetList]
+        [EntityList]
         List<TestObjectWithChildSet> ChildList { get; set; }
     }
 }

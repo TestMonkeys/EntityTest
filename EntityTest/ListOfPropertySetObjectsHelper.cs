@@ -38,7 +38,7 @@ namespace TestMonkey.EntityTest
         {
             return NUnit.Framework.Constraints.NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
         }
-        #else
+#else
         public Constraint None(object expected)
         {
             return new NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));

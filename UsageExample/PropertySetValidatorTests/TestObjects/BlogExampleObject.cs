@@ -15,10 +15,10 @@ namespace UsageExample.PropertySetValidatorTests.TestObjects
         [IgnoreValidationIfDefault]
         public DateTime CreatedDate { get; set; }
 
-        [ChildPropertySet]
+        [ChildEntity]
         public TestObject ChildObject { get; set; }
 
-        [ChildPropertySetList]
+        [EntityList]
         public List<TestObject> ChildObjectList { get; set; }
 
         [IgnoreValidation]

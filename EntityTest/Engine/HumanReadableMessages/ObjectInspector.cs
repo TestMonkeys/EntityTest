@@ -84,7 +84,7 @@ namespace TestMonkey.EntityTest.Engine.HumanReadableMessages
                 return;
             }
 
-            if (property.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
+            if (property.GetCustomAttributes(typeof (ChildEntityAttribute), true).Any())
             {
                 ProcessPropertyObject(property, value);
                 return;

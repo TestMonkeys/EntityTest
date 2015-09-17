@@ -78,13 +78,14 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualNotNullStrategy.cs" />
     <Compile Include="Engine\Validators\EntityListComparisonResult.cs" />
     <Compile Include="Engine\Validators\EntityMatchResult.cs" />
+    <Compile Include="Engine\Validators\ListComparisonStrategy.cs" />
     <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="Engine\Validators\MatchResult.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyAttributes\ChildPropertySetAttribute.cs" />
-    <Compile Include="PropertyAttributes\ChildPropertySetListAttribute.cs" />
+    <Compile Include="PropertyAttributes\ChildEntityAttribute.cs" />
+    <Compile Include="PropertyAttributes\EntityListAttribute.cs" />
     <Compile Include="PropertyAttributes\IgnoreValidationAttribute.cs" />
     <Compile Include="PropertyAttributes\IgnoreValidationIfDefaultAttribute.cs" />
     <Compile Include="PropertyAttributes\ImproperAttributeUsageException.cs" />

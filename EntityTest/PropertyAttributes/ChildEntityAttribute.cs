@@ -21,10 +21,10 @@ using System;
 namespace TestMonkey.EntityTest.PropertyAttributes
 {
     /// <summary>
-    ///     Will run a full properties validation for decorated List
+    ///     Will run a full properties validation for decorated property value
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ChildPropertySetListAttribute : Attribute
+    public class ChildEntityAttribute : Attribute
     {
     }
 }

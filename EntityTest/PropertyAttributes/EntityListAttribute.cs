@@ -17,14 +17,30 @@
 #endregion
 
 using System;
+using TestMonkey.EntityTest.Engine.Validators;
 
 namespace TestMonkey.EntityTest.PropertyAttributes
 {
     /// <summary>
-    ///     Will run a full properties validation for decorated property value
+    ///     Will run a full properties validation for decorated List
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ChildPropertySetAttribute : Attribute
+    public class EntityListAttribute : Attribute
     {
+        public ListPositionComparisonStrategy PositionMatching { get; }
+        public ListValuesComparisonStrategy ValuesMatching { get; }
+
+        public EntityListAttribute(ListPositionComparisonStrategy positionMatching,
+            ListValuesComparisonStrategy valuesMatching)
+        {
+            this.PositionMatching = positionMatching;
+            this.ValuesMatching = valuesMatching;
+        }
+
+        public EntityListAttribute()
+        {
+            PositionMatching = ListPositionComparisonStrategy.Strict;
+            ValuesMatching = ListValuesComparisonStrategy.Strict;
+        }
     }
 }

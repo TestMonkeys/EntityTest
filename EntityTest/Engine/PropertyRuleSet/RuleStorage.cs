@@ -88,14 +88,14 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
 
             rule.ChildSetProperty
                 .AddRange(
-                    expectedProperties.Where(x => x.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
+                    expectedProperties.Where(x => x.GetCustomAttributes(typeof (ChildEntityAttribute), true).Any())
                         .Select(prop => prop.Name)
                         .ToList());
 
             rule.ChildSetListProperty
                 .AddRange(
                     expectedProperties.Where(
-                        x => x.GetCustomAttributes(typeof (ChildPropertySetListAttribute), true).Any())
+                        x => x.GetCustomAttributes(typeof (EntityListAttribute), true).Any())
                         .Select(prop => prop.Name)
                         .ToList());
 

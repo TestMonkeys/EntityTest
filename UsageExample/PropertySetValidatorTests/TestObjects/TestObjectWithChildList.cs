@@ -5,7 +5,7 @@ namespace UsageExample.PropertySetValidatorTests.TestObjects
 {
     public class TestObjectWithChildList
     {
-        [ChildPropertySetList]
+        [EntityList]
         public List<TestObject> Child { get; set; }
 
         public string ValidationProperty { get; set; }
