@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
@@ -34,7 +35,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
             ChildSetListProperty = new List<PropertyInfo>();
             ValidateActualWithExpectedProperty = new Dictionary<PropertyInfo, string>();
 
-            ValidationStrategyBuilders = new Dictionary<PropertyInfo, dynamic>();
+            ValidationStrategyBuilders = new Dictionary<PropertyInfo, IValidationStrategyBuilder>();
         }
 
         public Type TargetType { get; set; }
@@ -47,7 +48,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
         /// <summary>
         ///     Validation Strategy builders
         /// </summary>
-        public Dictionary<PropertyInfo, dynamic>
+        public Dictionary<PropertyInfo, IValidationStrategyBuilder>
             ValidationStrategyBuilders { get; set; }
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)

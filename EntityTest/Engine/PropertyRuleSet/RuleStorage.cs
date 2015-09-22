@@ -73,7 +73,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                 .Select(prop => prop)
                 .ToList();
             foreach (var prop in notNullProps)
-                rule.ValidationStrategyBuilders.Add(prop, new DefaultStrategyBuilder<ActualNotNullStrategy>());
+                rule.ValidationStrategyBuilders.Add(prop, new DefaultValidationStrategyBuilder<ActualNotNullStrategy>());
 
             rule.IgnoreValidationProperties
                 .AddRange(

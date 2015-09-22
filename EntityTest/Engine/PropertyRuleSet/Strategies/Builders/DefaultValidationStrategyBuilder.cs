@@ -16,14 +16,20 @@
 
 #endregion
 
+using System;
+
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    internal class DefaultStrategyBuilder<TStrategy> : ValidationStrategyBuilder<TStrategy>
-        where TStrategy : PropertyStrategy, new()
+    internal class DefaultValidationStrategyBuilder<TStrategy> : ValidationStrategyBuilder<TStrategy>,IValidationStrategyBuilder where TStrategy:PropertyValidationStrategy, new()
     {
         public override TStrategy GetStrategy()
         {
             return new TStrategy();
+        }
+
+        PropertyValidationStrategy IValidationStrategyBuilder.GetStrategy()
+        {
+            return GetStrategy();
         }
     }
 }
