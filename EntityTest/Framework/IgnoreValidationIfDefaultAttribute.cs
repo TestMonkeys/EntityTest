@@ -18,14 +18,14 @@
 
 using System;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
-    [Serializable]
-    public class ImproperTypeUsageException : Exception
+    /// <summary>
+    ///     Will ignore validation if expected value is default
+    ///     Default values are StringNullOrEmpty, DateTime.MinValue and null
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class IgnoreValidationIfDefaultAttribute : Attribute
     {
-        public ImproperTypeUsageException(Exception parentException, string message, params object[] args)
-            : base(string.Format(message, args), parentException)
-        {
-        }
     }
 }

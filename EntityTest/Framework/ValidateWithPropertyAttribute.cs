@@ -18,13 +18,19 @@
 
 using System;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
     /// <summary>
-    ///     Will run a full properties validation for decorated property value
+    ///     Will validate internalActual property with the defined property from the expected object
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ChildEntityAttribute : Attribute
+    public class ValidateWithPropertyAttribute : Attribute
     {
+        public ValidateWithPropertyAttribute(string propertyName)
+        {
+            PropertyName = propertyName;
+        }
+
+        public string PropertyName { get; }
     }
 }

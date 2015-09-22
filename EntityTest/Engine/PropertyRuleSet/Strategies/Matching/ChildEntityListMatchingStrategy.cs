@@ -33,7 +33,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             var expectedValue = GetPropertyValue(expectedProperty, expectedObj);
             var actualValue = GetPropertyValue(expectedProperty, actualObj);
 
-            var listMatcher = new EntityListMatcher(parentContext);
+            var listMatcher = new EntityListMatchingStrategy(parentContext);
             var entityListResult = listMatcher.Compare((IList) actualValue, (IList) expectedValue);
             var resultList = entityListResult.ListMatchResults;
             resultList.AddRange(entityListResult.EntityMatchResults.SelectMany(x => x.MemberResults).ToList());

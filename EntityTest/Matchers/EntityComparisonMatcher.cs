@@ -22,15 +22,15 @@ using System.Linq;
 using TestMonkeys.EntityTest.Engine.Constraints;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 
-namespace TestMonkeys.EntityTest.Engine.Validators
+namespace TestMonkeys.EntityTest.Matchers
 {
-    public class PropertySetValidator : CustomMessageConstraint
+    public class EntityComparisonMatcher : CustomMessageConstraint
     {
         private readonly object internalExpected;
-        private readonly Type validationType;
+        private Type validationType;
         private bool isMatch;
 
-        internal PropertySetValidator(object expected)
+        internal EntityComparisonMatcher(object expected)
         {
             if (expected == null)
                 throw new ArgumentNullException(nameof(expected), "Expected can't be null");
@@ -40,7 +40,13 @@ namespace TestMonkeys.EntityTest.Engine.Validators
             Differences = new List<string>();
         }
 
-        public PropertySetValidator(object expected, Type validationType) : this(expected)
+        public EntityComparisonMatcher ByInterface(Type byInterface)
+        {
+            validationType = byInterface;
+            return this;
+        }
+
+        public EntityComparisonMatcher(object expected, Type validationType) : this(expected)
         {
             this.validationType = validationType;
         }
@@ -50,7 +56,7 @@ namespace TestMonkeys.EntityTest.Engine.Validators
 
         public override bool Matches(object actual)
         {
-            var matcher = new EntityMatcher();
+            var matcher = new EntityMatchingStrategy();
             var result = matcher.Compare(actual, internalExpected, validationType);
             isMatch = result.All(x => x.Success);
             foreach (var mismatch in result.Where(mismatch => !mismatch.Success))

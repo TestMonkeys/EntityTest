@@ -18,19 +18,14 @@
 
 using System;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
-    /// <summary>
-    ///     Actual value will be validated to be greater than desired value
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ValidateActualGreaterThanAttribute : Attribute
+    [Serializable]
+    public class ImproperTypeUsageException : Exception
     {
-        public ValidateActualGreaterThanAttribute(int value)
+        public ImproperTypeUsageException(Exception parentException, string message, params object[] args)
+            : base(string.Format(message, args), parentException)
         {
-            Value = value;
         }
-
-        public int Value { get; set; }
     }
 }

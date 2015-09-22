@@ -18,14 +18,13 @@
 
 using System;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
     /// <summary>
-    ///     Will ignore validation if expected value is default
-    ///     Default values are StringNullOrEmpty, DateTime.MinValue and null
+    ///     Will ignore validation for decorated property
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class IgnoreValidationIfDefaultAttribute : Attribute
+    public class IgnoreValidationAttribute : Attribute
     {
     }
 }

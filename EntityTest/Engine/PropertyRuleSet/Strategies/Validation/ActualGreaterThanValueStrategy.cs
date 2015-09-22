@@ -19,7 +19,7 @@
 using System;
 using System.Reflection;
 using TestMonkeys.EntityTest.Engine.Validators;
-using TestMonkeys.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {

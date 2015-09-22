@@ -18,13 +18,18 @@
 
 using System;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
-    /// <summary>
-    ///     Actual value will be validated to be not null
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ValidateActualNotNullAttribute : Attribute
+    [Serializable]
+    public class ImproperAttributeUsageException : Exception
     {
+        public ImproperAttributeUsageException(string message) : base(message)
+        {
+        }
+
+        public ImproperAttributeUsageException(Exception parentException, string message)
+            : base(message, parentException)
+        {
+        }
     }
 }

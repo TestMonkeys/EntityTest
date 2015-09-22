@@ -19,7 +19,7 @@
 using System;
 using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
     /// <summary>
     ///     Will run a full properties validation for decorated List

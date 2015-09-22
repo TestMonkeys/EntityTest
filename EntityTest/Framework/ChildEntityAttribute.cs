@@ -18,13 +18,13 @@
 
 using System;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
     /// <summary>
-    ///     Will ignore validation for decorated property
+    ///     Will run a full properties validation for decorated property value
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class IgnoreValidationAttribute : Attribute
+    public class ChildEntityAttribute : Attribute
     {
     }
 }

@@ -38,7 +38,7 @@ namespace UsageExample.PropertySetValidatorTests
             }
             
             list.Add(actual);
-            Assert.That(list, PropertySet.List.Contains(expected));
+            Assert.That(list, Entity.List.Contains(expected));
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace UsageExample.PropertySetValidatorTests
             };
             List<TestObjectWithChildSet> list = new List<TestObjectWithChildSet>();
             list.Add(actual);
-            Assert.That(list, PropertySet.List.Contains(expected,OnListContainsFailure.DisplayExpectedAndActualList),"List");
+            Assert.That(list, Entity.List.Contains(expected,OnListContainsFailure.DisplayExpectedAndActualList),"List");
         }
 
 
@@ -84,7 +84,7 @@ namespace UsageExample.PropertySetValidatorTests
             List<SimpleTestObject> list = new List<SimpleTestObject>();
             list.Add(actual1);
             list.Add(actual2);
-            Assert.That(list, PropertySet.List.Contains(expected, OnListContainsFailure.DisplayClosestMatch), "List");
+            Assert.That(list, Entity.List.Contains(expected, OnListContainsFailure.DisplayClosestMatch), "List");
         }
     }
 }

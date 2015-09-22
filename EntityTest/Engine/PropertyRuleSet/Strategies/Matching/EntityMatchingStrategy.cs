@@ -22,21 +22,21 @@ using System.Linq;
 using System.Reflection;
 using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
 using TestMonkeys.EntityTest.Engine.Validators;
-using TestMonkeys.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
-    public class EntityMatcher : PropertyStrategy
+    public class EntityMatchingStrategy : PropertyStrategy
     {
         private readonly ParentContext parentContext;
         private readonly RuleStorage rules = RuleStorage.Instance;
         private List<MatchResult> matchResults;
 
-        public EntityMatcher()
+        public EntityMatchingStrategy()
         {
         }
 
-        internal EntityMatcher(ParentContext parentContext)
+        internal EntityMatchingStrategy(ParentContext parentContext)
         {
             this.parentContext = parentContext;
         }
@@ -119,6 +119,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 
         private bool IsDefault(object value)
         {
+            
             if (value == null) return true;
             if (value is int && ((int) value) == 0) return true;
             var potentialString = value as string;

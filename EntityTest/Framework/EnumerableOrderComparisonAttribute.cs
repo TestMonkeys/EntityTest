@@ -19,16 +19,16 @@
 using System;
 using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class EnumerableValuesComparisonAttribute : Attribute
+    public class EnumerableOrderComparisonAttribute : Attribute
     {
-        public EnumerableValuesComparisonAttribute(ItemsMatch option)
+        internal OrderMatch Option;
+
+        public EnumerableOrderComparisonAttribute(OrderMatch option)
         {
             Option = option;
         }
-
-        internal ItemsMatch Option { get; }
     }
 }

@@ -23,16 +23,16 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
-    public class EntityListMatcher
+    public class EntityListMatchingStrategy
     {
         private readonly ParentContext parentContext;
 
-        public EntityListMatcher()
+        public EntityListMatchingStrategy()
         {
             parentContext = new ParentContext {ParentName = "List"};
         }
 
-        public EntityListMatcher(ParentContext parentContext)
+        public EntityListMatchingStrategy(ParentContext parentContext)
         {
             this.parentContext = parentContext;
         }
@@ -59,7 +59,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 object actualItem = null;
                 if (i < actual.Count)
                     actualItem = actual[i];
-                var entityMatcher = new EntityMatcher(parentContext.WithIndex(i));
+                var entityMatcher = new EntityMatchingStrategy(parentContext.WithIndex(i));
                 var entityMatchResults = entityMatcher.Compare(actualItem, expectedItem, expectedItem.GetType());
                 var success = entityMatchResults.All(x => x.Success);
                 comparisonResult.EntityMatchResults.Add(new EntityMatchResult

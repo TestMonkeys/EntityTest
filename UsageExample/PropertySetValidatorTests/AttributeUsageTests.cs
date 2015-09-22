@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkeys.EntityTest;
-using TestMonkeys.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Framework;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 
@@ -17,7 +17,7 @@ namespace UsageExample.PropertySetValidatorTests
             var expected = new TestObjectCustomValidationImproperAttributeUsage {CustomValidation = "Validation"};
             var actual = new TestObjectCustomValidationImproperAttributeUsage {CustomValidation = "ValidationCustom"};
             var ex = Assert.Throws(typeof (ImproperAttributeUsageException),
-                                   () => Assert.That(actual, PropertySet.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message,
                         Is.EqualTo(

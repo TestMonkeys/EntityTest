@@ -17,22 +17,25 @@
 #endregion
 
 using System;
-using TestMonkeys.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Matchers;
 
 namespace TestMonkeys.EntityTest
 {
-    public static class PropertySet
+    public static class Entity
     {
         public static ListOfPropertySetObjectsHelper List { get; } = new ListOfPropertySetObjectsHelper();
 
-        public static PropertySetValidator EqualTo(object expected)
+        public static EntityResolvableConstraintExpression EqualTo(object expected)
         {
-            return new PropertySetValidator(expected);
+            var resC= new EntityResolvableConstraintExpression();
+            resC.Append(new EntityComparisonMatcher(expected));
+            return resC;
         }
 
-        public static PropertySetValidator EqualToByInterface(object expected, Type validationType)
-        {
-            return new PropertySetValidator(expected, validationType);
-        }
+        //public static EntityComparisonMatcher EqualToByInterface(object expected, Type validationType)
+        //{
+        //    return new EntityComparisonMatcher(expected, validationType);
+        //}
     }
 }

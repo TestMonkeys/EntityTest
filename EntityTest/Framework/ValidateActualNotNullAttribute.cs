@@ -18,19 +18,13 @@
 
 using System;
 
-namespace TestMonkeys.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.Framework
 {
     /// <summary>
-    ///     Will validate internalActual property with the defined property from the expected object
+    ///     Actual value will be validated to be not null
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ValidateWithPropertyAttribute : Attribute
+    public class ValidateActualNotNullAttribute : Attribute
     {
-        public ValidateWithPropertyAttribute(string propertyName)
-        {
-            PropertyName = propertyName;
-        }
-
-        public string PropertyName { get; }
     }
 }

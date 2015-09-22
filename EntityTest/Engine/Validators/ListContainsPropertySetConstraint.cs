@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TestMonkeys.EntityTest.Engine.Constraints;
 using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
+using TestMonkeys.EntityTest.Matchers;
 
 namespace TestMonkeys.EntityTest.Engine.Validators
 {
@@ -48,7 +49,7 @@ namespace TestMonkeys.EntityTest.Engine.Validators
             var actualAndDiff = new Dictionary<object, List<string>>();
             foreach (var actualItem in ((IList) actual))
             {
-                var propertyValidator = new PropertySetValidator(expected);
+                var propertyValidator = new EntityComparisonMatcher(expected);
                 if (propertyValidator.Matches(actualItem))
                     return true;
                 actualAndDiff.Add(actualItem, propertyValidator.Differences);

@@ -56,7 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CumulativeAssert.cs" />
+    <Compile Include="Engine\ByInterfaceOperator.cs" />
     <Compile Include="Engine\Constraints\CustomMessageConstraint.cs" />
+    <Compile Include="Engine\Constraints\EntityResolvableConstraintExpression.cs" />
     <Compile Include="Engine\CummulativeHandler.cs" />
     <Compile Include="Engine\FailureItem.cs" />
     <Compile Include="Engine\HumanReadableMessages\Describe.cs" />
@@ -68,8 +70,8 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEnitityMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEntityListMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\DefaultMatchingSrategy.cs" />
-    <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\EntityListMatcher.cs" />
-    <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\EntityMatcher.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\EntityListMatchingStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\EntityMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyValidationStrategy.cs" />
@@ -86,19 +88,19 @@
     <Compile Include="Engine\Validators\OrderMatch.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyAttributes\ChildEntityAttribute.cs" />
-    <Compile Include="PropertyAttributes\EntityListAttribute.cs" />
-    <Compile Include="PropertyAttributes\EnumerableOrderComparisonAttribute.cs" />
-    <Compile Include="PropertyAttributes\EnumerableValuesComparisonAttribute.cs" />
-    <Compile Include="PropertyAttributes\IgnoreValidationAttribute.cs" />
-    <Compile Include="PropertyAttributes\IgnoreValidationIfDefaultAttribute.cs" />
-    <Compile Include="PropertyAttributes\ImproperAttributeUsageException.cs" />
-    <Compile Include="PropertyAttributes\ImproperTypeUsageException.cs" />
-    <Compile Include="PropertyAttributes\ValidateActualGreaterThanAttribute.cs" />
-    <Compile Include="PropertyAttributes\ValidateActualNotNullAttribute.cs" />
-    <Compile Include="PropertyAttributes\ValidateWithPropertyAttribute.cs" />
-    <Compile Include="PropertySet.cs" />
-    <Compile Include="Engine\Validators\PropertySetValidator.cs" />
+    <Compile Include="Framework\ChildEntityAttribute.cs" />
+    <Compile Include="Framework\EntityListAttribute.cs" />
+    <Compile Include="Framework\EnumerableOrderComparisonAttribute.cs" />
+    <Compile Include="Framework\EnumerableValuesComparisonAttribute.cs" />
+    <Compile Include="Framework\IgnoreValidationAttribute.cs" />
+    <Compile Include="Framework\IgnoreValidationIfDefaultAttribute.cs" />
+    <Compile Include="Framework\ImproperAttributeUsageException.cs" />
+    <Compile Include="Framework\ImproperTypeUsageException.cs" />
+    <Compile Include="Framework\ValidateActualGreaterThanAttribute.cs" />
+    <Compile Include="Framework\ValidateActualNotNullAttribute.cs" />
+    <Compile Include="Framework\ValidateWithPropertyAttribute.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="Matchers\EntityComparisonMatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Assertion\Assertion.csproj">

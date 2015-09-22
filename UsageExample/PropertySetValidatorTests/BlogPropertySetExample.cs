@@ -31,7 +31,7 @@ namespace UsageExample.PropertySetValidatorTests
                     CreatedDate = DateTime.Now,
                     ProcessedProperty = "Testprocessed"
                 };
-            Assert.That(actual, PropertySet.EqualTo(expected));
+            Assert.That(actual, Entity.EqualTo(expected));
         }
 
     }

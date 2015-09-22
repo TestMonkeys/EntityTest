@@ -29,7 +29,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
         {
             var actualChild = GetPropertyValue(expectedProperty, actualObj);
             var expectedChild = GetPropertyValue(actualProperty ?? expectedProperty, expectedObj);
-            var matcher = new EntityMatcher(parentContext);
+            var matcher = new EntityMatchingStrategy(parentContext);
             return matcher.Compare(actualChild, expectedChild);
         }
     }

@@ -21,7 +21,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkeys.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
