@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
@@ -29,31 +28,33 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
     {
         public ObjectPropertyValidationModel()
         {
-            ActualNotNullProperties = new List<PropertyInfo>();
             IgnoreValidationProperties = new List<PropertyInfo>();
             IgnoreValidationIfDefault = new List<PropertyInfo>();
             ChildSetProperty = new List<PropertyInfo>();
             ChildSetListProperty = new List<PropertyInfo>();
-            ActualGreaterProperties = new Dictionary<PropertyInfo, int>();
             ValidateActualWithExpectedProperty = new Dictionary<PropertyInfo, string>();
+
+            ValidationStrategyBuilders = new Dictionary<PropertyInfo, dynamic>();
         }
 
         public Type TargetType { get; set; }
-        public List<PropertyInfo> ActualNotNullProperties { get; }
         public List<PropertyInfo> IgnoreValidationProperties { get; private set; }
         public List<PropertyInfo> IgnoreValidationIfDefault { get; private set; }
         public List<PropertyInfo> ChildSetProperty { get; }
         public List<PropertyInfo> ChildSetListProperty { get; }
-        public Dictionary<PropertyInfo, int> ActualGreaterProperties { get; }
         public Dictionary<PropertyInfo, string> ValidateActualWithExpectedProperty { get; private set; }
+
+        /// <summary>
+        ///     Validation Strategy builders
+        /// </summary>
+        public Dictionary<PropertyInfo, dynamic>
+            ValidationStrategyBuilders { get; set; }
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)
         {
-            if (ActualNotNullProperties.Contains(property))
-                return new ActualNotNullStrategy();
-            if (ActualGreaterProperties.ContainsKey(property))
-                return new ActualGreaterThanValueStrategy(ActualGreaterProperties[property]);
-            return null;
+            return ValidationStrategyBuilders.ContainsKey(property)
+                ? ValidationStrategyBuilders[property].GetStrategy()
+                : null;
         }
 
         public PropertyMatchingStrategy GetPropertyMatchingStrategy(PropertyInfo property)

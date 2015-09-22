@@ -21,6 +21,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
@@ -64,12 +66,14 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 
             var expectedProperties = objType.GetProperties();
 
-            rule.ActualNotNullProperties
-                .AddRange(
-                    expectedProperties.Where(
-                        x => x.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any())
-                        .Select(prop => prop)
-                        .ToList());
+            //rule.ActualNotNullProperties
+            //  .AddRange(
+            var notNullProps = expectedProperties.Where(
+                x => x.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any())
+                .Select(prop => prop)
+                .ToList();
+            foreach (var prop in notNullProps)
+                rule.ValidationStrategyBuilders.Add(prop, new DefaultStrategyBuilder<ActualNotNullStrategy>());
 
             rule.IgnoreValidationProperties
                 .AddRange(
@@ -107,7 +111,8 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
             {
                 var minValue = ((ValidateActualGreaterThanAttribute)
                     property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).First()).Value;
-                rule.ActualGreaterProperties.Add(property, minValue);
+                //rule.ActualGreaterProperties.Add(property, minValue);
+                rule.ValidationStrategyBuilders.Add(property, new ActualGreaterThanValueStrategyBuilder(minValue));
             }
 
             var validateWith =

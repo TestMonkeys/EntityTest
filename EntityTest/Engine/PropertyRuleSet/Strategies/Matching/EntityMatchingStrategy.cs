@@ -112,14 +112,12 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             var value = GetPropertyValue(property, obj);
 
             return !((rule.IgnoreValidationIfDefault.Contains(property) ||
-                      rule.ActualNotNullProperties.Contains(property) ||
-                      rule.ActualGreaterProperties.ContainsKey(property)) &&
+                      rule.GetValidationStrategy(property) != null) &&
                      IsDefault(value));
         }
 
         private bool IsDefault(object value)
         {
-            
             if (value == null) return true;
             if (value is int && ((int) value) == 0) return true;
             var potentialString = value as string;

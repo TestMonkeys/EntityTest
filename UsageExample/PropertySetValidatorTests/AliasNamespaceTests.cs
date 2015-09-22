@@ -21,11 +21,11 @@ namespace UsageExample.PropertySetValidatorTests
             RuleStorage rules=RuleStorage.Instance;
             Type type1= typeof(TestAlias1::AliasTestPack.Class1);
             var type1Rules=rules.GetValidationRules(type1);
-            Assert.That(type1Rules.ActualNotNullProperties.Any(x=>x.Name=="TestPack1NotNull"), Is.True, "type1 rule notNull");
+            Assert.That(type1Rules.ValidationStrategyBuilders.Any(x=>x.Key.Name=="TestPack1NotNull"), Is.True, "type1 rule notNull");
             Type type2 = typeof(TestAlias2::AliasTestPack.Class1);
             var type2Rules = rules.GetValidationRules(type2);
-            Assert.That(type2Rules.ActualNotNullProperties.Any(x=>x.Name=="TestPack1NotNull"), Is.False, "type1 rule notNull present");
-            Assert.That(type2Rules.ActualNotNullProperties.Any(x=>x.Name=="TestPack2NotNull"), Is.True, "type1 rule notNull present");
+            Assert.That(type2Rules.ValidationStrategyBuilders.Any(x => x.Key.Name =="TestPack1NotNull"), Is.False, "type1 rule notNull present");
+            Assert.That(type2Rules.ValidationStrategyBuilders.Any(x => x.Key.Name == "TestPack2NotNull"), Is.True, "type1 rule notNull present");
 
         }
 

@@ -9,7 +9,7 @@ namespace UsageExample.CummulativeAssertTests
     [TestClass]
     public class CumulativeTests
     {
-
+        [Ignore]
         [TestMethod]
         public void CumulativeAssert_NoFailures1()
         {
@@ -18,6 +18,7 @@ namespace UsageExample.CummulativeAssertTests
             Console.WriteLine(new StackTrace(true));
         }
 
+        [Ignore]
         [TestMethod]
         public void CumulativeAssert_MultipleFailuresExample()
         {
@@ -29,6 +30,7 @@ namespace UsageExample.CummulativeAssertTests
 
         }
 
+        [Ignore]
         [TestMethod]
         public void CumulativeAssert_MethodCalling1()
         {
@@ -37,6 +39,7 @@ namespace UsageExample.CummulativeAssertTests
             CumulativeAssert.That("true", Is.EqualTo("false"), "string equality");
         }
 
+        [Ignore]
         [TestMethod]
         public void CumulativeAssert_MethodCalling2()
         {
@@ -46,6 +49,7 @@ namespace UsageExample.CummulativeAssertTests
             CumulativeAssert.ShowFailures();
         }
 
+        [Ignore]
         [TestMethod]
         public void CumulativeAssert_MethodCalling()
         {

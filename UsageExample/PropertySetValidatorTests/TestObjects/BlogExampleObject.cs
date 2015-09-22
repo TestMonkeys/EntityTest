@@ -18,7 +18,6 @@ namespace UsageExample.PropertySetValidatorTests.TestObjects
         [ChildEntity]
         public TestObject ChildObject { get; set; }
 
-        [EntityList]
         public List<TestObject> ChildObjectList { get; set; }
 
         [IgnoreValidation]

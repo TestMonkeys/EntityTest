@@ -16,7 +16,6 @@
 
 #endregion
 
-using System;
 using TestMonkeys.EntityTest.Engine.Constraints;
 using TestMonkeys.EntityTest.Matchers;
 
@@ -28,12 +27,13 @@ namespace TestMonkeys.EntityTest
 
         public static EntityResolvableConstraintExpression EqualTo(object expected)
         {
-            var resC= new EntityResolvableConstraintExpression();
+            var resC = new EntityResolvableConstraintExpression();
             resC.Append(new EntityComparisonMatcher(expected));
             return resC;
         }
 
         //public static EntityComparisonMatcher EqualToByInterface(object expected, Type validationType)
+
         //{
         //    return new EntityComparisonMatcher(expected, validationType);
         //}

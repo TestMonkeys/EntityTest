@@ -12,6 +12,7 @@ namespace UsageExample.PropertySetValidatorTests
     [TestClass]
     public class BlogPropertySetExample
     {
+        [Ignore]
         [TestMethod]
         public void BlogExample_PropertySet()
         {

@@ -16,27 +16,14 @@
 
 #endregion
 
-using System;
-using TestMonkey.Assertion.Constraints;
-using TestMonkey.Assertion.Constraints.Operators;
-using TestMonkeys.EntityTest.Matchers;
-
-namespace TestMonkeys.EntityTest.Engine
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class ByInterfaceOperator : SelfResolvingOperator
+    internal class DefaultStrategyBuilder<TStrategy> : ValidationStrategyBuilder<TStrategy>
+        where TStrategy : PropertyStrategy, new()
     {
-        private readonly Type type;
-
-        public ByInterfaceOperator(Type type)
+        public override TStrategy GetStrategy()
         {
-            this.type = type;
-        }
-
-        public override void Reduce(ConstraintBuilder.ConstraintStack stack)
-        {
-            var top = stack.Pop();
-            ((EntityComparisonMatcher) top).ByInterface(type);
-            stack.Push(top);
+            return new TStrategy();
         }
     }
 }

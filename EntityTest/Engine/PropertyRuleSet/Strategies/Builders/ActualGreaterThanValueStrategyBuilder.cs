@@ -16,27 +16,22 @@
 
 #endregion
 
-using System;
-using TestMonkey.Assertion.Constraints;
-using TestMonkey.Assertion.Constraints.Operators;
-using TestMonkeys.EntityTest.Matchers;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 
-namespace TestMonkeys.EntityTest.Engine
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class ByInterfaceOperator : SelfResolvingOperator
+    public class ActualGreaterThanValueStrategyBuilder : ValidationStrategyBuilder<ActualGreaterThanValueStrategy>
     {
-        private readonly Type type;
+        private readonly int number;
 
-        public ByInterfaceOperator(Type type)
+        public ActualGreaterThanValueStrategyBuilder(int number)
         {
-            this.type = type;
+            this.number = number;
         }
 
-        public override void Reduce(ConstraintBuilder.ConstraintStack stack)
+        public override ActualGreaterThanValueStrategy GetStrategy()
         {
-            var top = stack.Pop();
-            ((EntityComparisonMatcher) top).ByInterface(type);
-            stack.Push(top);
+            return new ActualGreaterThanValueStrategy(number);
         }
     }
 }

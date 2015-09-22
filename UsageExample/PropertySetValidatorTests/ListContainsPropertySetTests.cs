@@ -41,6 +41,7 @@ namespace UsageExample.PropertySetValidatorTests
             Assert.That(list, Entity.List.Contains(expected));
         }
 
+        [Ignore]
         [TestMethod]
         public void ListContains_PropertySet_Failure()
         {
@@ -60,6 +61,7 @@ namespace UsageExample.PropertySetValidatorTests
         }
 
 
+        [Ignore]
         [TestMethod]
         public void ListContains_PropertySet_Failure_Closestmatch()
         {

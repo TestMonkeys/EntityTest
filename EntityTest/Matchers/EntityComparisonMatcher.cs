@@ -27,8 +27,8 @@ namespace TestMonkeys.EntityTest.Matchers
     public class EntityComparisonMatcher : CustomMessageConstraint
     {
         private readonly object internalExpected;
-        private Type validationType;
         private bool isMatch;
+        private Type validationType;
 
         internal EntityComparisonMatcher(object expected)
         {
@@ -40,12 +40,6 @@ namespace TestMonkeys.EntityTest.Matchers
             Differences = new List<string>();
         }
 
-        public EntityComparisonMatcher ByInterface(Type byInterface)
-        {
-            validationType = byInterface;
-            return this;
-        }
-
         public EntityComparisonMatcher(object expected, Type validationType) : this(expected)
         {
             this.validationType = validationType;
@@ -53,6 +47,12 @@ namespace TestMonkeys.EntityTest.Matchers
 
         internal List<string> Differences { get; set; }
         protected override string DescriptionLine => "Property Set is not equal";
+
+        public EntityComparisonMatcher ByInterface(Type byInterface)
+        {
+            validationType = byInterface;
+            return this;
+        }
 
         public override bool Matches(object actual)
         {
