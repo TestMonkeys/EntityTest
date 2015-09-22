@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -35,10 +35,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
             rules = new Dictionary<Assembly, Dictionary<string, ObjectPropertyValidationModel>>();
         }
 
-        public static RuleStorage Instance
-        {
-            get { return instance ?? (instance = new RuleStorage()); }
-        }
+        public static RuleStorage Instance => instance ?? (instance = new RuleStorage());
 
         public void ClearRules()
         {
