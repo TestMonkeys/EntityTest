@@ -23,10 +23,10 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Constraints;
-using TestMonkey.EntityTest.Engine;
+using TestMonkeys.EntityTest.Engine;
 using Assert = TestMonkey.Assertion.Assert;
 
-namespace TestMonkey.EntityTest
+namespace TestMonkeys.EntityTest
 {
     public class CumulativeAssert
     {

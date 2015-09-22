@@ -18,7 +18,7 @@
 
 using System;
 
-namespace TestMonkey.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.PropertyAttributes
 {
     /// <summary>
     ///     Will ignore validation if expected value is default

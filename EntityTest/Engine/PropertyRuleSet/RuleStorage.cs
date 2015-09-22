@@ -17,12 +17,13 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.PropertyAttributes;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
     public class RuleStorage
     {
@@ -95,7 +96,9 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
             rule.ChildSetListProperty
                 .AddRange(
                     expectedProperties.Where(
-                        x => x.GetCustomAttributes(typeof (EntityListAttribute), true).Any())
+                        // x => x.GetCustomAttributes(typeof (EntityListAttribute), true).Any())
+                        x =>
+                            x.PropertyType != typeof (string) && (typeof (IEnumerable)).IsAssignableFrom(x.PropertyType))
                         .Select(prop => prop)
                         .ToList());
 

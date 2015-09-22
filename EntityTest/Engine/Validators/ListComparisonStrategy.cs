@@ -1,4 +1,4 @@
-﻿namespace TestMonkey.EntityTest.Engine.Validators
+﻿namespace TestMonkeys.EntityTest.Engine.Validators
 {
     //TODO: think of better naming
     public enum ListPositionComparisonStrategy

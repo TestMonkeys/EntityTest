@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-namespace TestMonkey.EntityTest.Engine
+namespace TestMonkeys.EntityTest.Engine
 {
     internal class FailureItem
     {

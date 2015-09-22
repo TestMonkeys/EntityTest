@@ -16,7 +16,7 @@
 
 #endregion
 
-namespace TestMonkey.EntityTest.Engine.HumanReadableMessages
+namespace TestMonkeys.EntityTest.Engine.HumanReadableMessages
 {
     public class Describe
     {

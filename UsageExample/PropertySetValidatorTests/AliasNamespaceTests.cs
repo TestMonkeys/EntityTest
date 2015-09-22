@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Exceptions;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 

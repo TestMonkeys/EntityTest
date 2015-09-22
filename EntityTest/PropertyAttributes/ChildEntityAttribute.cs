@@ -18,7 +18,7 @@
 
 using System;
 
-namespace TestMonkey.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.PropertyAttributes
 {
     /// <summary>
     ///     Will run a full properties validation for decorated property value

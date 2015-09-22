@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.PropertyAttributes;
 
 namespace AliasTestPack
 {

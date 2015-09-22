@@ -20,10 +20,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class ChildEntityListMatchingStrategy : PropertyMatchingStrategy
     {
@@ -32,11 +31,8 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             ParentContext parentContext = null)
         {
             var expectedValue = GetPropertyValue(expectedProperty, expectedObj);
-            if (!(expectedValue is IList))
-                throw new ImproperAttributeUsageException("Expected property " + expectedProperty.Name +
-                                                          " is not an instance of IList");
-
             var actualValue = GetPropertyValue(expectedProperty, actualObj);
+
             var listMatcher = new EntityListMatcher(parentContext);
             var entityListResult = listMatcher.Compare((IList) actualValue, (IList) expectedValue);
             var resultList = entityListResult.ListMatchResults;

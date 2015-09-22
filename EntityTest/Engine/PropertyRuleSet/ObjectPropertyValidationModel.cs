@@ -19,11 +19,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
     public class ObjectPropertyValidationModel
     {

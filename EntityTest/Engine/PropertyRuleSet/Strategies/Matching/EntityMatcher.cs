@@ -20,11 +20,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.HumanReadableMessages;
-using TestMonkey.EntityTest.Engine.Validators;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
+using TestMonkeys.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.PropertyAttributes;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     public class EntityMatcher : PropertyStrategy
     {
@@ -63,7 +63,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             {
                 var propertyName = property.Name;
                 ValidateActualConstraints(property, actual, parent, rule);
-                
+
                 if (rule.IgnoreValidationProperties.Contains(property))
                     continue;
                 if (!NeedsValidation(property, expected, rule))

@@ -19,9 +19,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     public class EntityListMatcher
     {

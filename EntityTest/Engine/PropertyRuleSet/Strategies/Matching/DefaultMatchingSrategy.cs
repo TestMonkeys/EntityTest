@@ -18,9 +18,9 @@
 
 using System.Collections.Generic;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class DefaultMatchingSrategy : PropertyMatchingStrategy
     {

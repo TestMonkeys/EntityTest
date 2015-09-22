@@ -18,7 +18,7 @@
 
 using System.Text;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
     public class ParentContext
     {

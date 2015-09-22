@@ -18,7 +18,7 @@
 
 using System;
 
-namespace TestMonkey.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.PropertyAttributes
 {
     /// <summary>
     ///     Will validate internalActual property with the defined property from the expected object

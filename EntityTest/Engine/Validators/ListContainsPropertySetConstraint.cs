@@ -20,10 +20,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TestMonkey.EntityTest.Engine.Constraints;
-using TestMonkey.EntityTest.Engine.HumanReadableMessages;
+using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
 
-namespace TestMonkey.EntityTest.Engine.Validators
+namespace TestMonkeys.EntityTest.Engine.Validators
 {
     public class ListContainsPropertySetConstraint : CustomMessageConstraint
     {

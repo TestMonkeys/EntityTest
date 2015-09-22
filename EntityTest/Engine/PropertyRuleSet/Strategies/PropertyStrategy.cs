@@ -18,9 +18,9 @@
 
 using System;
 using System.Reflection;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.PropertyAttributes;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
     public abstract class PropertyStrategy
     {

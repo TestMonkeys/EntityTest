@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Exceptions;
-using TestMonkey.EntityTest;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest;
+using TestMonkeys.EntityTest.PropertyAttributes;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 

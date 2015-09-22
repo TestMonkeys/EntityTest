@@ -16,9 +16,9 @@
 
 #endregion
 
-using TestMonkey.EntityTest.Engine.PropertyRuleSet;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet;
 
-namespace TestMonkey.EntityTest.Engine.Validators
+namespace TestMonkeys.EntityTest.Engine.Validators
 {
     public class MatchResult
     {
@@ -29,7 +29,9 @@ namespace TestMonkey.EntityTest.Engine.Validators
 
         public string GetMessage()
         {
-            return Parent == null ? $"Expected <{Expected}> but found <{Actual}>" : $"Expected <{Expected}> but found <{Actual}> for <{Parent}>";
+            return Parent == null
+                ? $"Expected <{Expected}> but found <{Actual}>"
+                : $"Expected <{Expected}> but found <{Actual}> for <{Parent}>";
         }
     }
 }

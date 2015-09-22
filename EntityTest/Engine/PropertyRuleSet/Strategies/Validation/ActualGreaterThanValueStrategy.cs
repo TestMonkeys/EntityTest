@@ -18,10 +18,10 @@
 
 using System;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.PropertyAttributes;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {
     public class ActualGreaterThanValueStrategy : PropertyValidationStrategy
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.PropertyAttributes;
 
 namespace UsageExample.PropertySetValidatorTests.TestObjects
 {

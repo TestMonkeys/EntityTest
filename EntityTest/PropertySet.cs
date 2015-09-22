@@ -17,9 +17,9 @@
 #endregion
 
 using System;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest
+namespace TestMonkeys.EntityTest
 {
     public static class PropertySet
     {

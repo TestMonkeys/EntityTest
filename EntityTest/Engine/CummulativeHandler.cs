@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestMonkey.EntityTest.Engine
+namespace TestMonkeys.EntityTest.Engine
 {
     internal class CummulativeHandler
     {

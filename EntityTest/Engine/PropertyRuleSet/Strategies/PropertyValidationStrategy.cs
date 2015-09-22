@@ -17,9 +17,9 @@
 #endregion
 
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
     public abstract class PropertyValidationStrategy : PropertyStrategy
     {

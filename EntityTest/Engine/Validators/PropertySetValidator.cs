@@ -19,10 +19,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TestMonkey.EntityTest.Engine.Constraints;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
+using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 
-namespace TestMonkey.EntityTest.Engine.Validators
+namespace TestMonkeys.EntityTest.Engine.Validators
 {
     public class PropertySetValidator : CustomMessageConstraint
     {

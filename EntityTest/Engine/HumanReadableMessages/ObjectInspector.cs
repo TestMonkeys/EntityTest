@@ -21,9 +21,9 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.PropertyAttributes;
 
-namespace TestMonkey.EntityTest.Engine.HumanReadableMessages
+namespace TestMonkeys.EntityTest.Engine.HumanReadableMessages
 {
     internal class ObjectInspector
     {

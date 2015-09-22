@@ -18,7 +18,7 @@
 
 using System;
 
-namespace TestMonkey.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.PropertyAttributes
 {
     [Serializable]
     public class ImproperAttributeUsageException : Exception

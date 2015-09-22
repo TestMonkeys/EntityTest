@@ -17,10 +17,10 @@
 #endregion
 
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.HumanReadableMessages;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {
     public class ActualNotNullStrategy : PropertyValidationStrategy
     {

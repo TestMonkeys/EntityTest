@@ -7,7 +7,7 @@
     <ProjectGuid>{A1F47C47-E051-4768-BD8F-5E79F15E4358}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestMonkey.EntityTest</RootNamespace>
+    <RootNamespace>TestMonkeys.EntityTest</RootNamespace>
     <AssemblyName>TestMonkeys.EntityTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -78,14 +78,18 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualNotNullStrategy.cs" />
     <Compile Include="Engine\Validators\EntityListComparisonResult.cs" />
     <Compile Include="Engine\Validators\EntityMatchResult.cs" />
+    <Compile Include="Engine\Validators\ItemsMatch.cs" />
     <Compile Include="Engine\Validators\ListComparisonStrategy.cs" />
     <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="Engine\Validators\MatchResult.cs" />
+    <Compile Include="Engine\Validators\OrderMatch.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyAttributes\ChildEntityAttribute.cs" />
     <Compile Include="PropertyAttributes\EntityListAttribute.cs" />
+    <Compile Include="PropertyAttributes\EnumerableOrderComparisonAttribute.cs" />
+    <Compile Include="PropertyAttributes\EnumerableValuesComparisonAttribute.cs" />
     <Compile Include="PropertyAttributes\IgnoreValidationAttribute.cs" />
     <Compile Include="PropertyAttributes\IgnoreValidationIfDefaultAttribute.cs" />
     <Compile Include="PropertyAttributes\ImproperAttributeUsageException.cs" />

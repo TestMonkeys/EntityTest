@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using TestMonkey.Assertion.Exceptions;
 
-namespace TestMonkey.EntityTest.Engine
+namespace TestMonkeys.EntityTest.Engine
 {
 #if NUnit
     public class MultilineException : NUnit.Framework.AssertionException

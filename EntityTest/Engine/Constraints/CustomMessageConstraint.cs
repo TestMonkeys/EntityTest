@@ -19,7 +19,7 @@
 using System.Text;
 using TestMonkey.Assertion.Constraints;
 
-namespace TestMonkey.EntityTest.Engine.Constraints
+namespace TestMonkeys.EntityTest.Engine.Constraints
 {
 #if NUnit
     public abstract class CustomMessageConstraint : NUnit.Framework.Constraints.Constraint

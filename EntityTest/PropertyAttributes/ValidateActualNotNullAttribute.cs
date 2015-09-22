@@ -18,7 +18,7 @@
 
 using System;
 
-namespace TestMonkey.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.PropertyAttributes
 {
     /// <summary>
     ///     Actual value will be validated to be not null

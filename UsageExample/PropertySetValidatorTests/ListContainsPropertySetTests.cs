@@ -5,8 +5,8 @@ using TestMonkey.Assertion.Exceptions;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 using System.Collections.Generic;
-using TestMonkey.EntityTest;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest;
+using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace UsageExample.PropertySetValidatorTests
 {

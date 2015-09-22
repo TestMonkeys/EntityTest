@@ -18,7 +18,7 @@
 
 using System.Collections.Generic;
 
-namespace TestMonkey.EntityTest.Engine.Validators
+namespace TestMonkeys.EntityTest.Engine.Validators
 {
     public class EntityMatchResult
     {

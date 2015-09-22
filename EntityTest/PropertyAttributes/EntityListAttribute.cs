@@ -17,9 +17,9 @@
 #endregion
 
 using System;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.PropertyAttributes
+namespace TestMonkeys.EntityTest.PropertyAttributes
 {
     /// <summary>
     ///     Will run a full properties validation for decorated List
@@ -27,14 +27,11 @@ namespace TestMonkey.EntityTest.PropertyAttributes
     [AttributeUsage(AttributeTargets.Property)]
     public class EntityListAttribute : Attribute
     {
-        public ListPositionComparisonStrategy PositionMatching { get; }
-        public ListValuesComparisonStrategy ValuesMatching { get; }
-
         public EntityListAttribute(ListPositionComparisonStrategy positionMatching,
             ListValuesComparisonStrategy valuesMatching)
         {
-            this.PositionMatching = positionMatching;
-            this.ValuesMatching = valuesMatching;
+            PositionMatching = positionMatching;
+            ValuesMatching = valuesMatching;
         }
 
         public EntityListAttribute()
@@ -42,5 +39,8 @@ namespace TestMonkey.EntityTest.PropertyAttributes
             PositionMatching = ListPositionComparisonStrategy.Strict;
             ValuesMatching = ListValuesComparisonStrategy.Strict;
         }
+
+        public ListPositionComparisonStrategy PositionMatching { get; }
+        public ListValuesComparisonStrategy ValuesMatching { get; }
     }
 }
