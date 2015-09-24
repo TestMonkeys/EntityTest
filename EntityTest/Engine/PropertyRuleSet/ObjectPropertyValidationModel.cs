@@ -31,18 +31,19 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
         {
             IgnoreValidationProperties = new List<PropertyInfo>();
             IgnoreValidationIfDefault = new List<PropertyInfo>();
-            ChildSetProperty = new List<PropertyInfo>();
-            ChildSetListProperty = new List<PropertyInfo>();
+            //ChildSetProperty = new List<PropertyInfo>();
+            //ChildSetListProperty = new List<PropertyInfo>();
             ValidateActualWithExpectedProperty = new Dictionary<PropertyInfo, string>();
 
             ValidationStrategyBuilders = new Dictionary<PropertyInfo, IValidationStrategyBuilder>();
+            MatchingStrategyBuilders = new Dictionary<PropertyInfo, IMatchingStrategyBuilder>();
         }
 
         public Type TargetType { get; set; }
         public List<PropertyInfo> IgnoreValidationProperties { get; private set; }
         public List<PropertyInfo> IgnoreValidationIfDefault { get; private set; }
-        public List<PropertyInfo> ChildSetProperty { get; }
-        public List<PropertyInfo> ChildSetListProperty { get; }
+        //public List<PropertyInfo> ChildSetProperty { get; }
+        //public List<PropertyInfo> ChildSetListProperty { get; }
         public Dictionary<PropertyInfo, string> ValidateActualWithExpectedProperty { get; private set; }
 
         /// <summary>
@@ -50,6 +51,12 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
         /// </summary>
         public Dictionary<PropertyInfo, IValidationStrategyBuilder>
             ValidationStrategyBuilders { get; set; }
+
+        /// <summary>
+        /// Matching strategy builders
+        /// </summary>
+        public Dictionary<PropertyInfo, IMatchingStrategyBuilder>
+            MatchingStrategyBuilders { get; set; } 
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)
         {
@@ -60,11 +67,14 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 
         public PropertyMatchingStrategy GetPropertyMatchingStrategy(PropertyInfo property)
         {
-            if (ChildSetProperty.Contains(property))
-                return new ChildEnitityMatchingStrategy();
-            if (ChildSetListProperty.Contains(property))
-                return new ChildEntityListMatchingStrategy();
-            return new DefaultMatchingSrategy();
+            //if (ChildSetProperty.Contains(property))
+                //return new ChildEnitityMatchingStrategy();
+            //if (ChildSetListProperty.Contains(property))
+                //return new ChildEntityListMatchingStrategy();
+            //return new DefaultMatchingSrategy();
+            return MatchingStrategyBuilders.ContainsKey(property)
+                ? MatchingStrategyBuilders[property].GetStrategy()
+                : null;
         }
     }
 }

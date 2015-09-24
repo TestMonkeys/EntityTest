@@ -31,11 +31,5 @@ namespace TestMonkeys.EntityTest
             resC.Append(new EntityComparisonMatcher(expected));
             return resC;
         }
-
-        //public static EntityComparisonMatcher EqualToByInterface(object expected, Type validationType)
-
-        //{
-        //    return new EntityComparisonMatcher(expected, validationType);
-        //}
     }
 }

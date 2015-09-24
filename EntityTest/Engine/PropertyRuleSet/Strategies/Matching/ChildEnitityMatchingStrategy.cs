@@ -24,11 +24,11 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class ChildEnitityMatchingStrategy : PropertyMatchingStrategy
     {
-        public override List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj,
-            PropertyInfo actualProperty = null, ParentContext parentContext = null)
+        public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+            PropertyInfo expectedProperty = null, ParentContext parentContext = null)
         {
-            var actualChild = GetPropertyValue(expectedProperty, actualObj);
-            var expectedChild = GetPropertyValue(actualProperty ?? expectedProperty, expectedObj);
+            var actualChild = GetPropertyValue(actualProperty, actualObj);
+            var expectedChild = GetPropertyValue(expectedProperty ?? actualProperty, expectedObj);
             var matcher = new EntityMatchingStrategy(parentContext);
             return matcher.Compare(actualChild, expectedChild);
         }

@@ -24,7 +24,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
     public abstract class PropertyMatchingStrategy : PropertyStrategy
     {
-        public abstract List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj
-            , PropertyInfo actualProperty = null, ParentContext parentContext = null);
+        public abstract List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj
+            , PropertyInfo expectedProperty = null, ParentContext parentContext = null);
     }
 }

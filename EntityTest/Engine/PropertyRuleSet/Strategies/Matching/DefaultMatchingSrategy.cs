@@ -24,13 +24,13 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class DefaultMatchingSrategy : PropertyMatchingStrategy
     {
-        public override List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj,
-            PropertyInfo actualProperty = null,
+        public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+            PropertyInfo expectedProperty = null,
             ParentContext parentContext = null)
         {
             var result = new List<MatchResult>();
-            var expectedValue = GetPropertyValue(expectedProperty, expectedObj);
-            var actualValue = GetPropertyValue(actualProperty ?? expectedProperty, actualObj);
+            var expectedValue = GetPropertyValue(actualProperty, expectedObj);
+            var actualValue = GetPropertyValue(expectedProperty ?? actualProperty, actualObj);
             if (!expectedValue.Equals(actualValue))
             {
                 result.Add(new MatchResult

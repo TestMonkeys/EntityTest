@@ -68,8 +68,11 @@
     <Compile Include="Engine\PropertyRuleSet\ObjectPropertyValidationModel.cs" />
     <Compile Include="Engine\PropertyRuleSet\ParentContext.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\ActualGreaterThanValueStrategyBuilder.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\DefaultMatchingStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\DefaultValidationStrategyBuilder.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\IMatchingStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\IValidationStrategyBuilder.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\MatchWithPropertyStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEnitityMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEntityListMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\DefaultMatchingSrategy.cs" />
@@ -79,7 +82,6 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyValidationStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\RuleStorage.cs" />
-    <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\StrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualGreaterThanValueStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualNotNullStrategy.cs" />
     <Compile Include="Engine\Validators\EntityListComparisonResult.cs" />

@@ -16,12 +16,11 @@
 
 #endregion
 
-using System;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class ActualGreaterThanValueStrategyBuilder : ValidationStrategyBuilder<ActualGreaterThanValueStrategy>, IValidationStrategyBuilder
+    public class ActualGreaterThanValueStrategyBuilder : IValidationStrategyBuilder
     {
         private readonly int number;
 
@@ -30,14 +29,9 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
             this.number = number;
         }
 
-        public override ActualGreaterThanValueStrategy GetStrategy()
+        public PropertyValidationStrategy GetStrategy()
         {
             return new ActualGreaterThanValueStrategy(number);
-        }
-
-        PropertyValidationStrategy IValidationStrategyBuilder.GetStrategy()
-        {
-            return GetStrategy();
         }
     }
 }

@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 using TestMonkeys.EntityTest.Framework;
 
@@ -66,15 +67,41 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 
             var expectedProperties = objType.GetProperties();
 
-            //rule.ActualNotNullProperties
-            //  .AddRange(
-            var notNullProps = expectedProperties.Where(
-                x => x.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any())
-                .Select(prop => prop)
-                .ToList();
-            foreach (var prop in notNullProps)
-                rule.ValidationStrategyBuilders.Add(prop, new DefaultValidationStrategyBuilder<ActualNotNullStrategy>());
+            foreach (var property in expectedProperties)
+            {
+                if (property.PropertyType != typeof(string) &&
+                             (typeof(IEnumerable)).IsAssignableFrom(property.PropertyType))
+                {
+                    rule.MatchingStrategyBuilders.Add(property, new DefaultMatchingStrategyBuilder<ChildEntityListMatchingStrategy>());
+                }
+                
+                var attributes = property.GetCustomAttributes(true);
+                foreach (var attribute in attributes)
+                {
+                    //Comparison Strategies
+                    if ((typeof(ChildEntityAttribute)== attribute.GetType()))
+                        rule.MatchingStrategyBuilders.Add(property,new DefaultMatchingStrategyBuilder<ChildEnitityMatchingStrategy>() );
+                    else 
+                    //Validation Strategies
+                    if ((typeof(ValidateActualGreaterThanAttribute))==attribute.GetType())
+                    {
+                        var minValue = ((ValidateActualGreaterThanAttribute) attribute).Value;
+                        rule.ValidationStrategyBuilders.Add(property, new ActualGreaterThanValueStrategyBuilder(minValue));
+                    }
+                    if ((typeof (ValidateActualNotNullAttribute)) == attribute.GetType())
+                    {
+                        rule.ValidationStrategyBuilders.Add(property, new DefaultValidationStrategyBuilder<ActualNotNullStrategy>());
+                    }
+                }
+                if (!rule.MatchingStrategyBuilders.ContainsKey(property))
+                {
+                    rule.MatchingStrategyBuilders.Add(property, new DefaultMatchingStrategyBuilder<DefaultMatchingSrategy>());
+                }
+            }
 
+
+            
+            ///Operations
             rule.IgnoreValidationProperties
                 .AddRange(
                     expectedProperties.Where(x => x.GetCustomAttributes(typeof (IgnoreValidationAttribute), true).Any())
@@ -88,42 +115,16 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                         .Select(prop => prop)
                         .ToList());
 
-            rule.ChildSetProperty
-                .AddRange(
-                    expectedProperties.Where(x => x.GetCustomAttributes(typeof (ChildEntityAttribute), true).Any())
-                        .Select(prop => prop)
-                        .ToList());
-
-            rule.ChildSetListProperty
-                .AddRange(
-                    expectedProperties.Where(
-                        // x => x.GetCustomAttributes(typeof (EntityListAttribute), true).Any())
-                        x =>
-                            x.PropertyType != typeof (string) && (typeof (IEnumerable)).IsAssignableFrom(x.PropertyType))
-                        .Select(prop => prop)
-                        .ToList());
-
-            var greater =
-                expectedProperties.Where(
-                    x => x.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any())
-                    .ToList();
-            foreach (var property in greater)
-            {
-                var minValue = ((ValidateActualGreaterThanAttribute)
-                    property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).First()).Value;
-                //rule.ActualGreaterProperties.Add(property, minValue);
-                rule.ValidationStrategyBuilders.Add(property, new ActualGreaterThanValueStrategyBuilder(minValue));
-            }
-
             var validateWith =
-                expectedProperties.Where(x => x.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).Any())
+                expectedProperties.Where(x => x.GetCustomAttributes(typeof(ValidateWithPropertyAttribute), true).Any())
                     .ToList();
             foreach (var property in validateWith)
             {
                 var validationProp = ((ValidateWithPropertyAttribute)
-                    property.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).First()).PropertyName;
+                    property.GetCustomAttributes(typeof(ValidateWithPropertyAttribute), true).First()).PropertyName;
                 rule.ValidateActualWithExpectedProperty.Add(property, validationProp);
             }
+           
             rules[objType.Assembly].Add(objType.FullName, rule);
         }
     }

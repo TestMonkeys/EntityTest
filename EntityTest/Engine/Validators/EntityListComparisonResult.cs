@@ -23,9 +23,7 @@ namespace TestMonkeys.EntityTest.Engine.Validators
     public class EntityListComparisonResult
     {
         public List<EntityMatchResult> EntityMatchResults { get; set; }
-
         public List<MatchResult> ListMatchResults { get; set; }
-
         public bool Equal { get; set; }
     }
 }
