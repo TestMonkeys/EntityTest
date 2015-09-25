@@ -16,7 +16,7 @@
 
 #endregion
 
-using TestMonkey.Assertion.Constraints;
+using NUnit.Framework.Constraints;
 using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest
@@ -33,16 +33,12 @@ namespace TestMonkeys.EntityTest
             return new ListContainsPropertySetConstraint(expected, actionOnFailure);
         }
 
-#if NUnit
-        public NUnit.Framework.Constraints.Constraint None(object expected)
-        {
-            return NUnit.Framework.Constraints.NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
-        }
-#else
+
         public Constraint None(object expected)
         {
             return new NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
         }
-#endif
+
+
     }
 }

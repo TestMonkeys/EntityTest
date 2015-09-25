@@ -17,8 +17,7 @@
 #endregion
 
 using System;
-using TestMonkey.Assertion.Constraints;
-using TestMonkey.Assertion.Constraints.Operators;
+using NUnit.Framework.Constraints;
 using TestMonkeys.EntityTest.Matchers;
 
 namespace TestMonkeys.EntityTest.Engine

@@ -20,6 +20,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
 using TestMonkeys.EntityTest.Engine.Constraints;
 using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
 using TestMonkeys.EntityTest.Matchers;
@@ -42,8 +43,9 @@ namespace TestMonkeys.EntityTest.Engine.Validators
             get { return "Expected object not found in list"; }
         }
 
-        public override bool Matches(object actual)
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
+            var cresult = new CustomConstraintResult(this, actual) {Status = ConstraintStatus.Error};
             if (!(actual is IList))
                 throw new InvalidOperationException("Actual object should be a list");
             var actualAndDiff = new Dictionary<object, List<string>>();
@@ -51,7 +53,10 @@ namespace TestMonkeys.EntityTest.Engine.Validators
             {
                 var propertyValidator = new EntityComparisonMatcher(expected);
                 if (propertyValidator.Matches(actualItem))
-                    return true;
+                {
+                    cresult.Status = ConstraintStatus.Success;
+                    return cresult;
+                }
                 actualAndDiff.Add(actualItem, propertyValidator.Differences);
             }
             switch (actionOnFailure)
@@ -97,7 +102,9 @@ namespace TestMonkeys.EntityTest.Engine.Validators
                     break;
             }
 
-            return false;
+            cresult.MessageBuilder=messageBuilder;
+            cresult.Status=ConstraintStatus.Failure;
+            return cresult;
         }
     }
 }

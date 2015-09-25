@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
 using TestMonkeys.EntityTest.Engine.Constraints;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 
@@ -47,6 +48,7 @@ namespace TestMonkeys.EntityTest.Matchers
 
         internal List<string> Differences { get; set; }
         protected override string DescriptionLine => "Property Set is not equal";
+        public override string Description => "Property Set is not equal";
 
         public EntityComparisonMatcher ByInterface(Type byInterface)
         {
@@ -54,7 +56,7 @@ namespace TestMonkeys.EntityTest.Matchers
             return this;
         }
 
-        public override bool Matches(object actual)
+        public bool Matches(object actual)
         {
             var matcher = new EntityMatchingStrategy();
             var result = matcher.Compare(actual, internalExpected, validationType);
@@ -64,6 +66,22 @@ namespace TestMonkeys.EntityTest.Matchers
                 messageBuilder.AppendFormat(mismatch.GetMessage()).Append(Environment.NewLine);
             }
             return isMatch;
+        }
+
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            var cresult = new CustomConstraintResult(this, actual) {Status = ConstraintStatus.Error};
+
+            var matcher = new EntityMatchingStrategy();
+            var result = matcher.Compare(actual, internalExpected, validationType);
+            cresult.Status = result.All(x => x.Success)?ConstraintStatus.Success : ConstraintStatus.Failure;
+            
+            foreach (var mismatch in result.Where(mismatch => !mismatch.Success))
+            {
+                messageBuilder.AppendFormat(mismatch.GetMessage()).Append(Environment.NewLine);
+            }
+            cresult.MessageBuilder = messageBuilder;
+            return cresult;
         }
     }
 }
