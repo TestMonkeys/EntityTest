@@ -16,34 +16,20 @@
 
 #endregion
 
-using System.Text;
-
+using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 namespace TestMonkeys.EntityTest.Engine.Constraints
 {
-
-    public abstract class CustomMessageConstraint : NUnit.Framework.Constraints.Constraint
+    public abstract class CustomMessageConstraint : Constraint
     {
-        protected readonly StringBuilder messageBuilder;
+        protected readonly List<string> messageList;
 
         protected CustomMessageConstraint()
         {
-            messageBuilder = new StringBuilder();
+            messageList = new List<string>();
         }
 
         protected abstract string DescriptionLine { get; }
-
-
-        //public override void WriteDescriptionTo(NUnit.Framework.Constraints.MessageWriter writer)
-        //{
-        //    writer.WriteMessageLine(DescriptionLine);
-        //}
-
-        //public override void WriteMessageTo(NUnit.Framework.Constraints.MessageWriter writer)
-        //{
-        //    WriteDescriptionTo(writer);
-        //    writer.WriteMessageLine(3, messageBuilder.ToString());
-        //}
-
     }
 }

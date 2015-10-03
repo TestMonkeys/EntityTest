@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
@@ -53,10 +52,10 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
             ValidationStrategyBuilders { get; set; }
 
         /// <summary>
-        /// Matching strategy builders
+        ///     Matching strategy builders
         /// </summary>
         public Dictionary<PropertyInfo, IMatchingStrategyBuilder>
-            MatchingStrategyBuilders { get; set; } 
+            MatchingStrategyBuilders { get; set; }
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)
         {
@@ -68,9 +67,9 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
         public PropertyMatchingStrategy GetPropertyMatchingStrategy(PropertyInfo property)
         {
             //if (ChildSetProperty.Contains(property))
-                //return new ChildEnitityMatchingStrategy();
+            //return new ChildEnitityMatchingStrategy();
             //if (ChildSetListProperty.Contains(property))
-                //return new ChildEntityListMatchingStrategy();
+            //return new ChildEntityListMatchingStrategy();
             //return new DefaultMatchingSrategy();
             return MatchingStrategyBuilders.ContainsKey(property)
                 ? MatchingStrategyBuilders[property].GetStrategy()

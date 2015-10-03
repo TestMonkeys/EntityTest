@@ -63,7 +63,7 @@ namespace TestMonkeys.EntityTest.Matchers
             isMatch = result.All(x => x.Success);
             foreach (var mismatch in result.Where(mismatch => !mismatch.Success))
             {
-                messageBuilder.AppendFormat(mismatch.GetMessage()).Append(Environment.NewLine);
+                messageList.Add(mismatch.GetMessage());
             }
             return isMatch;
         }
@@ -74,13 +74,13 @@ namespace TestMonkeys.EntityTest.Matchers
 
             var matcher = new EntityMatchingStrategy();
             var result = matcher.Compare(actual, internalExpected, validationType);
-            cresult.Status = result.All(x => x.Success)?ConstraintStatus.Success : ConstraintStatus.Failure;
-            
+            cresult.Status = result.All(x => x.Success) ? ConstraintStatus.Success : ConstraintStatus.Failure;
+
             foreach (var mismatch in result.Where(mismatch => !mismatch.Success))
             {
-                messageBuilder.AppendFormat(mismatch.GetMessage()).Append(Environment.NewLine);
+                messageList.Add(mismatch.GetMessage());
             }
-            cresult.MessageBuilder = messageBuilder;
+            cresult.MessageList = messageList;
             return cresult;
         }
     }

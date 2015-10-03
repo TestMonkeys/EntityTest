@@ -19,7 +19,6 @@
 using System;
 using NUnit.Framework.Constraints;
 
-
 namespace TestMonkeys.EntityTest.Engine.Constraints
 {
     public class EntityResolvableConstraintExpression : ResolvableConstraintExpression

@@ -69,38 +69,42 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 
             foreach (var property in expectedProperties)
             {
-                if (property.PropertyType != typeof(string) &&
-                             (typeof(IEnumerable)).IsAssignableFrom(property.PropertyType))
+                if (property.PropertyType != typeof (string) &&
+                    (typeof (IEnumerable)).IsAssignableFrom(property.PropertyType))
                 {
-                    rule.MatchingStrategyBuilders.Add(property, new DefaultMatchingStrategyBuilder<ChildEntityListMatchingStrategy>());
+                    rule.MatchingStrategyBuilders.Add(property,
+                        new DefaultMatchingStrategyBuilder<ChildEntityListMatchingStrategy>());
                 }
-                
+
                 var attributes = property.GetCustomAttributes(true);
                 foreach (var attribute in attributes)
                 {
                     //Comparison Strategies
-                    if ((typeof(ChildEntityAttribute)== attribute.GetType()))
-                        rule.MatchingStrategyBuilders.Add(property,new DefaultMatchingStrategyBuilder<ChildEnitityMatchingStrategy>() );
-                    else 
+                    if ((typeof (ChildEntityAttribute) == attribute.GetType()))
+                        rule.MatchingStrategyBuilders.Add(property,
+                            new DefaultMatchingStrategyBuilder<ChildEnitityMatchingStrategy>());
+                    else
                     //Validation Strategies
-                    if ((typeof(ValidateActualGreaterThanAttribute))==attribute.GetType())
-                    {
-                        var minValue = ((ValidateActualGreaterThanAttribute) attribute).Value;
-                        rule.ValidationStrategyBuilders.Add(property, new ActualGreaterThanValueStrategyBuilder(minValue));
-                    }
+                        if ((typeof (ValidateActualGreaterThanAttribute)) == attribute.GetType())
+                        {
+                            var minValue = ((ValidateActualGreaterThanAttribute) attribute).Value;
+                            rule.ValidationStrategyBuilders.Add(property,
+                                new ActualGreaterThanValueStrategyBuilder(minValue));
+                        }
                     if ((typeof (ValidateActualNotNullAttribute)) == attribute.GetType())
                     {
-                        rule.ValidationStrategyBuilders.Add(property, new DefaultValidationStrategyBuilder<ActualNotNullStrategy>());
+                        rule.ValidationStrategyBuilders.Add(property,
+                            new DefaultValidationStrategyBuilder<ActualNotNullStrategy>());
                     }
                 }
                 if (!rule.MatchingStrategyBuilders.ContainsKey(property))
                 {
-                    rule.MatchingStrategyBuilders.Add(property, new DefaultMatchingStrategyBuilder<DefaultMatchingSrategy>());
+                    rule.MatchingStrategyBuilders.Add(property,
+                        new DefaultMatchingStrategyBuilder<DefaultMatchingSrategy>());
                 }
             }
 
 
-            
             ///Operations
             rule.IgnoreValidationProperties
                 .AddRange(
@@ -116,15 +120,15 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                         .ToList());
 
             var validateWith =
-                expectedProperties.Where(x => x.GetCustomAttributes(typeof(ValidateWithPropertyAttribute), true).Any())
+                expectedProperties.Where(x => x.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).Any())
                     .ToList();
             foreach (var property in validateWith)
             {
                 var validationProp = ((ValidateWithPropertyAttribute)
-                    property.GetCustomAttributes(typeof(ValidateWithPropertyAttribute), true).First()).PropertyName;
+                    property.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).First()).PropertyName;
                 rule.ValidateActualWithExpectedProperty.Add(property, validationProp);
             }
-           
+
             rules[objType.Assembly].Add(objType.FullName, rule);
         }
     }

@@ -33,12 +33,9 @@ namespace TestMonkeys.EntityTest
             return new ListContainsPropertySetConstraint(expected, actionOnFailure);
         }
 
-
         public Constraint None(object expected)
         {
             return new NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
         }
-
-
     }
 }

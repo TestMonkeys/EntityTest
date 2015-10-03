@@ -38,10 +38,7 @@ namespace TestMonkeys.EntityTest.Engine.Validators
             this.actionOnFailure = actionOnFailure;
         }
 
-        protected override string DescriptionLine
-        {
-            get { return "Expected object not found in list"; }
-        }
+        protected override string DescriptionLine => "Expected object not found in list";
 
         public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
@@ -64,15 +61,14 @@ namespace TestMonkeys.EntityTest.Engine.Validators
                 case OnListContainsFailure.DoNothing:
                     break;
                 case OnListContainsFailure.DisplayExpectedAndActualList:
-                    messageBuilder.Append("Expected item:").Append(Environment.NewLine);
-                    messageBuilder.Append(Describe.Object(expected)).Append(Environment.NewLine);
-                    messageBuilder.Append(Environment.NewLine);
+                    messageList.Add("Expected item:{0}");
+                    messageList.Add(Describe.Object(expected));
                     var position = 0;
-                    messageBuilder.Append("Actual List:").Append(Environment.NewLine);
+                    messageList.Add("Actual List:");
                     foreach (var item in ((IList) actual))
                     {
-                        messageBuilder.Append("Item[").Append(position).Append("]").Append(Environment.NewLine);
-                        messageBuilder.Append(Describe.Object(item)).Append(Environment.NewLine);
+                        messageList.Add($"Item[{position}]");
+                        messageList.Add(Describe.Object(item));
                         position++;
                     }
 
@@ -83,27 +79,26 @@ namespace TestMonkeys.EntityTest.Engine.Validators
                     if (biggestDifference != smallestDifference || actualAndDiff.Count == 1)
                     {
                         var closestMatches = actualAndDiff.Where(x => x.Value.Count == smallestDifference);
-                        messageBuilder.Append("Expected item:").Append(Environment.NewLine);
-                        messageBuilder.Append(Describe.Object(expected)).Append(Environment.NewLine);
-                        messageBuilder.Append(Environment.NewLine);
-                        messageBuilder.Append("Closest matches:").Append(Environment.NewLine);
+                        messageList.Add("Expected item:");
+                        messageList.Add(Describe.Object(expected));
+
+                        messageList.Add("Closest matches:");
                         foreach (var closestMatch in closestMatches)
                         {
-                            messageBuilder.Append("Item Description:").Append(Environment.NewLine);
-                            messageBuilder.Append(Describe.Object(closestMatch.Key)).Append(Environment.NewLine);
-                            messageBuilder.Append("Diff:").Append(Environment.NewLine);
+                            messageList.Add("Item Description:");
+                            messageList.Add(Describe.Object(closestMatch.Key));
+                            messageList.Add("Diff:");
                             foreach (var diff in closestMatch.Value)
                             {
-                                messageBuilder.AppendLine(diff);
+                                messageList.Add(diff);
                             }
-                            messageBuilder.Append(Environment.NewLine);
                         }
                     }
                     break;
             }
 
-            cresult.MessageBuilder=messageBuilder;
-            cresult.Status=ConstraintStatus.Failure;
+            cresult.MessageList = messageList;
+            cresult.Status = ConstraintStatus.Failure;
             return cresult;
         }
     }
