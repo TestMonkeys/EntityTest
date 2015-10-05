@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -18,18 +18,18 @@
 
 using System.Collections.Generic;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class ChildEnitityMatchingStrategy : PropertyMatchingStrategy
     {
-        public override List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj,
-            PropertyInfo actualProperty = null, ParentContext parentContext = null)
+        public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+            PropertyInfo expectedProperty = null, ParentContext parentContext = null)
         {
-            var actualChild = GetPropertyValue(expectedProperty, actualObj);
-            var expectedChild = GetPropertyValue(actualProperty ?? expectedProperty, expectedObj);
-            var matcher = new EntityMatcher(parentContext);
+            var actualChild = GetPropertyValue(actualProperty, actualObj);
+            var expectedChild = GetPropertyValue(expectedProperty ?? actualProperty, expectedObj);
+            var matcher = new EntityMatchingStrategy(parentContext);
             return matcher.Compare(actualChild, expectedChild);
         }
     }

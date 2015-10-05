@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -18,10 +18,10 @@
 
 using System;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Framework;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {
     public class ActualGreaterThanValueStrategy : PropertyValidationStrategy
     {

@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -20,24 +20,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class ChildEntityListMatchingStrategy : PropertyMatchingStrategy
     {
-        public override List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj,
-            PropertyInfo actualProperty = null,
+        public OrderMatch PositionComparison { get; set; }
+        public ItemsMatch ValuesComparison { get; set; }
+
+        public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+            PropertyInfo expectedProperty = null,
             ParentContext parentContext = null)
         {
-            var expectedValue = GetPropertyValue(expectedProperty, expectedObj);
-            if (!(expectedValue is IList))
-                throw new ImproperAttributeUsageException("Expected property " + expectedProperty.Name +
-                                                          " is not an instance of IList");
+            var expectedValue = GetPropertyValue(actualProperty, expectedObj);
+            var actualValue = GetPropertyValue(actualProperty, actualObj);
 
-            var actualValue = GetPropertyValue(expectedProperty, actualObj);
-            var listMatcher = new EntityListMatcher(parentContext);
+            var listMatcher = new EntityListMatchingStrategy(parentContext);
+            listMatcher.PositionComparison = PositionComparison;
+            listMatcher.ValuesComparison = ValuesComparison;
             var entityListResult = listMatcher.Compare((IList) actualValue, (IList) expectedValue);
             var resultList = entityListResult.ListMatchResults;
             resultList.AddRange(entityListResult.EntityMatchResults.SelectMany(x => x.MemberResults).ToList());

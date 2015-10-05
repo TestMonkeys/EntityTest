@@ -1,10 +1,10 @@
-﻿using TestMonkey.EntityTest.PropertyAttributes;
+﻿using TestMonkeys.EntityTest.Framework;
 
 namespace UsageExample.PropertySetValidatorTests.TestObjects
 {
     public class TestObjectWithChildSet
     {
-        [ChildPropertySet]
+        [ChildEntity]
         public TestObjectWithChildSet Child { get; set; }
 
         public string ValidationProperty { get; set; }

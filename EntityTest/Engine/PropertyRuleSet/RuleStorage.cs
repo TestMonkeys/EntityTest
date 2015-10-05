@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -17,12 +17,16 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
+using TestMonkeys.EntityTest.Framework;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
     public class RuleStorage
     {
@@ -34,10 +38,7 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
             rules = new Dictionary<Assembly, Dictionary<string, ObjectPropertyValidationModel>>();
         }
 
-        public static RuleStorage Instance
-        {
-            get { return instance ?? (instance = new RuleStorage()); }
-        }
+        public static RuleStorage Instance => instance ?? (instance = new RuleStorage());
 
         public void ClearRules()
         {
@@ -66,49 +67,58 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
 
             var expectedProperties = objType.GetProperties();
 
-            rule.ActualNotNullProperties
-                .AddRange(
-                    expectedProperties.Where(
-                        x => x.GetCustomAttributes(typeof (ValidateActualNotNullAttribute), true).Any())
-                        .Select(prop => prop.Name)
-                        .ToList());
+            foreach (var property in expectedProperties)
+            {
+                if (property.PropertyType != typeof (string) &&
+                    (typeof (IEnumerable)).IsAssignableFrom(property.PropertyType))
+                {
+                    var matcher = new EntityListMatcherStrategyBuilder();
+                    matcher.ApplyConstraints(property.GetCustomAttributes(true));
+                    rule.MatchingStrategyBuilders.Add(property, matcher);
+                }
 
+                var attributes = property.GetCustomAttributes(true);
+                foreach (var attribute in attributes)
+                {
+                    //Comparison Strategies
+                    if ((typeof (ChildEntityAttribute) == attribute.GetType()))
+                        rule.MatchingStrategyBuilders.Add(property,
+                            new DefaultMatchingStrategyBuilder<ChildEnitityMatchingStrategy>());
+                    else
+                    //Validation Strategies
+                        if ((typeof (ValidateActualGreaterThanAttribute)) == attribute.GetType())
+                        {
+                            var minValue = ((ValidateActualGreaterThanAttribute) attribute).Value;
+                            rule.ValidationStrategyBuilders.Add(property,
+                                new ActualGreaterThanValueStrategyBuilder(minValue));
+                        }
+                    if ((typeof (ValidateActualNotNullAttribute)) == attribute.GetType())
+                    {
+                        rule.ValidationStrategyBuilders.Add(property,
+                            new DefaultValidationStrategyBuilder<ActualNotNullStrategy>());
+                    }
+                }
+                if (!rule.MatchingStrategyBuilders.ContainsKey(property))
+                {
+                    rule.MatchingStrategyBuilders.Add(property,
+                        new DefaultMatchingStrategyBuilder<DefaultMatchingSrategy>());
+                }
+            }
+
+
+            ///Operations
             rule.IgnoreValidationProperties
                 .AddRange(
                     expectedProperties.Where(x => x.GetCustomAttributes(typeof (IgnoreValidationAttribute), true).Any())
-                        .Select(prop => prop.Name)
+                        .Select(prop => prop)
                         .ToList());
 
             rule.IgnoreValidationIfDefault
                 .AddRange(
                     expectedProperties.Where(
                         x => x.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any())
-                        .Select(prop => prop.Name)
+                        .Select(prop => prop)
                         .ToList());
-
-            rule.ChildSetProperty
-                .AddRange(
-                    expectedProperties.Where(x => x.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
-                        .Select(prop => prop.Name)
-                        .ToList());
-
-            rule.ChildSetListProperty
-                .AddRange(
-                    expectedProperties.Where(
-                        x => x.GetCustomAttributes(typeof (ChildPropertySetListAttribute), true).Any())
-                        .Select(prop => prop.Name)
-                        .ToList());
-
-            var greater =
-                expectedProperties.Where(
-                    x => x.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).Any())
-                    .ToList();
-            foreach (var property in greater)
-            {
-                var minValue = ((ValidateActualGreaterThanAttribute)
-                    property.GetCustomAttributes(typeof (ValidateActualGreaterThanAttribute), true).First()).Value;
-                rule.ActualGreaterProperties.Add(property.Name, minValue);
-            }
 
             var validateWith =
                 expectedProperties.Where(x => x.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).Any())
@@ -117,8 +127,9 @@ namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
             {
                 var validationProp = ((ValidateWithPropertyAttribute)
                     property.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).First()).PropertyName;
-                rule.ValidateActualWithExpectedProperty.Add(property.Name, validationProp);
+                rule.ValidateActualWithExpectedProperty.Add(property, validationProp);
             }
+
             rules[objType.Assembly].Add(objType.FullName, rule);
         }
     }

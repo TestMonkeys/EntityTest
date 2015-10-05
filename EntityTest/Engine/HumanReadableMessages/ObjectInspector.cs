@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -21,9 +21,9 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Framework;
 
-namespace TestMonkey.EntityTest.Engine.HumanReadableMessages
+namespace TestMonkeys.EntityTest.Engine.HumanReadableMessages
 {
     internal class ObjectInspector
     {
@@ -84,7 +84,7 @@ namespace TestMonkey.EntityTest.Engine.HumanReadableMessages
                 return;
             }
 
-            if (property.GetCustomAttributes(typeof (ChildPropertySetAttribute), true).Any())
+            if (property.GetCustomAttributes(typeof (ChildEntityAttribute), true).Any())
             {
                 ProcessPropertyObject(property, value);
                 return;

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Exceptions;
-using TestMonkey.EntityTest;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest;
+using TestMonkeys.EntityTest.Framework;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 
@@ -21,7 +21,7 @@ namespace UsageExample.PropertySetValidatorTests
             var ex = Assert.Throws(typeof (ImproperTypeUsageException),
                                    () =>
                                    Assert.That(actual,
-                                               PropertySet.EqualToByInterface(expected, typeof (TestObjectWithChildList))));
+                                               Entity.EqualTo(expected).ByInterface(typeof(TestObjectWithChildList))));
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message,
                         Is.EqualTo(
@@ -62,7 +62,7 @@ namespace UsageExample.PropertySetValidatorTests
                     Value1 = "Value1",
                     Object2Value = "Value2"
                 };
-            Assert.That(object2, PropertySet.EqualToByInterface(object1, typeof (ITestObject)));
+            Assert.That(object2, Entity.EqualTo(object1).ByInterface(typeof (ITestObject)));
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@ namespace UsageExample.PropertySetValidatorTests
             messageCheck.AddPropertyLine("ValidationPropertyCCustom", "ValidationProperty", "CustomValidation");
             var ex = Assert.Throws(typeof (AssertionFailedException),
                                    () =>
-                                   Assert.That(object2, PropertySet.EqualToByInterface(object1, typeof (ITestObject))));
+                                   Assert.That(object2, Entity.EqualTo(object1).ByInterface(typeof (ITestObject))));
 
             messageCheck.Check(ex);
         }

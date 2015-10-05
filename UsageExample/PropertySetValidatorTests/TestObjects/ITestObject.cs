@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Framework;
 
 namespace UsageExample.PropertySetValidatorTests.TestObjects
 {
@@ -14,7 +14,6 @@ namespace UsageExample.PropertySetValidatorTests.TestObjects
         [IgnoreValidation]
         string ValidationCustomValidation { get; }
 
-        [ChildPropertySetList]
         List<TestObjectWithChildSet> ChildList { get; set; }
     }
 }

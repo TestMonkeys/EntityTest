@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -19,50 +19,61 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
-using TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
     public class ObjectPropertyValidationModel
     {
         public ObjectPropertyValidationModel()
         {
-            ActualNotNullProperties = new List<string>();
-            IgnoreValidationProperties = new List<string>();
-            IgnoreValidationIfDefault = new List<string>();
-            ChildSetProperty = new List<string>();
-            ChildSetListProperty = new List<string>();
-            ActualGreaterProperties = new Dictionary<string, int>();
-            ValidateActualWithExpectedProperty = new Dictionary<string, string>();
+            IgnoreValidationProperties = new List<PropertyInfo>();
+            IgnoreValidationIfDefault = new List<PropertyInfo>();
+            //ChildSetProperty = new List<PropertyInfo>();
+            //ChildSetListProperty = new List<PropertyInfo>();
+            ValidateActualWithExpectedProperty = new Dictionary<PropertyInfo, string>();
+
+            ValidationStrategyBuilders = new Dictionary<PropertyInfo, IValidationStrategyBuilder>();
+            MatchingStrategyBuilders = new Dictionary<PropertyInfo, IMatchingStrategyBuilder>();
         }
 
         public Type TargetType { get; set; }
-        public List<string> ActualNotNullProperties { get; }
-        public List<string> IgnoreValidationProperties { get; private set; }
-        public List<string> IgnoreValidationIfDefault { get; private set; }
-        public List<string> ChildSetProperty { get; }
-        public List<string> ChildSetListProperty { get; }
-        public Dictionary<string, int> ActualGreaterProperties { get; }
-        public Dictionary<string, string> ValidateActualWithExpectedProperty { get; private set; }
+        public List<PropertyInfo> IgnoreValidationProperties { get; private set; }
+        public List<PropertyInfo> IgnoreValidationIfDefault { get; private set; }
+        //public List<PropertyInfo> ChildSetProperty { get; }
+        //public List<PropertyInfo> ChildSetListProperty { get; }
+        public Dictionary<PropertyInfo, string> ValidateActualWithExpectedProperty { get; private set; }
+
+        /// <summary>
+        ///     Validation Strategy builders
+        /// </summary>
+        public Dictionary<PropertyInfo, IValidationStrategyBuilder>
+            ValidationStrategyBuilders { get; set; }
+
+        /// <summary>
+        ///     Matching strategy builders
+        /// </summary>
+        public Dictionary<PropertyInfo, IMatchingStrategyBuilder>
+            MatchingStrategyBuilders { get; set; }
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)
         {
-            if (ActualNotNullProperties.Contains(property.Name))
-                return new ActualNotNullStrategy();
-            if (ActualGreaterProperties.ContainsKey(property.Name))
-                return new ActualGreaterThanValueStrategy(ActualGreaterProperties[property.Name]);
-            return null;
+            return ValidationStrategyBuilders.ContainsKey(property)
+                ? ValidationStrategyBuilders[property].GetStrategy()
+                : null;
         }
 
         public PropertyMatchingStrategy GetPropertyMatchingStrategy(PropertyInfo property)
         {
-            if (ChildSetProperty.Contains(property.Name))
-                return new ChildEnitityMatchingStrategy();
-            if (ChildSetListProperty.Contains(property.Name))
-                return new ChildEntityListMatchingStrategy();
-            return new DefaultMatchingSrategy();
+            //if (ChildSetProperty.Contains(property))
+            //return new ChildEnitityMatchingStrategy();
+            //if (ChildSetListProperty.Contains(property))
+            //return new ChildEntityListMatchingStrategy();
+            //return new DefaultMatchingSrategy();
+            return MatchingStrategyBuilders.ContainsKey(property)
+                ? MatchingStrategyBuilders[property].GetStrategy()
+                : null;
         }
     }
 }

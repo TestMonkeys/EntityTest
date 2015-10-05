@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -20,10 +20,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TestMonkey.EntityTest.Engine.Constraints;
-using TestMonkey.EntityTest.Engine.HumanReadableMessages;
+using NUnit.Framework.Constraints;
+using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
+using TestMonkeys.EntityTest.Matchers;
 
-namespace TestMonkey.EntityTest.Engine.Validators
+namespace TestMonkeys.EntityTest.Engine.Validators
 {
     public class ListContainsPropertySetConstraint : CustomMessageConstraint
     {
@@ -36,21 +38,22 @@ namespace TestMonkey.EntityTest.Engine.Validators
             this.actionOnFailure = actionOnFailure;
         }
 
-        protected override string DescriptionLine
-        {
-            get { return "Expected object not found in list"; }
-        }
+        protected override string DescriptionLine => "Expected object not found in list";
 
-        public override bool Matches(object actual)
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
+            var cresult = new CustomConstraintResult(this, actual) {Status = ConstraintStatus.Error};
             if (!(actual is IList))
                 throw new InvalidOperationException("Actual object should be a list");
             var actualAndDiff = new Dictionary<object, List<string>>();
             foreach (var actualItem in ((IList) actual))
             {
-                var propertyValidator = new PropertySetValidator(expected);
+                var propertyValidator = new EntityComparisonMatcher(expected);
                 if (propertyValidator.Matches(actualItem))
-                    return true;
+                {
+                    cresult.Status = ConstraintStatus.Success;
+                    return cresult;
+                }
                 actualAndDiff.Add(actualItem, propertyValidator.Differences);
             }
             switch (actionOnFailure)
@@ -58,15 +61,14 @@ namespace TestMonkey.EntityTest.Engine.Validators
                 case OnListContainsFailure.DoNothing:
                     break;
                 case OnListContainsFailure.DisplayExpectedAndActualList:
-                    messageBuilder.Append("Expected item:").Append(Environment.NewLine);
-                    messageBuilder.Append(Describe.Object(expected)).Append(Environment.NewLine);
-                    messageBuilder.Append(Environment.NewLine);
+                    messageList.Add("Expected item:{0}");
+                    messageList.Add(Describe.Object(expected));
                     var position = 0;
-                    messageBuilder.Append("Actual List:").Append(Environment.NewLine);
+                    messageList.Add("Actual List:");
                     foreach (var item in ((IList) actual))
                     {
-                        messageBuilder.Append("Item[").Append(position).Append("]").Append(Environment.NewLine);
-                        messageBuilder.Append(Describe.Object(item)).Append(Environment.NewLine);
+                        messageList.Add($"Item[{position}]");
+                        messageList.Add(Describe.Object(item));
                         position++;
                     }
 
@@ -77,26 +79,27 @@ namespace TestMonkey.EntityTest.Engine.Validators
                     if (biggestDifference != smallestDifference || actualAndDiff.Count == 1)
                     {
                         var closestMatches = actualAndDiff.Where(x => x.Value.Count == smallestDifference);
-                        messageBuilder.Append("Expected item:").Append(Environment.NewLine);
-                        messageBuilder.Append(Describe.Object(expected)).Append(Environment.NewLine);
-                        messageBuilder.Append(Environment.NewLine);
-                        messageBuilder.Append("Closest matches:").Append(Environment.NewLine);
+                        messageList.Add("Expected item:");
+                        messageList.Add(Describe.Object(expected));
+
+                        messageList.Add("Closest matches:");
                         foreach (var closestMatch in closestMatches)
                         {
-                            messageBuilder.Append("Item Description:").Append(Environment.NewLine);
-                            messageBuilder.Append(Describe.Object(closestMatch.Key)).Append(Environment.NewLine);
-                            messageBuilder.Append("Diff:").Append(Environment.NewLine);
+                            messageList.Add("Item Description:");
+                            messageList.Add(Describe.Object(closestMatch.Key));
+                            messageList.Add("Diff:");
                             foreach (var diff in closestMatch.Value)
                             {
-                                messageBuilder.AppendLine(diff);
+                                messageList.Add(diff);
                             }
-                            messageBuilder.Append(Environment.NewLine);
                         }
                     }
                     break;
             }
 
-            return false;
+            cresult.MessageList = messageList;
+            cresult.Status = ConstraintStatus.Failure;
+            return cresult;
         }
     }
 }

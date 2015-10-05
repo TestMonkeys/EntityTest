@@ -58,6 +58,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CummulativeAssertTests\CumulativeTests.cs" />
+    <Compile Include="Experiments\Experiment.cs" />
     <Compile Include="PropertySetValidatorTests\AliasNamespaceTests.cs" />
     <Compile Include="PropertySetValidatorTests\ListContainsPropertySetTests.cs" />
     <Compile Include="PropertySetValidatorTests\ActualOnlyValidationTests.cs" />

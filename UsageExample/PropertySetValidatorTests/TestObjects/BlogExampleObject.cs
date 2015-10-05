@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestMonkey.EntityTest.PropertyAttributes;
+using TestMonkeys.EntityTest.Framework;
 
 namespace UsageExample.PropertySetValidatorTests.TestObjects
 {
@@ -15,10 +15,9 @@ namespace UsageExample.PropertySetValidatorTests.TestObjects
         [IgnoreValidationIfDefault]
         public DateTime CreatedDate { get; set; }
 
-        [ChildPropertySet]
+        [ChildEntity]
         public TestObject ChildObject { get; set; }
 
-        [ChildPropertySetList]
         public List<TestObject> ChildObjectList { get; set; }
 
         [IgnoreValidation]

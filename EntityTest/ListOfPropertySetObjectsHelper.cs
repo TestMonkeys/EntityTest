@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -16,10 +16,10 @@
 
 #endregion
 
-using TestMonkey.Assertion.Constraints;
-using TestMonkey.EntityTest.Engine.Validators;
+using NUnit.Framework.Constraints;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest
+namespace TestMonkeys.EntityTest
 {
     public class ListOfPropertySetObjectsHelper
     {
@@ -33,16 +33,9 @@ namespace TestMonkey.EntityTest
             return new ListContainsPropertySetConstraint(expected, actionOnFailure);
         }
 
-#if NUnit
-        public NUnit.Framework.Constraints.Constraint None(object expected)
-        {
-            return NUnit.Framework.Constraints.NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
-        }
-        #else
         public Constraint None(object expected)
         {
             return new NotConstraint(new ListContainsPropertySetConstraint(expected, OnListContainsFailure.DoNothing));
         }
-#endif
     }
 }

@@ -1,7 +1,7 @@
 ﻿#region Copyright
 
 // Copyright 2015 Constantin Pascal
-//  
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -18,19 +18,19 @@
 
 using System.Collections.Generic;
 using System.Reflection;
-using TestMonkey.EntityTest.Engine.Validators;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkey.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class DefaultMatchingSrategy : PropertyMatchingStrategy
     {
-        public override List<MatchResult> Validate(PropertyInfo expectedProperty, object actualObj, object expectedObj,
-            PropertyInfo actualProperty = null,
+        public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+            PropertyInfo expectedProperty = null,
             ParentContext parentContext = null)
         {
             var result = new List<MatchResult>();
-            var expectedValue = GetPropertyValue(expectedProperty, expectedObj);
-            var actualValue = GetPropertyValue(actualProperty ?? expectedProperty, actualObj);
+            var expectedValue = GetPropertyValue(actualProperty, expectedObj);
+            var actualValue = GetPropertyValue(expectedProperty ?? actualProperty, actualObj);
             if (!expectedValue.Equals(actualValue))
             {
                 result.Add(new MatchResult

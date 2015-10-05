@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestMonkey.Assertion;
 using TestMonkey.Assertion.Exceptions;
-using TestMonkey.EntityTest;
+using TestMonkeys.EntityTest;
 using UsageExample.PropertySetValidatorTests.TestObjects;
 using Assert = TestMonkey.Assertion.Assert;
 
@@ -12,6 +12,7 @@ namespace UsageExample.PropertySetValidatorTests
     [TestClass]
     public class BlogPropertySetExample
     {
+        [Ignore]
         [TestMethod]
         public void BlogExample_PropertySet()
         {
@@ -31,7 +32,7 @@ namespace UsageExample.PropertySetValidatorTests
                     CreatedDate = DateTime.Now,
                     ProcessedProperty = "Testprocessed"
                 };
-            Assert.That(actual, PropertySet.EqualTo(expected));
+            Assert.That(actual, Entity.EqualTo(expected));
         }
 
     }
