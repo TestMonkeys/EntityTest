@@ -21,5 +21,6 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
     public interface IMatchingStrategyBuilder
     {
         PropertyMatchingStrategy GetStrategy();
+        void ApplyConstraints(object[] attributes);
     }
 }

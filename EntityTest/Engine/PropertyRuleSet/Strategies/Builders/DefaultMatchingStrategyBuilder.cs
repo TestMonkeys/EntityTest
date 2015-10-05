@@ -25,5 +25,9 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
         {
             return new TStrategy();
         }
+
+        public void ApplyConstraints(object[] attribute)
+        {
+        }
     }
 }

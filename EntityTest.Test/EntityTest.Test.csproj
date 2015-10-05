@@ -69,6 +69,7 @@
     <Compile Include="PropertySetValidatorTests\AttributeUsageTests.cs" />
     <Compile Include="PropertySetValidatorTests\CompareByInterfaceTests.cs" />
     <Compile Include="PropertySetValidatorTests\ComparisonTests.cs" />
+    <Compile Include="PropertySetValidatorTests\EntityChildListCountTests.cs" />
     <Compile Include="PropertySetValidatorTests\ListContainsPropertySetTests.cs" />
     <Compile Include="PropertySetValidatorTests\MessageCheck.cs" />
     <Compile Include="PropertySetValidatorTests\TestObjects\BlogExampleObject.cs" />

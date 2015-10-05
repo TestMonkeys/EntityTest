@@ -69,6 +69,7 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\ActualGreaterThanValueStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\DefaultMatchingStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\DefaultValidationStrategyBuilder.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\EntityListMatcherStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\IMatchingStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\IValidationStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\MatchWithPropertyStrategyBuilder.cs" />
@@ -86,7 +87,6 @@
     <Compile Include="Engine\Validators\EntityListComparisonResult.cs" />
     <Compile Include="Engine\Validators\EntityMatchResult.cs" />
     <Compile Include="Engine\Validators\ItemsMatch.cs" />
-    <Compile Include="Engine\Validators\ListComparisonStrategy.cs" />
     <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="Engine\Validators\MatchResult.cs" />

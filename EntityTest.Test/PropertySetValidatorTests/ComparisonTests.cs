@@ -305,35 +305,6 @@ namespace EntityTest.Test.PropertySetValidatorTests
             Assert.That(actual, Entity.EqualTo(expected));
         }
 
-        [Test]
-        public void PropertySet_ChildList_ExpectingMoreThanActual()
-        {
-            var expected = new TestObjectWithChildList
-                {
-                    Child = new List<TestObject> {new TestObject(), new TestObject()}
-                };
-            var actual = new TestObjectWithChildList {Child = new List<TestObject> {new TestObject()}};
-            var messageCheck = new MessageCheck("Property Set is not equal");
-            messageCheck.AddPropertyLine("2", "1", "Child.Count");
-            messageCheck.AddObjectLine(typeof (TestObject).ToString(), "Null", "Child[1]");
-            var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
-            Console.WriteLine(ex.Message);
-            messageCheck.Check(ex);
-        }
-
-        [Test]
-        public void PropertySet_ChildList_ExpectingLessThanActual()
-        {
-            var expected = new TestObjectWithChildList {Child = new List<TestObject> {new TestObject()}};
-            var actual = new TestObjectWithChildList {Child = new List<TestObject> {new TestObject(), new TestObject()}};
-            var messageCheck = new MessageCheck("Property Set is not equal");
-            messageCheck.AddPropertyLine("1", "2", "Child.Count");
-            var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
-
-            messageCheck.Check(ex);
-        }
 
         [Test]
         public void PropertySet_ChildList()

@@ -72,8 +72,9 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                 if (property.PropertyType != typeof (string) &&
                     (typeof (IEnumerable)).IsAssignableFrom(property.PropertyType))
                 {
-                    rule.MatchingStrategyBuilders.Add(property,
-                        new DefaultMatchingStrategyBuilder<ChildEntityListMatchingStrategy>());
+                    var matcher = new EntityListMatcherStrategyBuilder();
+                    matcher.ApplyConstraints(property.GetCustomAttributes(true));
+                    rule.MatchingStrategyBuilders.Add(property, matcher);
                 }
 
                 var attributes = property.GetCustomAttributes(true);

@@ -26,6 +26,9 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class ChildEntityListMatchingStrategy : PropertyMatchingStrategy
     {
+        public OrderMatch PositionComparison { get; set; }
+        public ItemsMatch ValuesComparison { get; set; }
+
         public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
             PropertyInfo expectedProperty = null,
             ParentContext parentContext = null)
@@ -34,6 +37,8 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             var actualValue = GetPropertyValue(actualProperty, actualObj);
 
             var listMatcher = new EntityListMatchingStrategy(parentContext);
+            listMatcher.PositionComparison = PositionComparison;
+            listMatcher.ValuesComparison = ValuesComparison;
             var entityListResult = listMatcher.Compare((IList) actualValue, (IList) expectedValue);
             var resultList = entityListResult.ListMatchResults;
             resultList.AddRange(entityListResult.EntityMatchResults.SelectMany(x => x.MemberResults).ToList());

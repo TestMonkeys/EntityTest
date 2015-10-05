@@ -34,5 +34,9 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
             // return new ;
             throw new NotImplementedException();
         }
+
+        public void ApplyConstraints(object[] attributes)
+        {
+        }
     }
 }
