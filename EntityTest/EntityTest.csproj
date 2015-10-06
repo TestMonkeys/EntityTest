@@ -73,6 +73,8 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\IMatchingStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\IValidationStrategyBuilder.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Builders\MatchWithPropertyStrategyBuilder.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Conditions\IgnoreValidationIfDefaultCondition.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Conditions\StrategyStartCondition.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEnitityMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\ChildEntityListMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\DefaultMatchingSrategy.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyValidationStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\RuleStorage.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualGreaterThanValueStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\IsDefaultValueStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualNotNullStrategy.cs" />
     <Compile Include="Engine\Validators\EntityListComparisonResult.cs" />
     <Compile Include="Engine\Validators\EntityMatchResult.cs" />
@@ -94,6 +97,7 @@
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="Engine\Validators\MatchResult.cs" />
     <Compile Include="Engine\Validators\OrderMatch.cs" />
+    <Compile Include="Framework\StrategyConditionAttribute.cs" />
     <Compile Include="Framework\StrategyParameterAttribute.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

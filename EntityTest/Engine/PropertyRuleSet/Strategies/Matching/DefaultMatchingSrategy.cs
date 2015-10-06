@@ -24,7 +24,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
     internal class DefaultMatchingSrategy : PropertyMatchingStrategy
     {
-        public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+        protected override List<MatchResult> InternalValidate(PropertyInfo actualProperty, object actualObj, object expectedObj,
             PropertyInfo expectedProperty = null,
             ParentContext parentContext = null)
         {

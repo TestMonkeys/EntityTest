@@ -29,16 +29,16 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
         public ItemsMatch Values { get; set; }
         public OrderMatch Order { get; set; }
 
-        public PropertyMatchingStrategy GetStrategy()
+        public override PropertyMatchingStrategy GetStrategy()
         {
             var strategy = new ChildEntityListMatchingStrategy();
             foreach (var param in parameters)
                 param.ApplyToStrategy(strategy);
-
+            strategy.StartConditions = this.strategyStartConditions;
             return strategy;
         }
 
-        public void AddParameters(List<StrategyParameter> parameters)
+        public override void AddParameters(List<StrategyParameter> parameters)
         {
             this.parameters = parameters;
         }

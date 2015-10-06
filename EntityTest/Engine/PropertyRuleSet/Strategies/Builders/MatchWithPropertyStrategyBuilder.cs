@@ -31,13 +31,13 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
             this.matchPropertyName = matchPropertyName;
         }
 
-        public PropertyMatchingStrategy GetStrategy()
+        public override PropertyMatchingStrategy GetStrategy()
         {
             // return new ;
             throw new NotImplementedException();
         }
 
-        public void AddParameters(List<StrategyParameter> parameters)
+        public override void AddParameters(List<StrategyParameter> parameters)
         {
         }
     }

@@ -106,6 +106,11 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                     rule.MatchingStrategyBuilders.Add(property,
                         new DefaultMatchingStrategyBuilder<DefaultMatchingSrategy>());
                 }
+                if (rule.MatchingStrategyBuilders.ContainsKey(property))
+                {
+                    rule.MatchingStrategyBuilders[property].AddConditions(property.GetCustomAttributes(typeof(StrategyConditionAttribute),true).Select(x=>((StrategyConditionAttribute)x).StrategyStartCondition).ToList());
+                }
+
             }
 
 
@@ -116,12 +121,12 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                         .Select(prop => prop)
                         .ToList());
 
-            rule.IgnoreValidationIfDefault
-                .AddRange(
-                    expectedProperties.Where(
-                        x => x.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any())
-                        .Select(prop => prop)
-                        .ToList());
+            //rule.IgnoreValidationIfDefault
+            //    .AddRange(
+            //        expectedProperties.Where(
+            //            x => x.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any())
+            //            .Select(prop => prop)
+            //            .ToList());
 
             var validateWith =
                 expectedProperties.Where(x => x.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).Any())

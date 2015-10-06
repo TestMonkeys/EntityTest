@@ -24,12 +24,14 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
     public class DefaultMatchingStrategyBuilder<TStrategy> : IMatchingStrategyBuilder
         where TStrategy : PropertyMatchingStrategy, new()
     {
-        public PropertyMatchingStrategy GetStrategy()
+        public override PropertyMatchingStrategy GetStrategy()
         {
-            return new TStrategy();
+            var strategy= new TStrategy();
+            strategy.StartConditions = this.strategyStartConditions;
+            return strategy;
         }
 
-        public void AddParameters(List<StrategyParameter> parameters)
+        public override void AddParameters(List<StrategyParameter> parameters)
         {
         }
     }

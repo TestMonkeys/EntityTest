@@ -17,13 +17,20 @@
 #endregion
 
 using System.Collections.Generic;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public interface IMatchingStrategyBuilder
+    public abstract class IMatchingStrategyBuilder
     {
-        PropertyMatchingStrategy GetStrategy();
-        void AddParameters(List<StrategyParameter> parameters);
+        protected List<StrategyStartCondition> strategyStartConditions;
+        public abstract PropertyMatchingStrategy GetStrategy();
+        public abstract void AddParameters(List<StrategyParameter> parameters);
+
+        public void AddConditions(List<StrategyStartCondition> strategyStartConditions)
+        {
+            this.strategyStartConditions = strategyStartConditions;
+        }
     }
 }

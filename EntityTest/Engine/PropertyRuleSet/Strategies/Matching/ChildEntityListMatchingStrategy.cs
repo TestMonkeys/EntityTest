@@ -29,7 +29,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
         public OrderMatch PositionComparison { get; set; }
         public ItemsMatch ValuesComparison { get; set; }
 
-        public override List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+        protected override List<MatchResult> InternalValidate(PropertyInfo actualProperty, object actualObj, object expectedObj,
             PropertyInfo expectedProperty = null,
             ParentContext parentContext = null)
         {

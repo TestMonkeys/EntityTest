@@ -17,14 +17,37 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions;
 using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
     public abstract class PropertyMatchingStrategy : PropertyStrategy
     {
-        public abstract List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj
+        public List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj
+            , PropertyInfo expectedProperty = null, ParentContext parentContext = null)
+        {
+            if (StartConditions.Any() &&
+                StartConditions.Any(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj, expectedProperty)) ==
+                false)
+            {
+                return new List<MatchResult>();
+            }
+            return InternalValidate(actualProperty,actualObj,expectedObj,expectedProperty,parentContext);
+        }
+
+        protected abstract List<MatchResult> InternalValidate(PropertyInfo actualProperty, object actualObj, object expectedObj
             , PropertyInfo expectedProperty = null, ParentContext parentContext = null);
+
+        public bool StartConditionsMet(PropertyInfo actualProperty, object actualObj, object expectedObj
+            , PropertyInfo expectedProperty = null)
+        {
+            return StartConditions.All(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj, expectedProperty));
+        }
+
+
+        public List<StrategyStartCondition> StartConditions { get; set; } 
     }
 }
