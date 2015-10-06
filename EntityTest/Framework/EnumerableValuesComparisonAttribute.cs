@@ -17,12 +17,13 @@
 #endregion
 
 using System;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Framework
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class EnumerableValuesComparisonAttribute : Attribute
+    public class EnumerableValuesComparisonAttribute : StrategyParameterAttribute
     {
         public EnumerableValuesComparisonAttribute(ItemsMatch option)
         {
@@ -30,5 +31,6 @@ namespace TestMonkeys.EntityTest.Framework
         }
 
         internal ItemsMatch Option { get; }
+        public override StrategyParameter GetParameter => new EntityListItemsParameter(Option);
     }
 }

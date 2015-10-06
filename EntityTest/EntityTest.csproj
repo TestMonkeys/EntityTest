@@ -78,6 +78,9 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\DefaultMatchingSrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\EntityListMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Matching\EntityMatchingStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Parameters\EntityListItemsParameter.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Parameters\EntityListOrderParameter.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Parameters\StrategyParameter.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyMatchingStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyValidationStrategy.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="Engine\Validators\MatchResult.cs" />
     <Compile Include="Engine\Validators\OrderMatch.cs" />
+    <Compile Include="Framework\StrategyParameterAttribute.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\ChildEntityAttribute.cs" />

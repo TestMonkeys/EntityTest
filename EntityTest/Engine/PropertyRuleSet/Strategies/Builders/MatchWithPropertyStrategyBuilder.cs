@@ -17,6 +17,8 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
@@ -35,7 +37,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
             throw new NotImplementedException();
         }
 
-        public void ApplyConstraints(object[] attributes)
+        public void AddParameters(List<StrategyParameter> parameters)
         {
         }
     }

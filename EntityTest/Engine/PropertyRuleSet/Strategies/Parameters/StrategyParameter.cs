@@ -16,21 +16,10 @@
 
 #endregion
 
-using System.Collections.Generic;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
-
-namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    public class DefaultMatchingStrategyBuilder<TStrategy> : IMatchingStrategyBuilder
-        where TStrategy : PropertyMatchingStrategy, new()
+    public abstract class StrategyParameter
     {
-        public PropertyMatchingStrategy GetStrategy()
-        {
-            return new TStrategy();
-        }
-
-        public void AddParameters(List<StrategyParameter> parameters)
-        {
-        }
+        public abstract void ApplyToStrategy(object strategy);
     }
 }

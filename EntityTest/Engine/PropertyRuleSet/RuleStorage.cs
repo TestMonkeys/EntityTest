@@ -73,7 +73,10 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                     (typeof (IEnumerable)).IsAssignableFrom(property.PropertyType))
                 {
                     var matcher = new EntityListMatcherStrategyBuilder();
-                    matcher.ApplyConstraints(property.GetCustomAttributes(true));
+                    matcher.AddParameters(
+                        property.GetCustomAttributes(typeof (StrategyParameterAttribute), true)
+                            .Select(x => ((StrategyParameterAttribute) x).GetParameter)
+                            .ToList());
                     rule.MatchingStrategyBuilders.Add(property, matcher);
                 }
 

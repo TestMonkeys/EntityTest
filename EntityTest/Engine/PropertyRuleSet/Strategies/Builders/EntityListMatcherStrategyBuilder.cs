@@ -16,39 +16,31 @@
 
 #endregion
 
+using System.Collections.Generic;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 using TestMonkeys.EntityTest.Engine.Validators;
-using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
     public class EntityListMatcherStrategyBuilder : IMatchingStrategyBuilder
     {
+        private List<StrategyParameter> parameters = new List<StrategyParameter>();
         public ItemsMatch Values { get; set; }
         public OrderMatch Order { get; set; }
 
         public PropertyMatchingStrategy GetStrategy()
         {
-            var strategy = new ChildEntityListMatchingStrategy
-            {
-                PositionComparison = Order,
-                ValuesComparison = Values
-            };
+            var strategy = new ChildEntityListMatchingStrategy();
+            foreach (var param in parameters)
+                param.ApplyToStrategy(strategy);
+
             return strategy;
         }
 
-        public void ApplyConstraints(object[] attributes)
+        public void AddParameters(List<StrategyParameter> parameters)
         {
-            foreach (var attribute in attributes)
-            {
-                var comparisonAttribute = attribute as EnumerableOrderComparisonAttribute;
-                if (comparisonAttribute != null)
-                    Order = comparisonAttribute.Option;
-
-                var valuesComparisonAttribute = attribute as EnumerableValuesComparisonAttribute;
-                if (valuesComparisonAttribute != null)
-                    Values = valuesComparisonAttribute.Option;
-            }
+            this.parameters = parameters;
         }
     }
 }
