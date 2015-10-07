@@ -16,7 +16,6 @@
 
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -32,11 +31,12 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
         public List<StrategyStartCondition> StartConditions { get; set; }
         public string ExpectedPropertyName { get; set; }
 
-        public List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,  ParentContext parentContext = null)
+        public List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj,
+            ParentContext parentContext = null)
         {
             var expectedProp = GetExpectedProperty(expectedObj, actualProperty);
             if (StartConditions.Any() &&
-                StartConditions.Any(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj,expectedProp)) ==
+                StartConditions.Any(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj)) ==
                 false)
             {
                 return new List<MatchResult>();
@@ -60,7 +60,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
                 result.Add(fail);
                 return result;
             }
-            if (expected ==null)
+            if (expected == null)
                 return new List<MatchResult>();
 
             return InternalValidate(actualProperty, actualObj, expectedObj, parentContext);
@@ -72,7 +72,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
         public bool StartConditionsMet(PropertyInfo actualProperty, object actualObj, object expectedObj
             , PropertyInfo expectedProperty = null)
         {
-            return StartConditions.All(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj, expectedProperty));
+            return StartConditions.All(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj));
         }
 
         protected PropertyInfo GetExpectedProperty(object expectedObj, PropertyInfo actualProperty)
@@ -86,7 +86,5 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
                     $"ValidateWithProperty for property <{actualProperty.Name}> was pointing at inexisting <{ExpectedPropertyName}> in type {expectedObj.GetType()}");
             return expectedProperty;
         }
-
-        
     }
 }
