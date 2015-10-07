@@ -17,28 +17,24 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 
-namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    public class MatchWithPropertyStrategyBuilder : IMatchingStrategyBuilder
+    public class ExpectedPropertyParameter : StrategyParameter
     {
-        private readonly string matchPropertyName;
+        private readonly string propertyName;
 
-        public MatchWithPropertyStrategyBuilder(string matchPropertyName)
+        public ExpectedPropertyParameter(string propertyName)
         {
-            this.matchPropertyName = matchPropertyName;
+            this.propertyName = propertyName;
         }
 
-        public override PropertyMatchingStrategy GetStrategy()
+        public override void ApplyToStrategy(object strategy)
         {
-            // return new ;
-            throw new NotImplementedException();
-        }
-
-        public override void AddParameters(List<StrategyParameter> parameters)
-        {
+            var matchingStrategy = strategy as PropertyMatchingStrategy;
+            if (matchingStrategy == null)
+                throw new Exception($"Could not apply parameter to strategy {strategy.GetType()}");
+            matchingStrategy.ExpectedPropertyName = propertyName;
         }
     }
 }

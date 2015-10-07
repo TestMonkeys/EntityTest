@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 
 namespace TestMonkeys.EntityTest.Framework
 {
@@ -24,7 +25,7 @@ namespace TestMonkeys.EntityTest.Framework
     ///     Will validate internalActual property with the defined property from the expected object
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ValidateWithPropertyAttribute : Attribute
+    public class ValidateWithPropertyAttribute : StrategyParameterAttribute
     {
         public ValidateWithPropertyAttribute(string propertyName)
         {
@@ -32,5 +33,6 @@ namespace TestMonkeys.EntityTest.Framework
         }
 
         public string PropertyName { get; }
+        public override StrategyParameter GetParameter => new ExpectedPropertyParameter(PropertyName);
     }
 }

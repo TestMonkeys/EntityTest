@@ -42,10 +42,10 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
         private bool IsDefault(object value)
         {
             if (value == null) return true;
-            if (value is int && ((int)value) == 0) return true;
+            if (value is int && ((int) value) == 0) return true;
             var potentialString = value as string;
             if (potentialString != null && string.IsNullOrEmpty(potentialString)) return true;
-            if (value is DateTime && ((DateTime)value).Equals(DateTime.MinValue)) return true;
+            if (value is DateTime && ((DateTime) value).Equals(DateTime.MinValue)) return true;
             return false;
         }
     }

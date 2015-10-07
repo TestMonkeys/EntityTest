@@ -73,10 +73,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                     (typeof (IEnumerable)).IsAssignableFrom(property.PropertyType))
                 {
                     var matcher = new EntityListMatcherStrategyBuilder();
-                    matcher.AddParameters(
-                        property.GetCustomAttributes(typeof (StrategyParameterAttribute), true)
-                            .Select(x => ((StrategyParameterAttribute) x).GetParameter)
-                            .ToList());
+
                     rule.MatchingStrategyBuilders.Add(property, matcher);
                 }
 
@@ -108,9 +105,15 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                 }
                 if (rule.MatchingStrategyBuilders.ContainsKey(property))
                 {
-                    rule.MatchingStrategyBuilders[property].AddConditions(property.GetCustomAttributes(typeof(StrategyConditionAttribute),true).Select(x=>((StrategyConditionAttribute)x).StrategyStartCondition).ToList());
+                    rule.MatchingStrategyBuilders[property].AddConditions(
+                        property.GetCustomAttributes(typeof (StrategyConditionAttribute), true)
+                            .Select(x => ((StrategyConditionAttribute) x).StrategyStartCondition)
+                            .ToList());
+                    rule.MatchingStrategyBuilders[property].AddParameters(
+                        property.GetCustomAttributes(typeof (StrategyParameterAttribute), true)
+                            .Select(x => ((StrategyParameterAttribute) x).GetParameter)
+                            .ToList());
                 }
-
             }
 
 

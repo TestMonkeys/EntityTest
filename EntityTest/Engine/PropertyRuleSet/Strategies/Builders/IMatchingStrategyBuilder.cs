@@ -22,15 +22,27 @@ using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public abstract class IMatchingStrategyBuilder
+    public abstract class MatchingStrategyBuilder
     {
+        protected List<StrategyParameter> strategyParameters;
         protected List<StrategyStartCondition> strategyStartConditions;
         public abstract PropertyMatchingStrategy GetStrategy();
-        public abstract void AddParameters(List<StrategyParameter> parameters);
+
+        public void AddParameters(List<StrategyParameter> parameters)
+        {
+            strategyParameters = parameters;
+        }
 
         public void AddConditions(List<StrategyStartCondition> strategyStartConditions)
         {
             this.strategyStartConditions = strategyStartConditions;
+        }
+
+        public void ApplyModifiers(PropertyMatchingStrategy strategy)
+        {
+            strategy.StartConditions = strategyStartConditions;
+            foreach (var param in strategyParameters)
+                param.ApplyToStrategy(strategy);
         }
     }
 }

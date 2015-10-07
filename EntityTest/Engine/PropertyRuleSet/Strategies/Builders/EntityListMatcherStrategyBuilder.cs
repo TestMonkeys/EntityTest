@@ -16,31 +16,17 @@
 
 #endregion
 
-using System.Collections.Generic;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
-using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class EntityListMatcherStrategyBuilder : IMatchingStrategyBuilder
+    public class EntityListMatcherStrategyBuilder : MatchingStrategyBuilder
     {
-        private List<StrategyParameter> parameters = new List<StrategyParameter>();
-        public ItemsMatch Values { get; set; }
-        public OrderMatch Order { get; set; }
-
         public override PropertyMatchingStrategy GetStrategy()
         {
             var strategy = new ChildEntityListMatchingStrategy();
-            foreach (var param in parameters)
-                param.ApplyToStrategy(strategy);
-            strategy.StartConditions = this.strategyStartConditions;
+            ApplyModifiers(strategy);
             return strategy;
-        }
-
-        public override void AddParameters(List<StrategyParameter> parameters)
-        {
-            this.parameters = parameters;
         }
     }
 }
