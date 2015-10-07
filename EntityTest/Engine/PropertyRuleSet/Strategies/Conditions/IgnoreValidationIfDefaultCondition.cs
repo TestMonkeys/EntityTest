@@ -23,11 +23,10 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions
 {
     public class IgnoreValidationIfDefaultCondition : StrategyStartCondition
     {
-        public override bool CanStrategyStart(PropertyInfo actualProperty, object actualObj, object expectedObj,
-            PropertyInfo expectedProperty = null)
+        public override bool CanStrategyStart(PropertyInfo actualProperty, object actualObj, object expectedObj)
         {
             var strategy = new IsDefaultValueStrategy();
-            return strategy.Validate(expectedProperty ?? actualProperty, expectedObj).Success == false;
+            return strategy.Validate(actualProperty, expectedObj).Success == false;
         }
     }
 }

@@ -18,11 +18,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
 using TestMonkeys.EntityTest.Engine.Validators;
-using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
@@ -61,29 +59,14 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 
             foreach (var property in expectedProperties)
             {
-                var propertyName = property.Name;
                 ValidateActualConstraints(property, actual, parent, rule);
 
                 if (rule.IgnoreValidationProperties.Contains(property))
                     continue;
 
-                var expectedProperty = GetExpectedProperty(property, expectedProperties, rule);
-                if (
-                    !rule.GetPropertyMatchingStrategy(expectedProperty)
-                        .StartConditionsMet(property, actual, expected, property))
-                    continue;
-
-
-                var expectedValue = GetPropertyValue(expectedProperty, expected);
-                var actualValue = GetPropertyValue(property, actual);
-
-                if (NullValidationMatchOrFail(expectedValue, actualValue,
-                    new ParentContext(parent) {ParentName = propertyName}))
-                    continue;
-
                 var matchingRule = rule.GetPropertyMatchingStrategy(property);
                 if (matchingRule != null)
-                    matchResults.AddRange(matchingRule.Validate(property, actual, expected, property,
+                    matchResults.AddRange(matchingRule.Validate(property, actual, expected,
                         new ParentContext(parent) {ParentName = property.Name}));
             }
         }
@@ -108,44 +91,6 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
             var result = strategy.Validate(property, actual, parent);
             if (!result.Success)
                 PropertyDifferenceFound(result.Expected, result.Actual, result.Parent); //, result.PropertyName);
-        }
-
-        private bool NeedsValidation(PropertyInfo property, object obj, ObjectPropertyValidationModel rule)
-        {
-            var value = GetPropertyValue(property, obj);
-
-            return !((rule.IgnoreValidationIfDefault.Contains(property) ||
-                      rule.GetValidationStrategy(property) != null) &&
-                     IsDefault(value));
-        }
-
-        private bool IsDefault(object value)
-        {
-            if (value == null) return true;
-            if (value is int && ((int) value) == 0) return true;
-            var potentialString = value as string;
-            if (potentialString != null && string.IsNullOrEmpty(potentialString)) return true;
-            if (value is DateTime && ((DateTime) value).Equals(DateTime.MinValue)) return true;
-            return false;
-        }
-
-        private PropertyInfo GetExpectedProperty(PropertyInfo currentProperty, IEnumerable<PropertyInfo> allProperties,
-            ObjectPropertyValidationModel rule)
-        {
-            var expectedProperty = currentProperty;
-
-            if (rule.ValidateActualWithExpectedProperty.ContainsKey(currentProperty))
-            {
-                expectedProperty = allProperties.FirstOrDefault(
-                    x => x.Name.Equals(rule.ValidateActualWithExpectedProperty[currentProperty]));
-                if (expectedProperty == null)
-                    throw new ImproperAttributeUsageException("ValidateWithProperty for property " +
-                                                              currentProperty.Name +
-                                                              " was pointing at inexisting property " +
-                                                              rule.ValidateActualWithExpectedProperty[
-                                                                  currentProperty]);
-            }
-            return expectedProperty;
         }
 
         private void ObjectDifferenceFound(object expectedValue, object actualValue, ParentContext parent)
