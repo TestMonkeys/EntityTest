@@ -19,7 +19,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message,
                         Is.EqualTo(
-                            "ValidateWithProperty for property CustomValidation was pointing at inexisting property ValidationCustomValidation1"),
+                            "ValidateWithProperty for property <CustomValidation> was pointing at inexisting <ValidationCustomValidation1> in type EntityTest.Test.PropertySetValidatorTests.TestObjects.TestObjectCustomValidationImproperAttributeUsage"),
                         "Assertion message");
         }
     }

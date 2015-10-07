@@ -67,24 +67,14 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
                 if (rule.IgnoreValidationProperties.Contains(property))
                     continue;
 
-                var expectedProperty = GetExpectedProperty(property, expectedProperties, rule);
-                if (
-                    !rule.GetPropertyMatchingStrategy(expectedProperty)
+                
+                if (!rule.GetPropertyMatchingStrategy(property)
                         .StartConditionsMet(property, actual, expected, property))
-                    continue;
-
-
-                var expectedValue = GetPropertyValue(expectedProperty, expected);
-                var actualValue = GetPropertyValue(property, actual);
-
-                if (NullValidationMatchOrFail(expectedValue, actualValue,
-                    new ParentContext(parent) {ParentName = propertyName}))
                     continue;
 
                 var matchingRule = rule.GetPropertyMatchingStrategy(property);
                 if (matchingRule != null)
-                    matchResults.AddRange(matchingRule.Validate(property, actual, expected, property,
-                        new ParentContext(parent) {ParentName = property.Name}));
+                    matchResults.AddRange(matchingRule.Validate(property, actual, expected, new ParentContext(parent) {ParentName = property.Name}));
             }
         }
 
