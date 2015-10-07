@@ -17,20 +17,24 @@
 #endregion
 
 using System;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
-using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkeys.EntityTest.Framework
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class EnumerableValuesComparisonAttribute : StrategyParameterAttribute
+    public class ExpectedPropertyParameter : StrategyParameter
     {
-        public EnumerableValuesComparisonAttribute(ItemsMatch option)
+        private readonly string propertyName;
+
+        public ExpectedPropertyParameter(string propertyName)
         {
-            Option = option;
+            this.propertyName = propertyName;
         }
 
-        internal ItemsMatch Option { get; }
-        public override StrategyParameter GetParameter => new EntityListItemsParameter(Option);
+        public override void ApplyToStrategy(object strategy)
+        {
+            var matchingStrategy = strategy as PropertyMatchingStrategy;
+            if (matchingStrategy == null)
+                throw new Exception($"Could not apply parameter to strategy {strategy.GetType()}");
+            matchingStrategy.ExpectedPropertyName = propertyName;
+        }
     }
 }

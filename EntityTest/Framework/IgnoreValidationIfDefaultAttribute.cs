@@ -17,6 +17,7 @@
 #endregion
 
 using System;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions;
 
 namespace TestMonkeys.EntityTest.Framework
 {
@@ -25,7 +26,8 @@ namespace TestMonkeys.EntityTest.Framework
     ///     Default values are StringNullOrEmpty, DateTime.MinValue and null
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class IgnoreValidationIfDefaultAttribute : Attribute
+    public class IgnoreValidationIfDefaultAttribute : StrategyConditionAttribute
     {
+        public override StrategyStartCondition StrategyStartCondition => new IgnoreValidationIfDefaultCondition();
     }
 }

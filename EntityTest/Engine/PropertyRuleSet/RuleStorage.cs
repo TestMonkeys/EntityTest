@@ -73,7 +73,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                     (typeof (IEnumerable)).IsAssignableFrom(property.PropertyType))
                 {
                     var matcher = new EntityListMatcherStrategyBuilder();
-                    matcher.ApplyConstraints(property.GetCustomAttributes(true));
+
                     rule.MatchingStrategyBuilders.Add(property, matcher);
                 }
 
@@ -103,6 +103,17 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                     rule.MatchingStrategyBuilders.Add(property,
                         new DefaultMatchingStrategyBuilder<DefaultMatchingSrategy>());
                 }
+                if (rule.MatchingStrategyBuilders.ContainsKey(property))
+                {
+                    rule.MatchingStrategyBuilders[property].AddConditions(
+                        property.GetCustomAttributes(typeof (StrategyConditionAttribute), true)
+                            .Select(x => ((StrategyConditionAttribute) x).StrategyStartCondition)
+                            .ToList());
+                    rule.MatchingStrategyBuilders[property].AddParameters(
+                        property.GetCustomAttributes(typeof (StrategyParameterAttribute), true)
+                            .Select(x => ((StrategyParameterAttribute) x).GetParameter)
+                            .ToList());
+                }
             }
 
 
@@ -113,12 +124,12 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                         .Select(prop => prop)
                         .ToList());
 
-            rule.IgnoreValidationIfDefault
-                .AddRange(
-                    expectedProperties.Where(
-                        x => x.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any())
-                        .Select(prop => prop)
-                        .ToList());
+            //rule.IgnoreValidationIfDefault
+            //    .AddRange(
+            //        expectedProperties.Where(
+            //            x => x.GetCustomAttributes(typeof (IgnoreValidationIfDefaultAttribute), true).Any())
+            //            .Select(prop => prop)
+            //            .ToList());
 
             var validateWith =
                 expectedProperties.Where(x => x.GetCustomAttributes(typeof (ValidateWithPropertyAttribute), true).Any())

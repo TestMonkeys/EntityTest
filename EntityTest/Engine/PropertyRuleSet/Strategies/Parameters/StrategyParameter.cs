@@ -16,21 +16,10 @@
 
 #endregion
 
-using System;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
-using TestMonkeys.EntityTest.Engine.Validators;
-
-namespace TestMonkeys.EntityTest.Framework
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class EnumerableValuesComparisonAttribute : StrategyParameterAttribute
+    public abstract class StrategyParameter
     {
-        public EnumerableValuesComparisonAttribute(ItemsMatch option)
-        {
-            Option = option;
-        }
-
-        internal ItemsMatch Option { get; }
-        public override StrategyParameter GetParameter => new EntityListItemsParameter(Option);
+        public abstract void ApplyToStrategy(object strategy);
     }
 }

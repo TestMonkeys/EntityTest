@@ -9,6 +9,7 @@ namespace EntityTest.Test.PropertySetValidatorTests.TestObjects
         public object IdNotNull { get; set; }
 
         [ValidateActualGreaterThan(0)]
+        [IgnoreValidationIfDefault]
         public int IdGreaterThanZero { get; set; }
 
         //[ValidateActualGreaterThan(1)]

@@ -17,12 +17,13 @@
 #endregion
 
 using System;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Framework
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class EnumerableOrderComparisonAttribute : Attribute
+    public class EnumerableOrderComparisonAttribute : StrategyParameterAttribute
     {
         internal OrderMatch Option;
 
@@ -30,5 +31,7 @@ namespace TestMonkeys.EntityTest.Framework
         {
             Option = option;
         }
+
+        public override StrategyParameter GetParameter => new EntityListOrderParameter(Option);
     }
 }

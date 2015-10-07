@@ -35,7 +35,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
             ValidateActualWithExpectedProperty = new Dictionary<PropertyInfo, string>();
 
             ValidationStrategyBuilders = new Dictionary<PropertyInfo, IValidationStrategyBuilder>();
-            MatchingStrategyBuilders = new Dictionary<PropertyInfo, IMatchingStrategyBuilder>();
+            MatchingStrategyBuilders = new Dictionary<PropertyInfo, MatchingStrategyBuilder>();
         }
 
         public Type TargetType { get; set; }
@@ -54,7 +54,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
         /// <summary>
         ///     Matching strategy builders
         /// </summary>
-        public Dictionary<PropertyInfo, IMatchingStrategyBuilder>
+        public Dictionary<PropertyInfo, MatchingStrategyBuilder>
             MatchingStrategyBuilders { get; set; }
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)

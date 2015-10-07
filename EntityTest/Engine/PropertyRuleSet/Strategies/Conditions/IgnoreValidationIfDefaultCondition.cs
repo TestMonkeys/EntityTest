@@ -16,27 +16,18 @@
 
 #endregion
 
-using System;
+using System.Reflection;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 
-namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
+namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions
 {
-    public class MatchWithPropertyStrategyBuilder : IMatchingStrategyBuilder
+    public class IgnoreValidationIfDefaultCondition : StrategyStartCondition
     {
-        private readonly string matchPropertyName;
-
-        public MatchWithPropertyStrategyBuilder(string matchPropertyName)
+        public override bool CanStrategyStart(PropertyInfo actualProperty, object actualObj, object expectedObj,
+            PropertyInfo expectedProperty = null)
         {
-            this.matchPropertyName = matchPropertyName;
-        }
-
-        public PropertyMatchingStrategy GetStrategy()
-        {
-            // return new ;
-            throw new NotImplementedException();
-        }
-
-        public void ApplyConstraints(object[] attributes)
-        {
+            var strategy = new IsDefaultValueStrategy();
+            return strategy.Validate(expectedProperty ?? actualProperty, expectedObj).Success == false;
         }
     }
 }

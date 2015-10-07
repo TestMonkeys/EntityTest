@@ -17,38 +17,16 @@
 #endregion
 
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
-using TestMonkeys.EntityTest.Engine.Validators;
-using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class EntityListMatcherStrategyBuilder : IMatchingStrategyBuilder
+    public class EntityListMatcherStrategyBuilder : MatchingStrategyBuilder
     {
-        public ItemsMatch Values { get; set; }
-        public OrderMatch Order { get; set; }
-
-        public PropertyMatchingStrategy GetStrategy()
+        public override PropertyMatchingStrategy GetStrategy()
         {
-            var strategy = new ChildEntityListMatchingStrategy
-            {
-                PositionComparison = Order,
-                ValuesComparison = Values
-            };
+            var strategy = new ChildEntityListMatchingStrategy();
+            ApplyModifiers(strategy);
             return strategy;
-        }
-
-        public void ApplyConstraints(object[] attributes)
-        {
-            foreach (var attribute in attributes)
-            {
-                var comparisonAttribute = attribute as EnumerableOrderComparisonAttribute;
-                if (comparisonAttribute != null)
-                    Order = comparisonAttribute.Option;
-
-                var valuesComparisonAttribute = attribute as EnumerableValuesComparisonAttribute;
-                if (valuesComparisonAttribute != null)
-                    Values = valuesComparisonAttribute.Option;
-            }
         }
     }
 }

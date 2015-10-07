@@ -18,16 +18,14 @@
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class DefaultMatchingStrategyBuilder<TStrategy> : IMatchingStrategyBuilder
+    public class DefaultMatchingStrategyBuilder<TStrategy> : MatchingStrategyBuilder
         where TStrategy : PropertyMatchingStrategy, new()
     {
-        public PropertyMatchingStrategy GetStrategy()
+        public override PropertyMatchingStrategy GetStrategy()
         {
-            return new TStrategy();
-        }
-
-        public void ApplyConstraints(object[] attribute)
-        {
+            var strategy = new TStrategy();
+            ApplyModifiers(strategy);
+            return strategy;
         }
     }
 }

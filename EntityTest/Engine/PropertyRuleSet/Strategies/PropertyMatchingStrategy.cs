@@ -16,15 +16,52 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions;
 using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
     public abstract class PropertyMatchingStrategy : PropertyStrategy
     {
-        public abstract List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj
-            , PropertyInfo expectedProperty = null, ParentContext parentContext = null);
+        public List<StrategyStartCondition> StartConditions { get; set; }
+        public string ExpectedPropertyName { get; set; }
+
+        public List<MatchResult> Validate(PropertyInfo actualProperty, object actualObj, object expectedObj
+            , PropertyInfo expectedProperty = null, ParentContext parentContext = null)
+        {
+            if (StartConditions.Any() &&
+                StartConditions.Any(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj, expectedProperty)) ==
+                false)
+            {
+                return new List<MatchResult>();
+            }
+            return InternalValidate(actualProperty, actualObj, expectedObj, parentContext);
+        }
+
+        protected abstract List<MatchResult> InternalValidate(PropertyInfo actualProperty, object actualObj,
+            object expectedObj
+            , ParentContext parentContext = null);
+
+        public bool StartConditionsMet(PropertyInfo actualProperty, object actualObj, object expectedObj
+            , PropertyInfo expectedProperty = null)
+        {
+            return StartConditions.All(x => x.CanStrategyStart(actualProperty, actualObj, expectedObj, expectedProperty));
+        }
+
+        protected PropertyInfo GetExpectedProperty(object expectedObj, PropertyInfo actualProperty)
+        {
+            if (string.IsNullOrEmpty(ExpectedPropertyName))
+                return actualProperty;
+            var expectedProperty =
+                expectedObj.GetType().GetProperties().FirstOrDefault(x => x.Name.Equals(ExpectedPropertyName));
+            if (expectedProperty == null)
+                throw new Exception(
+                    $"Could not compare with property {ExpectedPropertyName} as it is not present in type {expectedObj.GetType()}");
+            return expectedProperty;
+        }
     }
 }
