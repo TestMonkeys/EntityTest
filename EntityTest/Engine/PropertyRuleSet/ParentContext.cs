@@ -35,6 +35,8 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 
         public string ParentName { get; set; }
         public int? Index { get; set; }
+        public object ActualObj { get; set; }
+
 
         public ParentContext WithProprety(string propertyName)
         {
@@ -66,6 +68,12 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
             if (Index.HasValue)
                 sb.Append("[").Append(Index.Value).Append("]");
             return sb.ToString();
+        }
+
+        public bool IsRecursive(object actual)
+        {
+            if (parent == null) return false;
+            return actual.Equals(parent.ActualObj) || parent.IsRecursive(actual);
         }
     }
 }
