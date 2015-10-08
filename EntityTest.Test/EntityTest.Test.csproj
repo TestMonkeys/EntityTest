@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="General\RecursionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertySetValidatorTests\ActualOnlyValidationTests.cs" />
     <Compile Include="PropertySetValidatorTests\AliasNamespaceTests.cs" />
