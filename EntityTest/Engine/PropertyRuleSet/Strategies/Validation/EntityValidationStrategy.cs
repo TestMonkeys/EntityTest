@@ -47,10 +47,15 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
                 ValidateActualConstraints(property, actual, parent, rule);
                 
             }
+            
             foreach (var property in rule.ChildRelations)
             {
                 var child = GetPropertyValue(property, actual);
-                ComputeMatch(child,child.GetType(),parent??new ParentContext().WithProprety(property.Name));
+                var propParent = parent;
+                if (propParent == null)
+                    propParent = new ParentContext() {ParentName = property.Name};
+
+                ComputeMatch(child,child.GetType(),propParent);
             }
         }
 
