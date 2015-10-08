@@ -82,8 +82,11 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
                 {
                     //Comparison Strategies
                     if ((typeof (ChildEntityAttribute) == attribute.GetType()))
+                    {
                         rule.MatchingStrategyBuilders.Add(property,
                             new DefaultMatchingStrategyBuilder<ChildEnitityMatchingStrategy>());
+                        rule.ChildRelations.Add(property);
+                    }
                     else
                     //Validation Strategies
                         if ((typeof (ValidateActualGreaterThanAttribute)) == attribute.GetType())
