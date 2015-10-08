@@ -43,6 +43,8 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
             }
             var expected = GetPropertyValue(expectedProp, expectedObj);
             var actual = GetPropertyValue(actualProperty, actualObj);
+
+            
             if ((expected == null && actual != null) || (expected != null && actual == null))
             {
                 var result = new List<MatchResult>();
@@ -62,7 +64,12 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
             }
             if (expected == null)
                 return new List<MatchResult>();
-
+            if (parentContext != null)
+            {
+                if (parentContext.IsRecursive(actual))
+                    return new List<MatchResult>();
+                parentContext.ActualObj = actual;
+            }
             return InternalValidate(actualProperty, actualObj, expectedObj, parentContext);
         }
 
