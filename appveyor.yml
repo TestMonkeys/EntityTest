@@ -1,6 +1,10 @@
 before_build:
   - nuget restore
-  - cmd: >-
-    appveyor DownloadFile https://github.com/nunit/nunit/releases/download/3.0.0-beta-4/NUnit-3.0.0-beta-4-src.zip
-    7z x -o C:\Tools\NUnit-3.0.0-beta-4-src.zip > NUL
+  - ps: >-
+    appveyor DownloadFile https://github.com/nunit/nunit/releases/download/3.0.0-beta-3/nunit-3.0.0-beta-3.zip
+
+    7z x -oC:\Tools\NUnit3 nunit-3.0.0-beta-3.zip > NUL
+
     set PATH=C:\Tools\NUnit3\bin;%PATH%
+build:
+  verbosity: minimal
