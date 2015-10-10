@@ -7,4 +7,4 @@ before_build:
 build:
   verbosity: minimal
 test_script:
-  - ps: .\bin\nunit-console.exe .\EntityTest.Test\bin\release\entityTest.test.dll
+  - ps: .\bin\nunit-console.exe .\EntityTest.Test\bin\debug\entityTest.test.dll
