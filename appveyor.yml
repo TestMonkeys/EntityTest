@@ -15,6 +15,4 @@ notifications:
     auth_token:
       secure: IzDgcyzb59JB6+6gsuRLWd0jFP+sg2YRYxhGZ+Tj0oBz0yHuxcdRFzp1anlGdIyWR8ou1GM8DLanSwv1eK0vww==
     channel: entitytest
-    template:"<{{buildUrl}}|Build {{projectName}} {{buildVersion}} {{status}}>
-Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}:
-_{{commitMessage}}_"
+    template:"<{{buildUrl}}|Build {{projectName}} {{buildVersion}} {{status}}>Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}:_{{commitMessage}}_"
