@@ -30,7 +30,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
         {
             IgnoreValidationProperties = new List<PropertyInfo>();
             IgnoreValidationIfDefault = new List<PropertyInfo>();
-            //ChildSetProperty = new List<PropertyInfo>();
+            ChildRelations = new List<PropertyInfo>();
             //ChildSetListProperty = new List<PropertyInfo>();
             ValidateActualWithExpectedProperty = new Dictionary<PropertyInfo, string>();
 
@@ -56,6 +56,8 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
         /// </summary>
         public Dictionary<PropertyInfo, MatchingStrategyBuilder>
             MatchingStrategyBuilders { get; set; }
+
+        public List<PropertyInfo> ChildRelations { get; set; }
 
         public PropertyValidationStrategy GetValidationStrategy(PropertyInfo property)
         {
