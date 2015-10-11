@@ -88,6 +88,7 @@
     <Compile Include="Engine\PropertyRuleSet\Strategies\PropertyValidationStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\RuleStorage.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualGreaterThanValueStrategy.cs" />
+    <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\EntityValidationStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\IsDefaultValueStrategy.cs" />
     <Compile Include="Engine\PropertyRuleSet\Strategies\Validation\ActualNotNullStrategy.cs" />
     <Compile Include="Engine\Validators\EntityListComparisonResult.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Framework\StrategyConditionAttribute.cs" />
     <Compile Include="Framework\StrategyParameterAttribute.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
+    <Compile Include="Matchers\EntityValidationConstraint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\ChildEntityAttribute.cs" />
     <Compile Include="Framework\EnumerableOrderComparisonAttribute.cs" />

@@ -31,5 +31,7 @@ namespace TestMonkeys.EntityTest
             resC.Append(new EntityComparisonMatcher(expected));
             return resC;
         }
+
+        public static EntityValidationConstraint IsValid => new EntityValidationConstraint();
     }
 }

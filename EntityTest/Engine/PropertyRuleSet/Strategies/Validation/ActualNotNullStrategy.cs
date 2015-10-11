@@ -24,7 +24,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {
     public class ActualNotNullStrategy : PropertyValidationStrategy
     {
-        public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
+        protected override MatchResult InternalValidate(PropertyInfo propertyInfo, object actualObj,
             ParentContext messagePropertyPrefix = null)
         {
             if (GetPropertyValue(propertyInfo, actualObj) == null)
