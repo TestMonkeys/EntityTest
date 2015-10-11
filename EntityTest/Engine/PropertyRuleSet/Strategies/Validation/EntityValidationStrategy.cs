@@ -51,10 +51,13 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
             foreach (var property in rule.ChildRelations)
             {
                 var child = GetPropertyValue(property, actual);
-                var propParent = parent;
-                if (propParent == null)
-                    propParent = new ParentContext() {ParentName = property.Name};
-
+                var propParent = new ParentContext(parent)
+                {
+                    ParentName = property.Name,
+                    ActualObj = actual
+                };
+                if (propParent.IsRecursive(actual))
+                    continue;
                 ComputeMatch(child,child.GetType(),propParent);
             }
         }
