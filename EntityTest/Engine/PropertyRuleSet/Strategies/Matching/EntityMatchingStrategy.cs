@@ -24,7 +24,7 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
-    public class EntityMatchingStrategy : PropertyStrategy
+    internal class EntityMatchingStrategy : PropertyStrategy
     {
         private readonly ParentContext parentContext;
         private readonly RuleStorage rules = RuleStorage.Instance;

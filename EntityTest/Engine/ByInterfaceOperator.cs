@@ -18,7 +18,7 @@
 
 using System;
 using NUnit.Framework.Constraints;
-using TestMonkeys.EntityTest.Matchers;
+using TestMonkeys.EntityTest.Engine.Constraints;
 
 namespace TestMonkeys.EntityTest.Engine
 {
@@ -34,7 +34,7 @@ namespace TestMonkeys.EntityTest.Engine
         public override void Reduce(ConstraintBuilder.ConstraintStack stack)
         {
             var top = stack.Pop();
-            ((EntityComparisonMatcher) top).ByInterface(type);
+            ((EntityEqualityConstraint) top).ByInterface(type);
             stack.Push(top);
         }
     }

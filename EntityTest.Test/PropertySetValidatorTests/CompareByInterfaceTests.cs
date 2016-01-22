@@ -20,7 +20,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var ex = Assert.Throws(typeof (ImproperTypeUsageException),
                                    () =>
                                    Assert.That(actual,
-                                               Entity.EqualTo(expected).ByInterface(typeof(TestObjectWithChildList))));
+                                               Entity.Is.EqualTo(expected).ByInterface(typeof(TestObjectWithChildList))));
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message,
                         Is.EqualTo(
@@ -61,7 +61,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     Value1 = "Value1",
                     Object2Value = "Value2"
                 };
-            Assert.That(object2, Entity.EqualTo(object1).ByInterface(typeof (ITestObject)));
+            Assert.That(object2, Entity.Is.EqualTo(object1).ByInterface(typeof (ITestObject)));
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             messageCheck.AddPropertyLine("ValidationPropertyCCustom", "ValidationProperty", "CustomValidation");
             var ex = Assert.Throws(typeof (AssertionException),
                                    () =>
-                                   Assert.That(object2, Entity.EqualTo(object1).ByInterface(typeof (ITestObject))));
+                                   Assert.That(object2, Entity.Is.EqualTo(object1).ByInterface(typeof (ITestObject))));
 
             messageCheck.Check(ex);
         }

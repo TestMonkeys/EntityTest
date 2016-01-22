@@ -18,7 +18,7 @@
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class DefaultMatchingStrategyBuilder<TStrategy> : MatchingStrategyBuilder
+    internal class DefaultMatchingStrategyBuilder<TStrategy> : MatchingStrategyBuilder
         where TStrategy : PropertyMatchingStrategy, new()
     {
         public override PropertyMatchingStrategy GetStrategy()

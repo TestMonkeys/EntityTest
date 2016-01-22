@@ -31,6 +31,6 @@ namespace TestMonkeys.EntityTest.Framework
         }
 
         internal ItemsMatch Option { get; }
-        public override StrategyParameter GetParameter => new EntityListItemsParameter(Option);
+        internal override StrategyParameter GetParameter => new EntityListItemsParameter(Option);
     }
 }

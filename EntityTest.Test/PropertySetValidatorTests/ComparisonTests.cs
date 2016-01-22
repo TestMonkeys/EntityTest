@@ -16,7 +16,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
         public void PropertySet_ExpectingNullObject()
         {
             TestObjectCustomValidation expected = null;
-            var ex = Assert.Throws(typeof (ArgumentNullException), () => Entity.EqualTo(expected));
+            var ex = Assert.Throws(typeof (ArgumentNullException), () => Entity.Is.EqualTo(expected));
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message, Is.EqualTo("Expected can't be null\r\nParameter name: expected"),
                         "Assertion message");
@@ -30,7 +30,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddObjectLine(typeof (TestObjectCustomValidation).ToString(), "Null");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -41,7 +41,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
         {
             var expected = new TestObjectCustomValidation {CustomValidation = "Validation"};
             var actual = new TestObjectCustomValidation {CustomValidation = "ValidationCustom"};
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
         {
             var expected = new TestObjectCustomValidation();
             var actual = new TestObjectCustomValidation {CustomValidation = "ValidationCustom"};
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             messageCheck.AddPropertyLine(expected.ValidationCustomValidation, actual.CustomValidation,
                                          "CustomValidation");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -70,7 +70,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
         {
             var expected = new TestObjectIgnoreValidation {IgnoredField = "Validation"};
             var actual = new TestObjectIgnoreValidation {IgnoredField = "ValidationCustom"};
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
         {
             var expected = new TestObjectIgnoreValidation();
             var actual = new TestObjectIgnoreValidation {Value = "ValidationCustom"};
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     StringValue2 = "test",
                     DateFiled = DateTime.Now
                 };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     ValidationProperty = "value",
                     Child = new TestObjectWithChildSet {ValidationProperty = "cildvalue"}
                 };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddPropertyLine("value", "value!", "ValidationProperty");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -148,7 +148,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                                          "Child.ValidationProperty");
 
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -168,7 +168,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddObjectLine("Null", typeof (TestObjectWithChildSet).ToString(), "Child");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -190,7 +190,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             messageCheck.AddObjectLine(typeof (TestObjectWithChildSet).ToString(), "Null", "Child");
 
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -208,7 +208,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     ValidationProperty = "value",
                     Child = null
                 };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -227,7 +227,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddObjectLine("Null", "cildvalue", "Child.ValidationProperty");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -248,7 +248,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddObjectLine("cildvalue", "Null", "Child.ValidationProperty");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -266,7 +266,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     ValidationProperty = "value",
                     Child = new TestObjectWithChildSet {ValidationProperty = null}
                 };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -277,7 +277,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddObjectLine("Null", typeof (List<TestObject>).ToString(), "Child");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
 
             messageCheck.Check(ex);
@@ -292,7 +292,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             messageCheck.AddObjectLine(typeof (List<TestObject>).ToString(), "Null", "Child");
 
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -302,7 +302,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
         {
             var expected = new TestObjectWithChildList {Child = null};
             var actual = new TestObjectWithChildList {Child = null};
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
 
@@ -317,7 +317,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                 {
                     Child = new List<TestObject> {new TestObject {Value = "value1"}, new TestObject {Value = "value2"}}
                 };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -331,7 +331,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddPropertyLine("value", "different", "Child[0].Value");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
     }

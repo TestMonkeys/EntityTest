@@ -22,7 +22,7 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    public class EntityListItemsParameter : StrategyParameter
+    internal class EntityListItemsParameter : StrategyParameter
     {
         private readonly ItemsMatch items;
 

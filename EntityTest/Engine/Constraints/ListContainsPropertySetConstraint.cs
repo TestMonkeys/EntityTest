@@ -21,11 +21,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework.Constraints;
-using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Engine.Constraints.Helpers;
 using TestMonkeys.EntityTest.Engine.HumanReadableMessages;
-using TestMonkeys.EntityTest.Matchers;
+using TestMonkeys.EntityTest.Engine.Validators;
 
-namespace TestMonkeys.EntityTest.Engine.Validators
+namespace TestMonkeys.EntityTest.Engine.Constraints
 {
     public class ListContainsPropertySetConstraint : CustomMessageConstraint
     {
@@ -48,7 +48,7 @@ namespace TestMonkeys.EntityTest.Engine.Validators
             var actualAndDiff = new Dictionary<object, List<string>>();
             foreach (var actualItem in ((IList) actual))
             {
-                var propertyValidator = new EntityComparisonMatcher(expected);
+                var propertyValidator = new EntityEqualityConstraint(expected);
                 if (propertyValidator.Matches(actualItem))
                 {
                     cresult.Status = ConstraintStatus.Success;

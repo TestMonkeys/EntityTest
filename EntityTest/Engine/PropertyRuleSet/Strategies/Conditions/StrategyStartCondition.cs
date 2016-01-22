@@ -20,8 +20,8 @@ using System.Reflection;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions
 {
-    public abstract class StrategyStartCondition
+    internal abstract class StrategyStartCondition
     {
-        public abstract bool CanStrategyStart(PropertyInfo actualProperty, object actualObj, object expectedObjl);
+        internal abstract bool CanStrategyStart(PropertyInfo actualProperty, object actualObj, object expectedObjl);
     }
 }

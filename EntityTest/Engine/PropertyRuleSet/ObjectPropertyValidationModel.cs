@@ -24,7 +24,7 @@ using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
-    public class ObjectPropertyValidationModel
+    internal class ObjectPropertyValidationModel
     {
         public ObjectPropertyValidationModel()
         {

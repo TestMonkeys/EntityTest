@@ -16,13 +16,20 @@
 
 #endregion
 
-using System;
-using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions;
+using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
-namespace TestMonkeys.EntityTest.Framework
+namespace TestMonkeys.EntityTest.Engine.Constraints.Helpers
 {
-    public abstract class StrategyConditionAttribute : Attribute
+    public abstract class CustomMessageConstraint : Constraint
     {
-        internal abstract StrategyStartCondition StrategyStartCondition { get; }
+        protected readonly List<string> messageList;
+
+        protected CustomMessageConstraint()
+        {
+            messageList = new List<string>();
+        }
+
+        protected abstract string DescriptionLine { get; }
     }
 }

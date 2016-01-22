@@ -32,6 +32,6 @@ namespace TestMonkeys.EntityTest.Framework
             Option = option;
         }
 
-        public override StrategyParameter GetParameter => new EntityListOrderParameter(Option);
+        internal override StrategyParameter GetParameter => new EntityListOrderParameter(Option);
     }
 }

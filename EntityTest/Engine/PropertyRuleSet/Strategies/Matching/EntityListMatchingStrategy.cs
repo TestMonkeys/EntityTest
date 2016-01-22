@@ -23,7 +23,7 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching
 {
-    public class EntityListMatchingStrategy
+    internal class EntityListMatchingStrategy
     {
         private readonly ParentContext parentContext;
 

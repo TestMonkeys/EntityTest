@@ -18,7 +18,7 @@
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    public abstract class StrategyParameter
+    internal abstract class StrategyParameter
     {
         public abstract void ApplyToStrategy(object strategy);
     }

@@ -21,7 +21,7 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
-    public abstract class PropertyValidationStrategy : PropertyStrategy
+    internal abstract class PropertyValidationStrategy : PropertyStrategy
     {
         public abstract MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
             ParentContext messagePropertyPrefix = null);

@@ -18,7 +18,7 @@
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public interface IValidationStrategyBuilder
+    internal interface IValidationStrategyBuilder
     {
         PropertyValidationStrategy GetStrategy();
     }

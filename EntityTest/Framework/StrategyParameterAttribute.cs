@@ -23,6 +23,6 @@ namespace TestMonkeys.EntityTest.Framework
 {
     public abstract class StrategyParameterAttribute : Attribute
     {
-        public abstract StrategyParameter GetParameter { get; }
+        internal abstract StrategyParameter GetParameter { get; }
     }
 }

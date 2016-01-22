@@ -20,18 +20,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework.Constraints;
-using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Engine.Constraints.Helpers;
 using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 
-namespace TestMonkeys.EntityTest.Matchers
+namespace TestMonkeys.EntityTest.Engine.Constraints
 {
-    public class EntityComparisonMatcher : CustomMessageConstraint
+    public class EntityEqualityConstraint : CustomMessageConstraint
     {
         private readonly object internalExpected;
         private bool isMatch;
         private Type validationType;
 
-        internal EntityComparisonMatcher(object expected)
+        internal EntityEqualityConstraint(object expected)
         {
             if (expected == null)
                 throw new ArgumentNullException(nameof(expected), "Expected can't be null");
@@ -41,7 +41,7 @@ namespace TestMonkeys.EntityTest.Matchers
             Differences = new List<string>();
         }
 
-        public EntityComparisonMatcher(object expected, Type validationType) : this(expected)
+        public EntityEqualityConstraint(object expected, Type validationType) : this(expected)
         {
             this.validationType = validationType;
         }
@@ -50,7 +50,7 @@ namespace TestMonkeys.EntityTest.Matchers
         protected override string DescriptionLine => "Property Set is not equal";
         public override string Description => "Property Set is not equal";
 
-        public EntityComparisonMatcher ByInterface(Type byInterface)
+        public EntityEqualityConstraint ByInterface(Type byInterface)
         {
             validationType = byInterface;
             return this;

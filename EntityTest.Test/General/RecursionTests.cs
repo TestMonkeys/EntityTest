@@ -14,7 +14,7 @@ namespace EntityTest.Test.General
             expected.RecursiveRef = expected;
             var actual = new ObjectWithRecursiveRef {IntValue = 1};
             actual.RecursiveRef = actual;
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace EntityTest.Test.General
             messageCheck.AddPropertyLine("Null", typeof (ObjectWithRecursiveRef).FullName, "RecursiveRef");
             var ex = Assert.Throws(typeof (AssertionException),
                 () =>
-                    Assert.That(actual, Entity.EqualTo(expected)));
+                    Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -49,7 +49,7 @@ namespace EntityTest.Test.General
             messageCheck.AddPropertyLine(typeof (ObjectWithRecursiveRef).FullName, "Null", "RecursiveRef");
             var ex = Assert.Throws(typeof (AssertionException),
                 () =>
-                    Assert.That(actual, Entity.EqualTo(expected)));
+                    Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -65,7 +65,7 @@ namespace EntityTest.Test.General
             messageCheck.AddPropertyLine("2", "1", "RecursiveRef.IntValue");
             var ex = Assert.Throws(typeof (AssertionException),
                 () =>
-                    Assert.That(actual, Entity.EqualTo(expected)));
+                    Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -81,7 +81,7 @@ namespace EntityTest.Test.General
             messageCheck.AddPropertyLine("1", "2", "RecursiveRef.IntValue");
             var ex = Assert.Throws(typeof (AssertionException),
                 () =>
-                    Assert.That(actual, Entity.EqualTo(expected)));
+                    Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -92,7 +92,7 @@ namespace EntityTest.Test.General
             expected.ChildWithRefToParent = new ChildWithRefToParent {ParentRef = expected};
             var actual = new ObjectWithRecursiveRef {IntValue = 1};
             actual.ChildWithRefToParent = new ChildWithRefToParent {ParentRef = actual};
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         

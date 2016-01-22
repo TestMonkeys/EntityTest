@@ -23,7 +23,7 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {
-    public class IsDefaultValueStrategy : PropertyValidationStrategy
+    internal class IsDefaultValueStrategy : PropertyValidationStrategy
     {
         public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
             ParentContext messagePropertyPrefix = null)

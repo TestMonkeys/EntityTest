@@ -22,7 +22,7 @@ using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
-    public abstract class PropertyStrategy
+    internal abstract class PropertyStrategy
     {
         protected object GetPropertyValue(PropertyInfo property, object obj)
         {

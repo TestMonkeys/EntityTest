@@ -22,7 +22,7 @@ using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public abstract class MatchingStrategyBuilder
+    internal abstract class MatchingStrategyBuilder
     {
         protected List<StrategyParameter> strategyParameters;
         protected List<StrategyStartCondition> strategyStartConditions;

@@ -21,9 +21,9 @@ using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Conditions
 {
-    public class IgnoreValidationIfDefaultCondition : StrategyStartCondition
+    internal class IgnoreValidationIfDefaultCondition : StrategyStartCondition
     {
-        public override bool CanStrategyStart(PropertyInfo actualProperty, object actualObj, object expectedObj)
+        internal override bool CanStrategyStart(PropertyInfo actualProperty, object actualObj, object expectedObj)
         {
             var strategy = new IsDefaultValueStrategy();
             return strategy.Validate(actualProperty, expectedObj).Success == false;

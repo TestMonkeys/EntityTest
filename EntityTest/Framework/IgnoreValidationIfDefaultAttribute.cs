@@ -28,6 +28,6 @@ namespace TestMonkeys.EntityTest.Framework
     [AttributeUsage(AttributeTargets.Property)]
     public class IgnoreValidationIfDefaultAttribute : StrategyConditionAttribute
     {
-        public override StrategyStartCondition StrategyStartCondition => new IgnoreValidationIfDefaultCondition();
+        internal override StrategyStartCondition StrategyStartCondition => new IgnoreValidationIfDefaultCondition();
     }
 }

@@ -20,7 +20,7 @@ using TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Matching;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Builders
 {
-    public class EntityListMatcherStrategyBuilder : MatchingStrategyBuilder
+    internal class EntityListMatcherStrategyBuilder : MatchingStrategyBuilder
     {
         public override PropertyMatchingStrategy GetStrategy()
         {

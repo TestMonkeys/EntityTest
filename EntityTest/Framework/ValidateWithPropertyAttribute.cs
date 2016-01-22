@@ -33,6 +33,6 @@ namespace TestMonkeys.EntityTest.Framework
         }
 
         public string PropertyName { get; }
-        public override StrategyParameter GetParameter => new ExpectedPropertyParameter(PropertyName);
+        internal override StrategyParameter GetParameter => new ExpectedPropertyParameter(PropertyName);
     }
 }

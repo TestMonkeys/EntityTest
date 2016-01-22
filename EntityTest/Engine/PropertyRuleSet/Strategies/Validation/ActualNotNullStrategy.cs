@@ -22,7 +22,7 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {
-    public class ActualNotNullStrategy : PropertyValidationStrategy
+    internal class ActualNotNullStrategy : PropertyValidationStrategy
     {
         public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
             ParentContext messagePropertyPrefix = null)

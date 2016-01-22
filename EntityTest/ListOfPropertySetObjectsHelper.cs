@@ -17,6 +17,7 @@
 #endregion
 
 using NUnit.Framework.Constraints;
+using TestMonkeys.EntityTest.Engine.Constraints;
 using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest

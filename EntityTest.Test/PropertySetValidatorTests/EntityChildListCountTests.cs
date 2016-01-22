@@ -32,7 +32,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             messageCheck.AddPropertyLine("Greater or equal to 2", "1", "Child.Count");
             messageCheck.AddObjectLine(typeof(TestObject).ToString(), "Null", "Child[1]");
             var ex = Assert.Throws(typeof(AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -45,7 +45,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                 Child = new List<TestObject> { new TestObject() {Value = "obj 1"} }
             };
             var actual = new EntityWithChildListContains { Child = new List<TestObject> { new TestObject() {Value = "obj 1"}, new TestObject() } };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         private class EntityWithChildListIgnoreOrder
@@ -62,7 +62,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                 Child = new List<TestObject> { new TestObject { Value = "obj 1" }, new TestObject {Value = "obj 2"} }
             };
             var actual = new EntityWithChildListIgnoreOrder { Child = new List<TestObject> { new TestObject { Value = "obj 2" }, new TestObject {Value = "obj 1"} } };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         private class EntityWithChildListIgnoreOrderContains
@@ -80,7 +80,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                 Child = new List<TestObject> { new TestObject() { Value = "obj 1" } }
             };
             var actual = new EntityWithChildListIgnoreOrderContains { Child = new List<TestObject> { new TestObject(), new TestObject { Value = "obj 1" } } };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             messageCheck.AddPropertyLine("2", "1", "Child.Count");
             messageCheck.AddObjectLine(typeof(TestObject).ToString(), "Null", "Child[1]");
             var ex = Assert.Throws(typeof(AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             messageCheck.Check(ex);
         }
@@ -108,7 +108,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddPropertyLine("1", "2", "Child.Count");
             var ex = Assert.Throws(typeof(AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
 
             messageCheck.Check(ex);
         }

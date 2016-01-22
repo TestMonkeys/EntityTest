@@ -19,9 +19,9 @@
 using System.Collections.Generic;
 using NUnit.Framework.Constraints;
 
-namespace TestMonkeys.EntityTest.Engine.Constraints
+namespace TestMonkeys.EntityTest.Engine.Constraints.Helpers
 {
-    public class CustomConstraintResult : ConstraintResult
+    internal class CustomConstraintResult : ConstraintResult
     {
         private readonly IConstraint constraint;
 

@@ -15,7 +15,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var expected = new TestObjectCustomValidationImproperAttributeUsage {CustomValidation = "Validation"};
             var actual = new TestObjectCustomValidationImproperAttributeUsage {CustomValidation = "ValidationCustom"};
             var ex = Assert.Throws(typeof (ImproperAttributeUsageException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message,
                         Is.EqualTo(

@@ -23,7 +23,7 @@ using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
 {
-    public class ActualGreaterThanValueStrategy : PropertyValidationStrategy
+    internal class ActualGreaterThanValueStrategy : PropertyValidationStrategy
     {
         private readonly int number;
 

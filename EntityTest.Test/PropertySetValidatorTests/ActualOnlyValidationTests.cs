@@ -22,7 +22,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     IdGreaterThanZero = 5,
                     IdNotNull = new object()
                 };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddPropertyLine("Not Null", "Null", "IdNotNull");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
 
             messageCheck.Check(ex);
         }
@@ -56,7 +56,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     IdGreaterThanZero = 5,
                     IdNotNull = new object()
                 };
-            Assert.That(actual, Entity.EqualTo(expected));
+            Assert.That(actual, Entity.Is.EqualTo(expected));
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddPropertyLine("Greater than 0", "-1", "IdGreaterThanZero");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -93,7 +93,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
             var messageCheck = new MessageCheck("Property Set is not equal");
             messageCheck.AddPropertyLine("Greater than 0", "0", "IdGreaterThanZero");
             var ex = Assert.Throws(typeof (AssertionException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             messageCheck.Check(ex);
         }
 
@@ -109,7 +109,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     GreaterThanValue = new object()
                 };
             var ex = Assert.Throws(typeof (ImproperAttributeUsageException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message,
                         Is.EqualTo("ValidateActualGreaterThanAttribute should be defined only on numeric properties"),
@@ -128,7 +128,7 @@ namespace EntityTest.Test.PropertySetValidatorTests
                     GreaterThanValue = null
                 };
             var ex = Assert.Throws(typeof (ImproperAttributeUsageException),
-                                   () => Assert.That(actual, Entity.EqualTo(expected)));
+                                   () => Assert.That(actual, Entity.Is.EqualTo(expected)));
             Console.WriteLine(ex.Message);
             Assert.That(ex.Message,
                         Is.EqualTo("ValidateActualGreaterThanAttribute should be defined only on numeric properties"),

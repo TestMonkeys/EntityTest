@@ -22,7 +22,7 @@ using TestMonkeys.EntityTest.Engine.Validators;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    public class EntityListOrderParameter : StrategyParameter
+    internal class EntityListOrderParameter : StrategyParameter
     {
         private readonly OrderMatch order;
 

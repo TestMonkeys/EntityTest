@@ -16,16 +16,18 @@
 
 #endregion
 
-using System;
-using NUnit.Framework.Constraints;
+using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Engine.Constraints.Helpers;
 
-namespace TestMonkeys.EntityTest.Engine.Constraints
+namespace TestMonkeys.EntityTest
 {
-    public class EntityResolvableConstraintExpression : ResolvableConstraintExpression
+    public class EntityObjectHelper
     {
-        public ResolvableConstraintExpression ByInterface(Type byInterface)
+        public EntityResolvableConstraintExpression EqualTo(object expected)
         {
-            return Append(new ByInterfaceOperator(byInterface));
+            var resC = new EntityResolvableConstraintExpression();
+            resC.Append(new EntityEqualityConstraint(expected));
+            return resC;
         }
     }
 }

@@ -20,7 +20,7 @@ using System.Collections.Generic;
 
 namespace TestMonkeys.EntityTest.Engine.Validators
 {
-    public class EntityMatchResult
+    internal class EntityMatchResult
     {
         public bool Success { get; set; }
         public List<MatchResult> MemberResults { get; set; }

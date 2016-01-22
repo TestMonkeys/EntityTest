@@ -43,8 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="nunit.framework, Version=3.0.5715.30857, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.0.0-beta-4\lib\net40\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.0.5813.39032, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.0.1\lib\net40\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -57,9 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\ByInterfaceOperator.cs" />
-    <Compile Include="Engine\Constraints\CustomConstraintResult.cs" />
-    <Compile Include="Engine\Constraints\CustomMessageConstraint.cs" />
-    <Compile Include="Engine\Constraints\EntityResolvableConstraintExpression.cs" />
+    <Compile Include="Engine\Constraints\Helpers\CustomConstraintResult.cs" />
+    <Compile Include="Engine\Constraints\Helpers\CustomMessageConstraint.cs" />
+    <Compile Include="Engine\Constraints\Helpers\EntityResolvableConstraintExpression.cs" />
     <Compile Include="Engine\FailureItem.cs" />
     <Compile Include="Engine\HumanReadableMessages\Describe.cs" />
     <Compile Include="Engine\HumanReadableMessages\ObjectInspector.cs" />
@@ -93,10 +93,11 @@
     <Compile Include="Engine\Validators\EntityListComparisonResult.cs" />
     <Compile Include="Engine\Validators\EntityMatchResult.cs" />
     <Compile Include="Engine\Validators\ItemsMatch.cs" />
-    <Compile Include="Engine\Validators\ListContainsPropertySetConstraint.cs" />
+    <Compile Include="Engine\Constraints\ListContainsPropertySetConstraint.cs" />
     <Compile Include="Engine\Validators\OnListContainsFailure.cs" />
     <Compile Include="Engine\Validators\MatchResult.cs" />
     <Compile Include="Engine\Validators\OrderMatch.cs" />
+    <Compile Include="EntityObjectHelper.cs" />
     <Compile Include="Framework\StrategyConditionAttribute.cs" />
     <Compile Include="Framework\StrategyParameterAttribute.cs" />
     <Compile Include="ListOfPropertySetObjectsHelper.cs" />
@@ -112,12 +113,10 @@
     <Compile Include="Framework\ValidateActualNotNullAttribute.cs" />
     <Compile Include="Framework\ValidateWithPropertyAttribute.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="Matchers\EntityComparisonMatcher.cs" />
+    <Compile Include="Engine\Constraints\EntityEqualityConstraint.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

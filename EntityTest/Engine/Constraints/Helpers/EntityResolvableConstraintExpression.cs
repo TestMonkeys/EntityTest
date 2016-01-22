@@ -16,20 +16,16 @@
 
 #endregion
 
-using System.Collections.Generic;
+using System;
 using NUnit.Framework.Constraints;
 
-namespace TestMonkeys.EntityTest.Engine.Constraints
+namespace TestMonkeys.EntityTest.Engine.Constraints.Helpers
 {
-    public abstract class CustomMessageConstraint : Constraint
+    public class EntityResolvableConstraintExpression : ResolvableConstraintExpression
     {
-        protected readonly List<string> messageList;
-
-        protected CustomMessageConstraint()
+        public ResolvableConstraintExpression ByInterface(Type byInterface)
         {
-            messageList = new List<string>();
+            return Append(new ByInterfaceOperator(byInterface));
         }
-
-        protected abstract string DescriptionLine { get; }
     }
 }

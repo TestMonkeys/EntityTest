@@ -26,7 +26,7 @@ using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
-    public abstract class PropertyMatchingStrategy : PropertyStrategy
+    internal abstract class PropertyMatchingStrategy : PropertyStrategy
     {
         public List<StrategyStartCondition> StartConditions { get; set; }
         public string ExpectedPropertyName { get; set; }
@@ -44,7 +44,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
             var expected = GetPropertyValue(expectedProp, expectedObj);
             var actual = GetPropertyValue(actualProperty, actualObj);
 
-            
+
             if ((expected == null && actual != null) || (expected != null && actual == null))
             {
                 var result = new List<MatchResult>();

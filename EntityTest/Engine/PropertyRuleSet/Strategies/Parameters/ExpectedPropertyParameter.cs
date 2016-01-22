@@ -20,7 +20,7 @@ using System;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Parameters
 {
-    public class ExpectedPropertyParameter : StrategyParameter
+    internal class ExpectedPropertyParameter : StrategyParameter
     {
         private readonly string propertyName;
 

@@ -20,7 +20,7 @@ using System.Text;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
-    public class ParentContext
+    internal class ParentContext
     {
         private ParentContext parent;
 

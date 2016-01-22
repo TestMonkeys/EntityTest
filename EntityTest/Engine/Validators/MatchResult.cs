@@ -20,7 +20,7 @@ using TestMonkeys.EntityTest.Engine.PropertyRuleSet;
 
 namespace TestMonkeys.EntityTest.Engine.Validators
 {
-    public class MatchResult
+    internal class MatchResult
     {
         public bool Success { get; set; }
         public object Expected { get; set; }

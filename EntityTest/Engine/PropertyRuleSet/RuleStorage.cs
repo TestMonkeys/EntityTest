@@ -28,7 +28,7 @@ using TestMonkeys.EntityTest.Framework;
 
 namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet
 {
-    public class RuleStorage
+    internal class RuleStorage
     {
         private static RuleStorage instance;
         private readonly Dictionary<Assembly, Dictionary<string, ObjectPropertyValidationModel>> rules;
