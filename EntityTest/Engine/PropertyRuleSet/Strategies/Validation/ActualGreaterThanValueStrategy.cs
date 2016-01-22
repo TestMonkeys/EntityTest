@@ -32,7 +32,7 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies.Validation
             this.number = number;
         }
 
-        public override MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
+        protected override MatchResult InternalValidate(PropertyInfo propertyInfo, object actualObj,
             ParentContext messagePropertyPrefix = null)
         {
             var propertyValue = GetPropertyValue(propertyInfo, actualObj);

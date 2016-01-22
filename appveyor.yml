@@ -1,11 +1,19 @@
 before_build:
-<<<<<<< HEAD
-  - nuget restore
-  - ps: appveyor DownloadFile https://github.com/nunit/nunit/releases/download/3.0.0-beta-3/nunit-3.0.0-beta-3.zip "C:\Tools\NUnit3\nunit-3.0.0-beta-3.zip"
-  - ps: 7z x "C:\Tools\Nunit3\nunit-3.0.0-beta-3.zip"
-  - ps: set PATH="C:\Tools\NUnit3\bin;%PATH%"
+  - nuget restore TestThat.sln
+  - ps: appveyor DownloadFile https://github.com/nunit/nunit/releases/download/3.0.0-beta-3/nunit-3.0.0-beta-3.zip "C:\Tools\NUnit3 nunit-3.0.0-beta-3.zip"
+  - ps: 7z x nunit-3.0.0-beta-3.zip
+  - ps: ls
+  - ps: .\bin\nunit-console.exe
 build:
   verbosity: minimal
-=======
-  - nuget restore
->>>>>>> parent of 945de94... trying Nunit 3
+test_script:
+  - ps: .\bin\nunit-console.exe .\EntityTest.Test\bin\debug\entityTest.test.dll
+  - ps: $wc = New-Object 'System.Net.WebClient'
+  - ps: $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestResult.xml))
+notifications:
+  - provider: Slack
+    auth_token:
+      secure: IzDgcyzb59JB6+6gsuRLWd0jFP+sg2YRYxhGZ+Tj0oBz0yHuxcdRFzp1anlGdIyWR8ou1GM8DLanSwv1eK0vww==
+    channel: entitytest
+    template: "<{{buildUrl}}|Build {{projectName}} {{buildVersion}} {{status}}>Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}:_{{commitMessage}}_"
+

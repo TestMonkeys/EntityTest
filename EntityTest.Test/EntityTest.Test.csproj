@@ -88,6 +88,8 @@
     <Compile Include="PropertySetValidatorTests\TestObjects\TestObjectWithChildList.cs" />
     <Compile Include="PropertySetValidatorTests\TestObjects\TestObjectWithChildListImproperAttributeUsage.cs" />
     <Compile Include="PropertySetValidatorTests\TestObjects\TestObjectWithChildSet.cs" />
+    <Compile Include="Validation\LoopValidationTests.cs" />
+    <Compile Include="Validation\ValidationSimpleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AliasTestPack2\AliasTestPack2.csproj">

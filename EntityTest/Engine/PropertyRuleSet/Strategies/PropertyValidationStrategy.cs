@@ -23,7 +23,21 @@ namespace TestMonkeys.EntityTest.Engine.PropertyRuleSet.Strategies
 {
     internal abstract class PropertyValidationStrategy : PropertyStrategy
     {
-        public abstract MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
-            ParentContext messagePropertyPrefix = null);
+        public MatchResult Validate(PropertyInfo propertyInfo, object actualObj,
+            ParentContext parentContext = null)
+        {
+            var actual = GetPropertyValue(propertyInfo, actualObj);
+
+            if (parentContext != null)
+            {
+                if (parentContext.IsRecursive(actual))
+                    return new MatchResult();
+                parentContext.ActualObj = actual;
+            }
+            return InternalValidate(propertyInfo, actualObj, parentContext);
+        }
+
+        protected abstract MatchResult InternalValidate(PropertyInfo propertyInfo, object actualObj,
+            ParentContext parentContext);
     }
 }

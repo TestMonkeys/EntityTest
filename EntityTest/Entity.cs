@@ -16,12 +16,23 @@
 
 #endregion
 
+using TestMonkeys.EntityTest.Engine.Constraints;
+using TestMonkeys.EntityTest.Engine.Constraints.Helpers;
+
 namespace TestMonkeys.EntityTest
 {
     public static class Entity
     {
         public static ListOfPropertySetObjectsHelper List { get; } = new ListOfPropertySetObjectsHelper();
 
+
         public static EntityObjectHelper Is { get; } = new EntityObjectHelper();
+
+        public static EntityResolvableConstraintExpression EqualTo(object expected)
+        {
+            var resC = new EntityResolvableConstraintExpression();
+            resC.Append(new EntityEqualityConstraint(expected));
+            return resC;
+        }
     }
 }

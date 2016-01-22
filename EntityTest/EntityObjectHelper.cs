@@ -18,11 +18,14 @@
 
 using TestMonkeys.EntityTest.Engine.Constraints;
 using TestMonkeys.EntityTest.Engine.Constraints.Helpers;
+using TestMonkeys.EntityTest.Matchers;
 
 namespace TestMonkeys.EntityTest
 {
     public class EntityObjectHelper
     {
+        public EntityValidationConstraint Valid => new EntityValidationConstraint();
+
         public EntityResolvableConstraintExpression EqualTo(object expected)
         {
             var resC = new EntityResolvableConstraintExpression();
