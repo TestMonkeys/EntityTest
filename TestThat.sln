@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{856AD2B6-0064-42A0-93BD-EFF57FD72387}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTestPack", "UnitTestPack", "{A13996B6-7D37-43B9-98F7-5309794FC194}"
 EndProject
@@ -14,6 +17,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityTest", "EntityTest\EntityTest.csproj", "{A1F47C47-E051-4768-BD8F-5E79F15E4358}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityTest.Test", "EntityTest.Test\EntityTest.Test.csproj", "{87B636BA-307A-4D98-930E-A33EB5052594}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{C4D4FAEF-ED94-4739-B56E-756425EAA461}"
+	ProjectSection(SolutionItems) = preProject
+		EntityTest\EntityTest.nuspec = EntityTest\EntityTest.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
